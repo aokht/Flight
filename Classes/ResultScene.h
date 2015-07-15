@@ -11,12 +11,16 @@
 
 #include "cocos2d.h"
 #include "cocosGUI.h"
+#include "GameScene.h"
 
 class ResultScene : public cocos2d::Layer
 {
 public:
-    CREATE_FUNC(ResultScene);
-    static cocos2d::Scene* createScene();
+    static cocos2d::Scene* createScene(const GameScene::GameScore& score);
+    static ResultScene* createWithScore(const GameScene::GameScore& score);
+
+    void onEnterTransitionDidFinish();
+    void update(float dt);
 
 private:
     cocos2d::Node* rootNode;
@@ -26,6 +30,15 @@ private:
     void onEnter() override;
     void setupUI();
     void grabElements();
+    cocos2d::ui::Text* coinCountLabel;
+    cocos2d::ui::Text* timeCountLabel;
+    cocos2d::ui::Text* totalScoreLabel;
+
+    void animateCountUp(float dt);
+
+    ResultScene(const GameScene::GameScore& score);
+    static cocos2d::Scene* create();
+    const GameScene::GameScore score;
 };
 
 #endif /* defined(__Flight__ResultScene__) */

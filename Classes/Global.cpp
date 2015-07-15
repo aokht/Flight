@@ -22,3 +22,9 @@ ostream& operator<<(ostream& stream, const Vec3& vec)
     stream << "(" << vec.x << ", " << vec.y << ", " << vec.z << ")";
     return stream;
 }
+
+ostream& operator<<(ostream& stream, const GameScene::GameScore& score)
+{
+    stream << "score: { coinsCount: " << score.coinsCount << ", " << "elapsedTime: " << score.elapsedTime << "}";
+    return stream;
+}

@@ -116,7 +116,11 @@ bool GameScene::checkGameEnds()
 
 void GameScene::endGame()
 {
-    GameSceneManager::getInstance()->showResultScene();
+    GameScore score({
+        coinCount,
+        runningTime,
+    });
+    GameSceneManager::getInstance()->showResultScene(score);
 }
 
 void GameScene::setupField()
@@ -139,7 +143,8 @@ void GameScene::setupAirplane()
 {
     // create airplane
     this->airplane = Airplane::create();
-    this->airplane->setPosition3D(Vec3(0, 5000, 0));
+    this->airplane->setPosition3D(Vec3(-10000, 9500, 18000));
+    this->airplane->setRotation3D(Vec3(0, 90, 0));
     this->addChild(this->airplane);
 }
 

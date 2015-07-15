@@ -11,12 +11,13 @@
 
 #include "cocos2d.h"
 #include "cocosGUI.h"
+#include "GameScene.h"
 
 class ParameterScene : public cocos2d::Layer
 {
 public:
-    CREATE_FUNC(ParameterScene);
-    static cocos2d::Scene* createScene();
+    static cocos2d::Scene* createScene(const GameScene::GameScore& score);
+    static ParameterScene* createWithScore(const GameScene::GameScore& score);
 
 private:
     cocos2d::Node* rootNode;
@@ -25,5 +26,9 @@ private:
     void onEnter() override;
     void grabElements();
     void setupUI();
+
+    static cocos2d::Scene* create();
+    ParameterScene(const GameScene::GameScore& score);
+    const GameScene::GameScore& score;
 };
 #endif /* defined(__Flight__ParameterScene__) */

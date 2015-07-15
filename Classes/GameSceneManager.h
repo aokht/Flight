@@ -9,6 +9,8 @@
 #ifndef __Flight__GameSceneManager__
 #define __Flight__GameSceneManager__
 
+#include "GameScene.h"
+
 class ResultScene;
 class ParameterScene;
 
@@ -18,8 +20,8 @@ public:
     static GameSceneManager* getInstance();
 
     void showGameScene();
-    void showResultScene();
-    void showParameterScene();
+    void showResultScene(const GameScene::GameScore& score);
+    void showParameterScene(const GameScene::GameScore& score);
     void resetScene();
 
 private:

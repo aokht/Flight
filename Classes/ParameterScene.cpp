@@ -12,14 +12,32 @@
 
 using namespace cocos2d;
 
-Scene* ParameterScene::createScene()
+Scene* ParameterScene::createScene(const GameScene::GameScore& score)
 {
     Scene* scene = Scene::create();
 
-    Layer* layer = ParameterScene::create();
+    Layer* layer = ParameterScene::createWithScore(score);
     scene->addChild(layer);
 
     return scene;
+}
+
+ParameterScene* ParameterScene::createWithScore(const GameScene::GameScore& score)
+{
+    ParameterScene* pRet = new(std::nothrow) ParameterScene(score);
+    if (pRet && pRet->init()) {
+        pRet->autorelease();
+        return pRet;
+    } else {
+        delete pRet;
+        pRet = NULL;
+        return NULL;
+    }
+}
+
+ParameterScene::ParameterScene(const GameScene::GameScore& score) :
+    score(score)
+{
 }
 
 bool ParameterScene::init()

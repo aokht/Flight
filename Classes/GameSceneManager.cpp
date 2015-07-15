@@ -42,16 +42,16 @@ void GameSceneManager::showGameScene()
     this->sceneCount++;
 }
 
-void GameSceneManager::showResultScene()
+void GameSceneManager::showResultScene(const GameScene::GameScore& score)
 {
-    Scene* resultScene = ResultScene::createScene();
+    Scene* resultScene = ResultScene::createScene(score);
     Director::getInstance()->pushScene(resultScene);
     this->sceneCount++;
 }
 
-void GameSceneManager::showParameterScene()
+void GameSceneManager::showParameterScene(const GameScene::GameScore& score)
 {
-    Scene* parameterScene = ParameterScene::createScene();
+    Scene* parameterScene = ParameterScene::createScene(score);
     Director::getInstance()->pushScene(parameterScene);
     this->sceneCount++;
 }

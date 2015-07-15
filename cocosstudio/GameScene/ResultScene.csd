@@ -50,14 +50,15 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="CoinsValueLabel" ActionTag="-318970795" Tag="36" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="240.1200" RightMargin="960.8800" TopMargin="273.0000" BottomMargin="423.0000" FontSize="48" LabelText="0" HorizontalAlignmentType="HT_Right" ctype="TextObjectData">
-            <Size X="26.0000" Y="54.0000" />
+          <AbstractNodeData Name="CoinsValueLabel" ActionTag="-318970795" Tag="36" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="240.1200" RightMargin="1066.8800" TopMargin="272.5000" BottomMargin="422.5000" FontSize="48" LabelText="0" HorizontalAlignmentType="HT_Right" ctype="TextObjectData">
+            <Size X="27.0000" Y="55.0000" />
             <AnchorPoint ScaleY="0.5000" />
             <Position X="240.1200" Y="450.0000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.1800" Y="0.6000" />
             <PreSize X="0.1634" Y="0.0720" />
+            <FontResource Type="Normal" Path="arial.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>

@@ -25,6 +25,11 @@ public:
     void onEnter() override;
     void update(float dt) override;
 
+    struct GameScore {
+        int coinsCount;
+        float elapsedTime;
+    };
+
 private:
     cocos2d::Sprite3D* field;
     cocos2d::Camera* camera;
