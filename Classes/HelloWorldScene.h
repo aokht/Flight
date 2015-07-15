@@ -14,6 +14,9 @@ public:
 
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
+
+private:
+    void onEnter() override;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

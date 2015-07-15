@@ -1,10 +1,7 @@
 #include "HelloWorldScene.h"
-#include "cocostudio/CocoStudio.h"
-#include "ui/CocosGUI.h"
+#include "GameScene.h"
 
 USING_NS_CC;
-
-using namespace cocostudio::timeline;
 
 Scene* HelloWorld::createScene()
 {
@@ -31,9 +28,17 @@ bool HelloWorld::init()
         return false;
     }
     
-    auto rootNode = CSLoader::createNode("MainScene.csb");
-
-    addChild(rootNode);
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     return true;
+}
+
+void HelloWorld::onEnter()
+{
+    Layer::onEnter();
+
+    // TMP: 強制的に GameScene に遷移
+    Scene* gameScene = GameScene::createScene();
+    Director::getInstance()->pushScene(gameScene);
 }
