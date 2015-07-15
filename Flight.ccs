@@ -2,10 +2,7 @@
   <PropertyGroup Name="Flight" Version="2.3.0.1" Type="CocosStudio" />
   <SolutionFolder>
     <Group ctype="ResourceGroup">
-      <RootFolder Name=".">
-        <Project Name="MainScene.csd" Type="Scene" />
-        <Image Name="HelloWorld.png" />
-      </RootFolder>
+      <RootFolder Name="." />
     </Group>
   </SolutionFolder>
 </Solution>
