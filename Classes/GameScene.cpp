@@ -15,6 +15,7 @@
 #include "Airplane.h"
 #include "Sphere.h"
 #include "HelloWorldScene.h"
+#include "GameSceneManager.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -115,9 +116,7 @@ bool GameScene::checkGameEnds()
 
 void GameScene::endGame()
 {
-    string message = StringUtils::format("Your Score is\n  Coins: %d\n  Time: %.2f", this->coinCount, this->runningTime);
-    MessageBox(message.c_str(), "Complete!!");
-    GameScene::resetScene();
+    GameSceneManager::getInstance()->showResultScene();
 }
 
 void GameScene::setupField()

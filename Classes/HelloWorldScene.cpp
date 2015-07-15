@@ -1,5 +1,5 @@
 #include "HelloWorldScene.h"
-#include "GameScene.h"
+#include "GameSceneManager.h"
 
 USING_NS_CC;
 
@@ -39,6 +39,5 @@ void HelloWorld::onEnter()
     Layer::onEnter();
 
     // TMP: 強制的に GameScene に遷移
-    Scene* gameScene = GameScene::createScene();
-    Director::getInstance()->pushScene(gameScene);
+    GameSceneManager::getInstance()->showGameScene();
 }

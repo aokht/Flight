@@ -2,7 +2,12 @@
   <PropertyGroup Name="Flight" Version="2.3.0.1" Type="CocosStudio" />
   <SolutionFolder>
     <Group ctype="ResourceGroup">
-      <RootFolder Name="." />
+      <RootFolder Name=".">
+        <Folder Name="GameScene">
+          <Project Name="ParameterScene.csd" Type="Scene" />
+          <Project Name="ResultScene.csd" Type="Scene" />
+        </Folder>
+      </RootFolder>
     </Group>
   </SolutionFolder>
 </Solution>

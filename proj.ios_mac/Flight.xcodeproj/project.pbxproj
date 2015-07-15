@@ -60,6 +60,12 @@
 		5B88F6081B564B7D00375BB2 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F5FF1B564B7D00375BB2 /* Sphere.cpp */; };
 		5B88F60B1B564C8200375BB2 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 5B88F60A1B564C8200375BB2 /* fonts */; };
 		5B88F60C1B564C8200375BB2 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 5B88F60A1B564C8200375BB2 /* fonts */; };
+		5B88F6101B56BCF200375BB2 /* ResultScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F60E1B56BCF200375BB2 /* ResultScene.cpp */; };
+		5B88F6111B56BCF200375BB2 /* ResultScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F60E1B56BCF200375BB2 /* ResultScene.cpp */; };
+		5B88F6141B56BE0400375BB2 /* ParameterScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F6121B56BE0400375BB2 /* ParameterScene.cpp */; };
+		5B88F6151B56BE0400375BB2 /* ParameterScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F6121B56BE0400375BB2 /* ParameterScene.cpp */; };
+		5B88F6181B56BF5600375BB2 /* GameSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F6161B56BF5600375BB2 /* GameSceneManager.cpp */; };
+		5B88F6191B56BF5600375BB2 /* GameSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F6161B56BF5600375BB2 /* GameSceneManager.cpp */; };
 		7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */ = {isa = PBXBuildFile; fileRef = FA144D09A52357282113E0F8 /* res */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
@@ -143,6 +149,12 @@
 		5B88F5FF1B564B7D00375BB2 /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
 		5B88F6001B564B7D00375BB2 /* Sphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sphere.h; sourceTree = "<group>"; };
 		5B88F60A1B564C8200375BB2 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		5B88F60E1B56BCF200375BB2 /* ResultScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResultScene.cpp; sourceTree = "<group>"; };
+		5B88F60F1B56BCF200375BB2 /* ResultScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultScene.h; sourceTree = "<group>"; };
+		5B88F6121B56BE0400375BB2 /* ParameterScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParameterScene.cpp; sourceTree = "<group>"; };
+		5B88F6131B56BE0400375BB2 /* ParameterScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterScene.h; sourceTree = "<group>"; };
+		5B88F6161B56BF5600375BB2 /* GameSceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameSceneManager.cpp; sourceTree = "<group>"; };
+		5B88F6171B56BF5600375BB2 /* GameSceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSceneManager.h; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -277,6 +289,7 @@
 				46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */,
 				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
 				5B88F6091B564B8E00375BB2 /* GameScene */,
+				5B88F60D1B56BC1900375BB2 /* Models */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -341,14 +354,27 @@
 		5B88F6091B564B8E00375BB2 /* GameScene */ = {
 			isa = PBXGroup;
 			children = (
-				5B88F5F91B564B7D00375BB2 /* Airplane.cpp */,
-				5B88F5FA1B564B7D00375BB2 /* Airplane.h */,
 				5B88F5FB1B564B7D00375BB2 /* GameScene.cpp */,
 				5B88F5FC1B564B7D00375BB2 /* GameScene.h */,
+				5B88F60E1B56BCF200375BB2 /* ResultScene.cpp */,
+				5B88F60F1B56BCF200375BB2 /* ResultScene.h */,
+				5B88F6121B56BE0400375BB2 /* ParameterScene.cpp */,
+				5B88F6131B56BE0400375BB2 /* ParameterScene.h */,
+				5B88F6161B56BF5600375BB2 /* GameSceneManager.cpp */,
+				5B88F6171B56BF5600375BB2 /* GameSceneManager.h */,
+			);
+			name = GameScene;
+			sourceTree = "<group>";
+		};
+		5B88F60D1B56BC1900375BB2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5B88F5F91B564B7D00375BB2 /* Airplane.cpp */,
+				5B88F5FA1B564B7D00375BB2 /* Airplane.h */,
 				5B88F5FF1B564B7D00375BB2 /* Sphere.cpp */,
 				5B88F6001B564B7D00375BB2 /* Sphere.h */,
 			);
-			name = GameScene;
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -493,11 +519,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				5B88F6101B56BCF200375BB2 /* ResultScene.cpp in Sources */,
 				5B88F6071B564B7D00375BB2 /* Sphere.cpp in Sources */,
+				5B88F6141B56BE0400375BB2 /* ParameterScene.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				5B88F6051B564B7D00375BB2 /* Global.cpp in Sources */,
+				5B88F6181B56BF5600375BB2 /* GameSceneManager.cpp in Sources */,
 				5B88F6031B564B7D00375BB2 /* GameScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				5B88F6011B564B7D00375BB2 /* Airplane.cpp in Sources */,
@@ -512,7 +541,10 @@
 				5B88F6041B564B7D00375BB2 /* GameScene.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				5B88F6021B564B7D00375BB2 /* Airplane.cpp in Sources */,
+				5B88F6191B56BF5600375BB2 /* GameSceneManager.cpp in Sources */,
+				5B88F6151B56BE0400375BB2 /* ParameterScene.cpp in Sources */,
 				5B88F6081B564B7D00375BB2 /* Sphere.cpp in Sources */,
+				5B88F6111B56BCF200375BB2 /* ResultScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 			);
