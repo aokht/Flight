@@ -33,12 +33,20 @@ private:
     cocos2d::ui::Text* coinCountLabel;
     cocos2d::ui::Text* timeCountLabel;
     cocos2d::ui::Text* totalScoreLabel;
+    cocos2d::Node* courseMapNode;
 
     void animateCountUp(float dt);
 
     ResultScene(const GameScene::GameScore& score);
     static cocos2d::Scene* create();
     const GameScene::GameScore score;
+
+    // tmp: カウントアップアニメーション系
+    float time;
+    float onStart;
+    float onCoinCountEnded;
+    float onTimeCountEnded;
+
 };
 
 #endif /* defined(__Flight__ResultScene__) */

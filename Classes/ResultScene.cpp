@@ -51,6 +51,12 @@ bool ResultScene::init()
     this->rootNode = CSLoader::createNode("GameScene/ResultScene.csb");
     this->addChild(rootNode);
 
+    // tmp: カウントアップアニメーション系
+    this->time = 0.f;
+    this->onStart = 0.f;
+    this->onCoinCountEnded = 0.f;
+    this->onTimeCountEnded = 0.f;
+
     return true;
 }
 
@@ -74,17 +80,13 @@ void ResultScene::update(float dt)
 
 void ResultScene::animateCountUp(float dt)
 {
-    static float time = 0.f;
-    static float onStart = 0.f;
-    static float onCoinCountEnded = 0.f;
-    static float onTimeCountEnded = 0.f;
 
     if (onStart <= 0.f) {
         onStart = time;
     }
     else if (onCoinCountEnded <= 0.f && onStart < time) {
-        float dtScore = (time - onStart) * 50;
-        if (dtScore > this->score.coinsCount) {
+        float dtScore = (time - onStart) * this->score.coinsCount;
+        if (time - onStart >= 1.f) {
             onCoinCountEnded = time;
         }
 
@@ -92,8 +94,8 @@ void ResultScene::animateCountUp(float dt)
         this->coinCountLabel->setString(scoreString);
     }
     else if (onCoinCountEnded > 0.f && onTimeCountEnded <= 0 && onCoinCountEnded < time) {
-        float dtTime = (time - onCoinCountEnded) * 10;
-        if (dtTime > this->score.elapsedTime) {
+        float dtTime = (time - onCoinCountEnded) * this->score.elapsedTime;
+        if (time - onCoinCountEnded >= 1.f) {
             onTimeCountEnded = time;
         }
 
@@ -103,8 +105,6 @@ void ResultScene::animateCountUp(float dt)
 
     time += dt;
 }
-
-
 
 void ResultScene::grabElements()
 {
@@ -119,6 +119,9 @@ void ResultScene::grabElements()
 
     this->totalScoreLabel = this->rootNode->getChildByName<ui::Text*>("TotalValueLabel");
     CCASSERT(totalScoreLabel, "TotalValueLabel in ResultScene is not found");
+
+    this->courseMapNode = this->rootNode->getChildByName<Node*>("CourseMap");
+    CCASSERT(courseMapNode, "CourseMap in ResultScene is not found");
 }
 
 void ResultScene::setupUI()
@@ -128,4 +131,11 @@ void ResultScene::setupUI()
             GameSceneManager::getInstance()->showParameterScene(score);
         }
     });
+
+    // tmp: フィールドを回転させてみる
+    Sprite3D* field = Sprite3D::create("fields/field.obj");
+    field->setScale(0.007);
+    field->runAction(RepeatForever::create(Sequence::create(RotateBy::create(30, Vec3(0, 360, 0)), nullptr)));
+    this->courseMapNode->addChild(field);
+    this->courseMapNode->setRotation3D(Vec3(10, -5.25, -5.25));  // 目測
 }

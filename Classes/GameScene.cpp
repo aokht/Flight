@@ -30,14 +30,6 @@ Scene* GameScene::createScene()
     return scene;
 }
 
-void GameScene::resetScene()
-{
-    Director::getInstance()->popScene();
-
-    Scene* scene = GameScene::createScene();
-    Director::getInstance()->pushScene(scene);
-}
-
 bool GameScene::init()
 {
     if (! Layer::init()) {
@@ -220,7 +212,7 @@ void GameScene::setupUI()
     header->addChild(resetButton);
     resetButton->addTouchEventListener([](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            GameScene::resetScene();
+            GameSceneManager::getInstance()->showGameScene();
         }
     });
 

@@ -7,6 +7,7 @@
           <Project Name="ParameterScene.csd" Type="Scene" />
           <Project Name="ResultScene.csd" Type="Scene" />
         </Folder>
+        <TTF Name="arial.ttf" />
       </RootFolder>
     </Group>
   </SolutionFolder>

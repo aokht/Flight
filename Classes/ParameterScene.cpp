@@ -64,6 +64,9 @@ void ParameterScene::grabElements()
 {
     this->nextButton = this->rootNode->getChildByName<ui::Button*>("NextButton");
     CCASSERT(nextButton, "NextButton in ParameterScene is not found");
+
+    this->airplaneNode = this->rootNode->getChildByName<Node*>("Airplane");
+    CCASSERT(airplaneNode, "Airplane in ParameterScene is not found");
 }
 
 void ParameterScene::setupUI()
@@ -73,4 +76,12 @@ void ParameterScene::setupUI()
             GameSceneManager::getInstance()->showGameScene();
         }
     });
+
+    // tmp: 飛行機を回転させてみる
+    Sprite3D* airplane = Sprite3D::create("airplanes/boss.obj");
+    airplane->setTexture("airplanes/boss.png");
+    airplane->setScale(20);
+    airplane->runAction(RepeatForever::create(Sequence::create(RotateBy::create(30, Vec3(0, 360, 0)), nullptr)));
+    this->airplaneNode->addChild(airplane);
+    this->airplaneNode->setRotation3D(Vec3(20, -5.25, -5.25));  // 目測
 }

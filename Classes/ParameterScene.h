@@ -22,6 +22,7 @@ public:
 private:
     cocos2d::Node* rootNode;
     cocos2d::ui::Button* nextButton;
+    cocos2d::Node* airplaneNode;
     bool init();
     void onEnter() override;
     void grabElements();

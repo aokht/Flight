@@ -58,7 +58,5 @@ private:
     void incrementCoinCount(int count);
     bool checkGameEnds();
     void endGame();
-
-    static void resetScene();
 };
 #endif /* defined(__Flight__GameScene__) */

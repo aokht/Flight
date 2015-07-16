@@ -12,6 +12,7 @@
 #include "ResultScene.h"
 #include "ParameterScene.h"
 
+using namespace std;
 using namespace cocos2d;
 
 GameSceneManager* GameSceneManager::getInstance()
@@ -58,7 +59,8 @@ void GameSceneManager::showParameterScene(const GameScene::GameScore& score)
 
 void GameSceneManager::resetScene()
 {
-    while (this->sceneCount--) {
+    while (this->sceneCount) {
         Director::getInstance()->popScene();
+        this->sceneCount--;
     }
 }
