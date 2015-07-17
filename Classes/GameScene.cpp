@@ -52,8 +52,8 @@ void GameScene::onEnter()
 
     this->setupField();
     this->setupAirplane();
-    this->setupCamera();
     this->setupUI();
+    this->setupCamera();
     this->setupEventListeners();
 
     this->scheduleUpdate();
@@ -63,10 +63,17 @@ void GameScene::update(float dt)
 {
     Layer::update(dt);
 
+    static float noTouchTime = 0.f;
+
     if (this->running) {
         if (! this->onTouch) {
             // タッチ中で無ければ進行方向をデフォルトに戻そうとする
-            this->airplane->setRotationToDefault(dt);
+            if (noTouchTime > 0.1f) {  // 適当な待ち時間
+                this->airplane->setRotationToDefault(dt);
+            }
+            noTouchTime += dt;
+        } else {
+            noTouchTime = 0.f;
         }
 
         this->airplane->step(dt);
@@ -86,6 +93,10 @@ void GameScene::update(float dt)
         }
 
         this->updateRunningTime(dt);
+
+        if (Director::getInstance()->isDisplayStats()) {
+            this->updateDebugInfo();
+        }
     }
 }
 
@@ -147,6 +158,13 @@ void GameScene::setupCamera()
     this->camera = camera;
 
     this->airplane->setCameraToAirplane(camera);
+
+    Camera::getDefaultCamera()->setCameraFlag(CameraFlag::DEFAULT);
+    this->header->setCameraMask((unsigned short)CameraFlag::DEFAULT);
+
+    this->camera->setCameraFlag(CameraFlag::USER1);
+    this->field->setCameraMask((unsigned short)CameraFlag::USER1);
+    this->airplane->setCameraMask((unsigned short)CameraFlag::USER1);
 }
 
 void GameScene::setupUI()
@@ -156,7 +174,7 @@ void GameScene::setupUI()
     // make header
     this->header = Sprite::create();
     header->setColor(Color3B::WHITE);
-    header->setTextureRect(Rect(0, 0, visibleSize.width, 60.f));
+    header->setTextureRect(Rect(0, 0, visibleSize.width, 80.f));
     header->setAnchorPoint(Vec2(0.f, 1.f));
     header->setPosition(Vec2(0.f, visibleSize.height));
     header->setOpacity(100);
@@ -191,7 +209,8 @@ void GameScene::setupUI()
     // make start / stop button
     ui::Button* startButton = ui::Button::create("ui/startButton.png", "ui/startButtonPressed.png");
     startButton->setAnchorPoint(Vec2(1.0f, 1.0f));
-    startButton->setPosition(header->getContentSize());
+    startButton->setPosition(header->getContentSize() - Size(20, 0));
+    startButton->setScale(1.3);
     this->startButton = startButton;
     header->addChild(startButton);
     startButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
@@ -208,7 +227,8 @@ void GameScene::setupUI()
     // reset button
     ui::Button* resetButton = ui::Button::create("ui/resetButton.png", "ui/resetButtonPressed.png");
     resetButton->setAnchorPoint(Vec2(1.f, 1.f));
-    resetButton->setPosition(Vec2(startButton->getPosition().x - startButton->getContentSize().width, header->getContentSize().height));
+    resetButton->setPosition(Vec2(startButton->getPosition().x - startButton->getContentSize().width - 30, header->getContentSize().height));
+    resetButton->setScale(1.3);
     header->addChild(resetButton);
     resetButton->addTouchEventListener([](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
@@ -216,6 +236,27 @@ void GameScene::setupUI()
         }
     });
 
+    if (Director::getInstance()->isDisplayStats()) {
+        this->labelPosition = Label::createWithTTF("Position: (00000.0, 00000.0, 00000.0)", "fonts/arial.ttf", 24);
+        labelPosition->setAnchorPoint(Vec2(0.f, 0.f));
+        labelPosition->setPosition(Vec2(0.f, 180));
+        this->addChild(labelPosition);
+
+        this->labelRotation = Label::createWithTTF("Rotation: (000.0, 000.0, 000.0)", "fonts/arial.ttf", 24);
+        labelRotation->setAnchorPoint(Vec2(0.f, 0.f));
+        labelRotation->setPosition(Vec2(0.f, 150));
+        this->addChild(labelRotation);
+
+        this->labelSpriteRotation = Label::createWithTTF("SpriteRotation: (000.0, 000.0, 000.0)", "fonts/arial.ttf", 24);
+        labelSpriteRotation->setAnchorPoint(Vec2(0.f, 0.f));
+        labelSpriteRotation->setPosition(Vec2(0.f, 120));
+        this->addChild(labelSpriteRotation);
+
+        this->labelRotationTarget = Label::createWithTTF("RotationTarget: (000.0, 000.0, 000.0)", "fonts/arial.ttf", 24);
+        labelRotationTarget->setAnchorPoint(Vec2(0.f, 0.f));
+        labelRotationTarget->setPosition(Vec2(0.f, 90));
+        this->addChild(labelRotationTarget);
+    }
 }
 
 void GameScene::setupEventListeners()
@@ -223,7 +264,7 @@ void GameScene::setupEventListeners()
     auto touchEventListener = EventListenerTouchOneByOne::create();
 
     static Vec2 touchStart;
-    static float ux_max_drag_px = 100.f;  // TODO: ドラッグ可能量
+    static float ux_max_drag_px = 200.f;  // TODO: ドラッグ可能量
 
     touchEventListener->onTouchBegan = [this](Touch* touch, Event* event)
     {
@@ -342,5 +383,17 @@ void GameScene::setupEventListeners()
         }
     };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyEventListener, this);
+}
 
+void GameScene::updateDebugInfo()
+{
+    Vec3 position = this->airplane->getPosition3D();
+    Vec3 rotation = this->airplane->getRotation3D();
+    Vec3 spriteRotation = this->airplane->getSpriteRotation();
+    Vec3 rotationTarget = this->airplane->getRotationTarget();
+
+    this->labelPosition->setString(StringUtils::format("Position: (%.1f, %.1f, %.1f)", position.x, position.y, position.z));
+    this->labelRotation->setString(StringUtils::format("Rotation: (%.1f, %.1f, %.1f)", rotation.x, rotation.y, rotation.z));
+    this->labelSpriteRotation->setString(StringUtils::format("SpriteRotation: (%.1f, %.1f, %.1f)", spriteRotation.x, spriteRotation.y, spriteRotation.z));
+    this->labelRotationTarget->setString(StringUtils::format("RotationTarget: (%.1f, %.1f, %.1f)", rotationTarget.x, rotationTarget.y, rotationTarget.z));
 }

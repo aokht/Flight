@@ -58,12 +58,22 @@ void ParameterScene::onEnter()
 
     this->grabElements();
     this->setupUI();
+
+    // tmp:
+    this->expLabel->setString("100");
+    this->totalLabel->setString("234");
 }
 
 void ParameterScene::grabElements()
 {
     this->nextButton = this->rootNode->getChildByName<ui::Button*>("NextButton");
     CCASSERT(nextButton, "NextButton in ParameterScene is not found");
+
+    this->expLabel = this->rootNode->getChildByName<ui::Text*>("ExpValueLabel");
+    CCASSERT(expLabel, "ExpValueLabel in ParameterScene is not found");
+
+    this->totalLabel = this->rootNode->getChildByName<ui::Text*>("TotalValueLabel");
+    CCASSERT(totalLabel, "TotalValueLabel in ParameterScene is not found");
 
     this->airplaneNode = this->rootNode->getChildByName<Node*>("Airplane");
     CCASSERT(airplaneNode, "Airplane in ParameterScene is not found");

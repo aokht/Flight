@@ -39,6 +39,10 @@ private:
     cocos2d::Label* labelTime;
     cocos2d::ui::Button* startButton;
     cocos2d::ui::Button* stopButton;
+    cocos2d::Label* labelPosition;
+    cocos2d::Label* labelRotation;
+    cocos2d::Label* labelSpriteRotation;
+    cocos2d::Label* labelRotationTarget;
 
     bool running;
     float runningTime;
@@ -58,5 +62,7 @@ private:
     void incrementCoinCount(int count);
     bool checkGameEnds();
     void endGame();
+
+    void updateDebugInfo();
 };
 #endif /* defined(__Flight__GameScene__) */

@@ -23,6 +23,8 @@ private:
     cocos2d::Node* rootNode;
     cocos2d::ui::Button* nextButton;
     cocos2d::Node* airplaneNode;
+    cocos2d::ui::Text* expLabel;
+    cocos2d::ui::Text* totalLabel;
     bool init();
     void onEnter() override;
     void grabElements();

@@ -61,7 +61,7 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="ExpValueLabel" ActionTag="354609330" Tag="37" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="240.1200" RightMargin="1067.8800" TopMargin="385.5000" BottomMargin="310.5000" FontSize="48" LabelText="0" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+          <AbstractNodeData Name="TotalValueLabel" ActionTag="354609330" Tag="37" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="240.1200" RightMargin="1067.8800" TopMargin="385.5000" BottomMargin="310.5000" FontSize="48" LabelText="0" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
             <Size X="26.0000" Y="54.0000" />
             <AnchorPoint ScaleY="0.5000" />
             <Position X="240.1200" Y="337.5000" />

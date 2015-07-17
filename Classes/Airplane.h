@@ -22,12 +22,16 @@ public:
     void goForward(float dt);
     void rotate(float dt);
     void setRotationToDefault(float dt);
+    cocos2d::Vec3 getRotation3D() const override;
 
     // 入力応答
     void onInputBegan();
     void onInputMoved(const cocos2d::Vec2& diff);
     void onInputEnded(const cocos2d::Vec2& diff);
 
+    // デバッグ用
+    cocos2d::Vec3 getSpriteRotation() const;
+    cocos2d::Vec3 getRotationTarget() const;
 
 protected:
     bool init();
