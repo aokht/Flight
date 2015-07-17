@@ -103,7 +103,7 @@ void GameScene::update(float dt)
 void GameScene::updateRunningTime(float dt)
 {
     this->runningTime += dt;
-    this->labelTime->setString(StringUtils::format("%.2f", this->runningTime));
+    this->labelTime->setString(StringUtils::format("%.2f", 120.f - this->runningTime));
 }
 
 void GameScene::incrementCoinCount(int count)
@@ -114,7 +114,7 @@ void GameScene::incrementCoinCount(int count)
 
 bool GameScene::checkGameEnds()
 {
-    return this->coinCount == this->sphereList.size();
+    return this->coinCount == this->sphereList.size() || this->runningTime > 120.f;
 }
 
 void GameScene::endGame()

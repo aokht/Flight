@@ -35,6 +35,8 @@ private:
     cocos2d::ui::Text* totalScoreLabel;
     cocos2d::Node* courseMapNode;
 
+    void setupScores();
+
     void animateCountUp(float dt);
 
     ResultScene(const GameScene::GameScore& score);
@@ -46,6 +48,7 @@ private:
     float onStart;
     float onCoinCountEnded;
     float onTimeCountEnded;
+    float totalScore;
 
 };
 

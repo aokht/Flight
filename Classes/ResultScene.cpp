@@ -56,6 +56,7 @@ bool ResultScene::init()
     this->onStart = 0.f;
     this->onCoinCountEnded = 0.f;
     this->onTimeCountEnded = 0.f;
+    this->totalScore = 0.f;
 
     return true;
 }
@@ -66,6 +67,7 @@ void ResultScene::onEnter()
 
     this->grabElements();
     this->setupUI();
+    this->setupScores();
 }
 
 void ResultScene::onEnterTransitionDidFinish()
@@ -88,19 +90,30 @@ void ResultScene::animateCountUp(float dt)
         float dtScore = (time - onStart) * this->score.coinsCount;
         if (time - onStart >= 1.f) {
             onCoinCountEnded = time;
+            dtScore = score.coinsCount;
         }
 
-        string scoreString = StringUtils::format("%.0f", min((float)this->score.coinsCount, dtScore));
-        this->coinCountLabel->setString(scoreString);
+        string coinString = StringUtils::format("%.0f", score.coinsCount - dtScore);
+        this->coinCountLabel->setString(coinString);
+
+        totalScore = dtScore;
+        string totalString = StringUtils::format("%.0f", totalScore);
+        this->totalScoreLabel->setString(totalString);
     }
     else if (onCoinCountEnded > 0.f && onTimeCountEnded <= 0 && onCoinCountEnded < time) {
-        float dtTime = (time - onCoinCountEnded) * this->score.elapsedTime;
+        float remainingTime = 120.f - this->score.elapsedTime;
+        float dtTime = (time - onCoinCountEnded) * remainingTime;
         if (time - onCoinCountEnded >= 1.f) {
             onTimeCountEnded = time;
+            dtTime = remainingTime;
         }
 
-        string scoreString = StringUtils::format("%.2f", min((float)this->score.elapsedTime, dtTime));
+        string scoreString = StringUtils::format("%.2f", abs(remainingTime - dtTime));
         this->timeCountLabel->setString(scoreString);
+
+        totalScore = score.coinsCount + (dtTime * 100);
+        string totalString = StringUtils::format("%.0f", totalScore);
+        this->totalScoreLabel->setString(totalString);
     }
 
     time += dt;
@@ -138,4 +151,10 @@ void ResultScene::setupUI()
     field->runAction(RepeatForever::create(Sequence::create(RotateBy::create(30, Vec3(0, 360, 0)), nullptr)));
     this->courseMapNode->addChild(field);
     this->courseMapNode->setRotation3D(Vec3(10, -5.25, -5.25));  // 目測
+}
+
+void ResultScene::setupScores()
+{
+    this->coinCountLabel->setString(StringUtils::toString(score.coinsCount));
+    this->timeCountLabel->setString(StringUtils::format("%.2f", 120.f - score.elapsedTime));
 }
