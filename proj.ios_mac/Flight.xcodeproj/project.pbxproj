@@ -48,6 +48,10 @@
 		521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6219F0C34300D177D7 /* Default-667h@2x.png */; };
 		521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6319F0C34300D177D7 /* Default-736h@3x.png */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
+		5B419ED81B598B650056C69E /* Field.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B419ED61B598B650056C69E /* Field.cpp */; };
+		5B419ED91B598B650056C69E /* Field.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B419ED61B598B650056C69E /* Field.cpp */; };
+		5B4396651B5B3F5D00972BD6 /* CollisionMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4396631B5B3F5D00972BD6 /* CollisionMesh.cpp */; };
+		5B4396661B5B3F5D00972BD6 /* CollisionMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4396631B5B3F5D00972BD6 /* CollisionMesh.cpp */; };
 		5B43966B1B5C7C5700972BD6 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B88F5F61B56407100375BB2 /* libcocos2d iOS.a */; };
 		5B88F5F81B56409E00375BB2 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B88F5F41B56407100375BB2 /* libcocos2d Mac.a */; };
 		5B88F6011B564B7D00375BB2 /* Airplane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F5F91B564B7D00375BB2 /* Airplane.cpp */; };
@@ -66,6 +70,8 @@
 		5B88F6151B56BE0400375BB2 /* ParameterScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F6121B56BE0400375BB2 /* ParameterScene.cpp */; };
 		5B88F6181B56BF5600375BB2 /* GameSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F6161B56BF5600375BB2 /* GameSceneManager.cpp */; };
 		5B88F6191B56BF5600375BB2 /* GameSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F6161B56BF5600375BB2 /* GameSceneManager.cpp */; };
+		5B94B0761B5A2C3C0094340C /* ExSprite3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */; };
+		5B94B0771B5A2C3C0094340C /* ExSprite3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */; };
 		7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */ = {isa = PBXBuildFile; fileRef = FA144D09A52357282113E0F8 /* res */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
@@ -139,6 +145,10 @@
 		521A8E6219F0C34300D177D7 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		5B419ED61B598B650056C69E /* Field.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Field.cpp; sourceTree = "<group>"; };
+		5B419ED71B598B650056C69E /* Field.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Field.h; sourceTree = "<group>"; };
+		5B4396631B5B3F5D00972BD6 /* CollisionMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollisionMesh.cpp; sourceTree = "<group>"; };
+		5B4396641B5B3F5D00972BD6 /* CollisionMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollisionMesh.h; sourceTree = "<group>"; };
 		5B88F5EE1B56407000375BB2 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		5B88F5F91B564B7D00375BB2 /* Airplane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Airplane.cpp; sourceTree = "<group>"; };
 		5B88F5FA1B564B7D00375BB2 /* Airplane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Airplane.h; sourceTree = "<group>"; };
@@ -155,6 +165,9 @@
 		5B88F6131B56BE0400375BB2 /* ParameterScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterScene.h; sourceTree = "<group>"; };
 		5B88F6161B56BF5600375BB2 /* GameSceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameSceneManager.cpp; sourceTree = "<group>"; };
 		5B88F6171B56BF5600375BB2 /* GameSceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSceneManager.h; sourceTree = "<group>"; };
+		5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExSprite3D.cpp; sourceTree = "<group>"; };
+		5B94B0751B5A2C3C0094340C /* ExSprite3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExSprite3D.h; sourceTree = "<group>"; };
+		5B94B07D1B5A2C900094340C /* ExVertexIndexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExVertexIndexBuffer.h; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -290,6 +303,8 @@
 				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
 				5B88F6091B564B8E00375BB2 /* GameScene */,
 				5B88F60D1B56BC1900375BB2 /* Models */,
+				5B94B0721B5A2C030094340C /* cocos2d-Ex */,
+				5B4396611B5B3F1A00972BD6 /* Utilities */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -342,6 +357,15 @@
 			path = ios;
 			sourceTree = SOURCE_ROOT;
 		};
+		5B4396611B5B3F1A00972BD6 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5B4396631B5B3F5D00972BD6 /* CollisionMesh.cpp */,
+				5B4396641B5B3F5D00972BD6 /* CollisionMesh.h */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		5B88F5EF1B56407000375BB2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,10 +395,22 @@
 			children = (
 				5B88F5F91B564B7D00375BB2 /* Airplane.cpp */,
 				5B88F5FA1B564B7D00375BB2 /* Airplane.h */,
+				5B419ED61B598B650056C69E /* Field.cpp */,
+				5B419ED71B598B650056C69E /* Field.h */,
 				5B88F5FF1B564B7D00375BB2 /* Sphere.cpp */,
 				5B88F6001B564B7D00375BB2 /* Sphere.h */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		5B94B0721B5A2C030094340C /* cocos2d-Ex */ = {
+			isa = PBXGroup;
+			children = (
+				5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */,
+				5B94B0751B5A2C3C0094340C /* ExSprite3D.h */,
+				5B94B07D1B5A2C900094340C /* ExVertexIndexBuffer.h */,
+			);
+			name = "cocos2d-Ex";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -520,6 +556,8 @@
 			files = (
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				5B88F6101B56BCF200375BB2 /* ResultScene.cpp in Sources */,
+				5B4396651B5B3F5D00972BD6 /* CollisionMesh.cpp in Sources */,
+				5B419ED81B598B650056C69E /* Field.cpp in Sources */,
 				5B88F6071B564B7D00375BB2 /* Sphere.cpp in Sources */,
 				5B88F6141B56BE0400375BB2 /* ParameterScene.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
@@ -529,6 +567,7 @@
 				5B88F6181B56BF5600375BB2 /* GameSceneManager.cpp in Sources */,
 				5B88F6031B564B7D00375BB2 /* GameScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				5B94B0761B5A2C3C0094340C /* ExSprite3D.cpp in Sources */,
 				5B88F6011B564B7D00375BB2 /* Airplane.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -541,11 +580,14 @@
 				5B88F6041B564B7D00375BB2 /* GameScene.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				5B88F6021B564B7D00375BB2 /* Airplane.cpp in Sources */,
+				5B419ED91B598B650056C69E /* Field.cpp in Sources */,
 				5B88F6191B56BF5600375BB2 /* GameSceneManager.cpp in Sources */,
+				5B4396661B5B3F5D00972BD6 /* CollisionMesh.cpp in Sources */,
 				5B88F6151B56BE0400375BB2 /* ParameterScene.cpp in Sources */,
 				5B88F6081B564B7D00375BB2 /* Sphere.cpp in Sources */,
 				5B88F6111B56BCF200375BB2 /* ResultScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
+				5B94B0771B5A2C3C0094340C /* ExSprite3D.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

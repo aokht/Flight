@@ -12,6 +12,7 @@
 #include "cocos2d.h"
 #include "cocosGUI.h"
 
+class Field;
 class Airplane;
 class Sphere;
 
@@ -31,7 +32,7 @@ public:
     };
 
 private:
-    cocos2d::Sprite3D* field;
+    Field* field;
     cocos2d::Camera* camera;
     Airplane* airplane;
     cocos2d::Sprite* header;
