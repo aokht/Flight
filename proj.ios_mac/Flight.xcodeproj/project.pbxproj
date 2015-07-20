@@ -48,7 +48,7 @@
 		521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6219F0C34300D177D7 /* Default-667h@2x.png */; };
 		521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6319F0C34300D177D7 /* Default-736h@3x.png */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
-		5B88F5F71B56409300375BB2 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B88F5F61B56407100375BB2 /* libcocos2d iOS.a */; };
+		5B43966B1B5C7C5700972BD6 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B88F5F61B56407100375BB2 /* libcocos2d iOS.a */; };
 		5B88F5F81B56409E00375BB2 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B88F5F41B56407100375BB2 /* libcocos2d Mac.a */; };
 		5B88F6011B564B7D00375BB2 /* Airplane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F5F91B564B7D00375BB2 /* Airplane.cpp */; };
 		5B88F6021B564B7D00375BB2 /* Airplane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F5F91B564B7D00375BB2 /* Airplane.cpp */; };
@@ -171,7 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B88F5F71B56409300375BB2 /* libcocos2d iOS.a in Frameworks */,
+				5B43966B1B5C7C5700972BD6 /* libcocos2d iOS.a in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
 				D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
@@ -573,12 +573,12 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/platform/ios",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/platform/ios/Simulation",
+					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
+					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = " /Applications/Cocos/frameworks/cocos2d-x-3.6/prebuilt/ios";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
@@ -608,12 +608,12 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/platform/ios",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/platform/ios/Simulation",
+					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
+					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = " /Applications/Cocos/frameworks/cocos2d-x-3.6/prebuilt/ios";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
@@ -645,11 +645,11 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/platform/mac",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/external/glfw3/include/mac",
+					"$(SRCROOT)/../cocos2d/cocos/platform/mac",
+					"$(SRCROOT)/../cocos2d/external/glfw3/include/mac",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
-				LIBRARY_SEARCH_PATHS = " /Applications/Cocos/frameworks/cocos2d-x-3.6/prebuilt/mac";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_MAC_BEGIN)",
 					"$(_COCOS_LIB_MAC_END)",
@@ -676,11 +676,11 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/platform/mac",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/external/glfw3/include/mac",
+					"$(SRCROOT)/../cocos2d/cocos/platform/mac",
+					"$(SRCROOT)/../cocos2d/external/glfw3/include/mac",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
-				LIBRARY_SEARCH_PATHS = " /Applications/Cocos/frameworks/cocos2d-x-3.6/prebuilt/mac";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_MAC_BEGIN)",
 					"$(_COCOS_LIB_MAC_END)",
@@ -699,19 +699,19 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/base",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/physics",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/math",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/2d",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/ui",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/network",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/audio/include",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/editor-support",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/extensions",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/external",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/external/chipmunk/include/chipmunk",
+					"$(SRCROOT)/../cocos2d/",
+					"$(SRCROOT)/../cocos2d/cocos",
+					"$(SRCROOT)/../cocos2d/cocos/base",
+					"$(SRCROOT)/../cocos2d/cocos/physics",
+					"$(SRCROOT)/../cocos2d/cocos/math",
+					"$(SRCROOT)/../cocos2d/cocos/2d",
+					"$(SRCROOT)/../cocos2d/cocos/ui",
+					"$(SRCROOT)/../cocos2d/cocos/network",
+					"$(SRCROOT)/../cocos2d/cocos/audio/include",
+					"$(SRCROOT)/../cocos2d/cocos/editor-support",
+					"$(SRCROOT)/../cocos2d/extensions",
+					"$(SRCROOT)/../cocos2d/external",
+					"$(SRCROOT)/../cocos2d/external/chipmunk/include/chipmunk",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -728,19 +728,19 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/base",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/physics",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/math",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/2d",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/ui",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/network",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/audio/include",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/cocos/editor-support",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/extensions",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/external",
-					"/Applications/Cocos/frameworks/cocos2d-x-3.6/external/chipmunk/include/chipmunk",
+					"$(SRCROOT)/../cocos2d/",
+					"$(SRCROOT)/../cocos2d/cocos",
+					"$(SRCROOT)/../cocos2d/cocos/base",
+					"$(SRCROOT)/../cocos2d/cocos/physics",
+					"$(SRCROOT)/../cocos2d/cocos/math",
+					"$(SRCROOT)/../cocos2d/cocos/2d",
+					"$(SRCROOT)/../cocos2d/cocos/ui",
+					"$(SRCROOT)/../cocos2d/cocos/network",
+					"$(SRCROOT)/../cocos2d/cocos/audio/include",
+					"$(SRCROOT)/../cocos2d/cocos/editor-support",
+					"$(SRCROOT)/../cocos2d/extensions",
+					"$(SRCROOT)/../cocos2d/external",
+					"$(SRCROOT)/../cocos2d/external/chipmunk/include/chipmunk",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
