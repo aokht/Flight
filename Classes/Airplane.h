@@ -14,7 +14,8 @@
 class Airplane : public cocos2d::Node
 {
 public:
-    CREATE_FUNC(Airplane);
+    // Life Cycle
+    static Airplane* createById(int i);
     void setCameraToAirplane(cocos2d::Camera* camera);
 
     // 姿勢制御
@@ -34,7 +35,8 @@ public:
     cocos2d::Vec3 getRotationTarget() const;
 
 protected:
-    bool init();
+    static Airplane* createWithFilename(const std::string& filename);
+    bool initWithFilename(const std::string& filename);
     void onEnter() override;
 
     cocos2d::Sprite3D* spriteAirplane;

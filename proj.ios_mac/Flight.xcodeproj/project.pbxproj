@@ -53,6 +53,10 @@
 		5B4396651B5B3F5D00972BD6 /* CollisionMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4396631B5B3F5D00972BD6 /* CollisionMesh.cpp */; };
 		5B4396661B5B3F5D00972BD6 /* CollisionMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4396631B5B3F5D00972BD6 /* CollisionMesh.cpp */; };
 		5B43966B1B5C7C5700972BD6 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B88F5F61B56407100375BB2 /* libcocos2d iOS.a */; };
+		5B4CB9131B5EF1F90084916C /* plists in Resources */ = {isa = PBXBuildFile; fileRef = 5B4CB9121B5EF1F90084916C /* plists */; };
+		5B4CB9141B5EF1F90084916C /* plists in Resources */ = {isa = PBXBuildFile; fileRef = 5B4CB9121B5EF1F90084916C /* plists */; };
+		5B4CB9181B5EF3120084916C /* AirplaneDataSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4CB9161B5EF3120084916C /* AirplaneDataSource.cpp */; };
+		5B4CB9191B5EF3120084916C /* AirplaneDataSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4CB9161B5EF3120084916C /* AirplaneDataSource.cpp */; };
 		5B88F5F81B56409E00375BB2 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B88F5F41B56407100375BB2 /* libcocos2d Mac.a */; };
 		5B88F6011B564B7D00375BB2 /* Airplane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F5F91B564B7D00375BB2 /* Airplane.cpp */; };
 		5B88F6021B564B7D00375BB2 /* Airplane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F5F91B564B7D00375BB2 /* Airplane.cpp */; };
@@ -149,6 +153,9 @@
 		5B419ED71B598B650056C69E /* Field.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Field.h; sourceTree = "<group>"; };
 		5B4396631B5B3F5D00972BD6 /* CollisionMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollisionMesh.cpp; sourceTree = "<group>"; };
 		5B4396641B5B3F5D00972BD6 /* CollisionMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollisionMesh.h; sourceTree = "<group>"; };
+		5B4CB9121B5EF1F90084916C /* plists */ = {isa = PBXFileReference; lastKnownFileType = folder; path = plists; sourceTree = "<group>"; };
+		5B4CB9161B5EF3120084916C /* AirplaneDataSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirplaneDataSource.cpp; sourceTree = "<group>"; };
+		5B4CB9171B5EF3120084916C /* AirplaneDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirplaneDataSource.h; sourceTree = "<group>"; };
 		5B88F5EE1B56407000375BB2 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		5B88F5F91B564B7D00375BB2 /* Airplane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Airplane.cpp; sourceTree = "<group>"; };
 		5B88F5FA1B564B7D00375BB2 /* Airplane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Airplane.h; sourceTree = "<group>"; };
@@ -285,6 +292,7 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5B4CB9121B5EF1F90084916C /* plists */,
 				5B88F60A1B564C8200375BB2 /* fonts */,
 				FA144D09A52357282113E0F8 /* res */,
 			);
@@ -303,6 +311,7 @@
 				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
 				5B88F6091B564B8E00375BB2 /* GameScene */,
 				5B88F60D1B56BC1900375BB2 /* Models */,
+				5B4CB9151B5EF2C50084916C /* DataSources */,
 				5B94B0721B5A2C030094340C /* cocos2d-Ex */,
 				5B4396611B5B3F1A00972BD6 /* Utilities */,
 			);
@@ -364,6 +373,15 @@
 				5B4396641B5B3F5D00972BD6 /* CollisionMesh.h */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		5B4CB9151B5EF2C50084916C /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				5B4CB9161B5EF3120084916C /* AirplaneDataSource.cpp */,
+				5B4CB9171B5EF3120084916C /* AirplaneDataSource.h */,
+			);
+			name = DataSources;
 			sourceTree = "<group>";
 		};
 		5B88F5EF1B56407000375BB2 /* Products */ = {
@@ -525,6 +543,7 @@
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
+				5B4CB9131B5EF1F90084916C /* plists in Resources */,
 				5B88F60B1B564C8200375BB2 /* fonts in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
@@ -541,6 +560,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B4CB9141B5EF1F90084916C /* plists in Resources */,
 				5B88F60C1B564C8200375BB2 /* fonts in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */,
@@ -568,6 +588,7 @@
 				5B88F6031B564B7D00375BB2 /* GameScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				5B94B0761B5A2C3C0094340C /* ExSprite3D.cpp in Sources */,
+				5B4CB9181B5EF3120084916C /* AirplaneDataSource.cpp in Sources */,
 				5B88F6011B564B7D00375BB2 /* Airplane.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -580,6 +601,7 @@
 				5B88F6041B564B7D00375BB2 /* GameScene.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				5B88F6021B564B7D00375BB2 /* Airplane.cpp in Sources */,
+				5B4CB9191B5EF3120084916C /* AirplaneDataSource.cpp in Sources */,
 				5B419ED91B598B650056C69E /* Field.cpp in Sources */,
 				5B88F6191B56BF5600375BB2 /* GameSceneManager.cpp in Sources */,
 				5B4396661B5B3F5D00972BD6 /* CollisionMesh.cpp in Sources */,

@@ -50,6 +50,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     FileUtils::getInstance()->addSearchPath("res");
+    FileUtils::getInstance()->addSearchPath("plists");
 
     // create a scene. it's an autorelease object
     auto scene = HelloWorld::createScene();

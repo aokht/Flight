@@ -8,21 +8,46 @@
 
 #include "Airplane.h"
 #include "Global.h"
+#include "AirplaneDataSource.h"
 
 using namespace std;
 using namespace cocos2d;
 
-bool Airplane::init()
+Airplane* Airplane::createById(int id)
+{
+    const AirplaneData airplaneData = AirplaneDataSource::findById(id);
+
+    if (airplaneData.id == AirplaneData::NOT_FOUND) {
+        return nullptr;
+    }
+
+    return Airplane::createWithFilename(airplaneData.filename);
+}
+
+Airplane* Airplane::createWithFilename(const std::string &filename)
+{
+    Airplane* airplane = new Airplane();
+
+    if (airplane && airplane->initWithFilename(filename)) {
+        airplane->autorelease();
+        return airplane;
+    } else {
+        delete airplane;
+        airplane = nullptr;
+        return nullptr;
+    }
+}
+
+bool Airplane::initWithFilename(const string& filename)
 {
     if (! Node::init()) {
         return false;
     }
 
-    this->spriteAirplane = Sprite3D::create("airplanes/boss.obj");
+    this->spriteAirplane = Sprite3D::create(filename);
     if (! this->spriteAirplane) {
         return false;
     }
-
 
     this->rotationStep = Vec3(0, 0, 0);
 
@@ -33,8 +58,7 @@ void Airplane::onEnter()
 {
     Node::onEnter();
 
-    spriteAirplane->setTexture("airplanes/boss.png");
-    spriteAirplane->setScale(0.12);
+    spriteAirplane->setScale(0.03);
     spriteAirplane->setPosition3D(Vec3(0, 0, 0));
     this->addChild(spriteAirplane);
 }
