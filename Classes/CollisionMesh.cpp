@@ -140,13 +140,9 @@ void CollisionMesh::Node::build(const int* indices, int indexCount, const vector
         bool hitL[indexCount], hitR[indexCount];
         this->countDividedTriangles(&tL, &tR, hitL, hitR, indices, indexCount, positionList, triangleList);
 
-        // 左右それぞれ存在すれば、子ノードを作成する
-        if (tL) {
-            this->buildChildNodeLeft(indices, indexCount, tL, hitL, positionList, triangleList, nodePosition, minV, maxV, maxDepth - 1);
-        }
-        if (tR) {
-            this->buildChildNodeRight(indices, indexCount, tR, hitR, positionList, triangleList, nodePosition, minV, maxV, maxDepth - 1);
-        }
+        // 左右それぞれ子ノードを作成する
+        this->buildChildNodeLeft(indices, indexCount, tL, hitL, positionList, triangleList, nodePosition, minV, maxV, maxDepth - 1);
+        this->buildChildNodeRight(indices, indexCount, tR, hitR, positionList, triangleList, nodePosition, minV, maxV, maxDepth - 1);
     }
 }
 
@@ -187,21 +183,29 @@ void CollisionMesh::Node::buildChildNodeRight(const int* indices, int indexCount
 
 void CollisionMesh::Node::buildChildNode(const int* indices, int indexCount, int indexCountChild, const bool* hit, const vector<Vec3>& positionList, const vector<CollisionMesh::Triangle>& triangleList, Node** nodePosition, Vec3 minV, Vec3 maxV, int maxDepth, bool isLeft)
 {
-    // 三角形のインデックスリスト作成
-    int indicesChild[indexCountChild];
-    for (int i = 0, childCount = 0; i < indexCount; ++i) {
-        if (hit[i]) {
-            indicesChild[childCount++] = indices[i];
-        }
-    }
-
-    // 新しい範囲を作成
-    setAxisValue((isLeft ? &maxV : &minV), axis, internal.line);
-
-    // 子ノード割り当て、生成
     Node** child = isLeft ? &internal.left : &internal.right;
-    *child = (*nodePosition)++;
-    (*child)->build(indicesChild, indexCountChild, positionList, triangleList, nodePosition, minV, maxV, maxDepth);
+
+    // 子ノードが存在すれば生成
+    if (indexCountChild) {
+        // 三角形のインデックスリスト作成
+        int indicesChild[indexCountChild];
+        for (int i = 0, childCount = 0; i < indexCount; ++i) {
+            if (hit[i]) {
+                indicesChild[childCount++] = indices[i];
+            }
+        }
+
+        // 新しい範囲を作成
+        setAxisValue((isLeft ? &maxV : &minV), axis, internal.line);
+
+        // 子ノード割り当て、生成
+        *child = (*nodePosition)++;
+        (*child)->build(indicesChild, indexCountChild, positionList, triangleList, nodePosition, minV, maxV, maxDepth);
+    }
+    // 子ノードが存在しなければ null
+    else {
+        *child = nullptr;
+    }
 }
 
 #pragma mark -
