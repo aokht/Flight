@@ -8,6 +8,9 @@
           <Project Name="ResultScene.csd" Type="Scene" />
         </Folder>
         <TTF Name="arial.ttf" />
+        <Project Name="StageSelectScene.csd" Type="Scene" />
+        <Project Name="AirplaneSelectScene.csd" Type="Scene" />
+        <Project Name="LobbyScene.csd" Type="Scene" />
       </RootFolder>
     </Group>
   </SolutionFolder>

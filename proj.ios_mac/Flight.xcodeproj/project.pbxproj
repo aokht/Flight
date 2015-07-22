@@ -78,6 +78,14 @@
 		5B89C9BF1B5F71CA0092C926 /* fields.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B89C9BD1B5F71CA0092C926 /* fields.plist */; };
 		5B89C9C21B5F74900092C926 /* FieldDataSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B89C9C01B5F74900092C926 /* FieldDataSource.cpp */; };
 		5B89C9C31B5F74900092C926 /* FieldDataSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B89C9C01B5F74900092C926 /* FieldDataSource.cpp */; };
+		5B89C9CB1B5F8CF70092C926 /* LobbyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B89C9C91B5F8CF70092C926 /* LobbyScene.cpp */; };
+		5B89C9CC1B5F8CF70092C926 /* LobbyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B89C9C91B5F8CF70092C926 /* LobbyScene.cpp */; };
+		5B89C9CF1B5F8D070092C926 /* AirplaneSelectScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B89C9CD1B5F8D070092C926 /* AirplaneSelectScene.cpp */; };
+		5B89C9D01B5F8D070092C926 /* AirplaneSelectScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B89C9CD1B5F8D070092C926 /* AirplaneSelectScene.cpp */; };
+		5B89C9D31B5F8D100092C926 /* StageSelectScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B89C9D11B5F8D100092C926 /* StageSelectScene.cpp */; };
+		5B89C9D41B5F8D100092C926 /* StageSelectScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B89C9D11B5F8D100092C926 /* StageSelectScene.cpp */; };
+		5B89C9D71B5FF38E0092C926 /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B89C9D51B5FF38E0092C926 /* SceneManager.cpp */; };
+		5B89C9D81B5FF38E0092C926 /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B89C9D51B5FF38E0092C926 /* SceneManager.cpp */; };
 		5B94B0761B5A2C3C0094340C /* ExSprite3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */; };
 		5B94B0771B5A2C3C0094340C /* ExSprite3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */; };
 		7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */ = {isa = PBXBuildFile; fileRef = FA144D09A52357282113E0F8 /* res */; };
@@ -179,6 +187,14 @@
 		5B89C9BD1B5F71CA0092C926 /* fields.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = fields.plist; path = plists/fields.plist; sourceTree = "<group>"; };
 		5B89C9C01B5F74900092C926 /* FieldDataSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FieldDataSource.cpp; sourceTree = "<group>"; };
 		5B89C9C11B5F74900092C926 /* FieldDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldDataSource.h; sourceTree = "<group>"; };
+		5B89C9C91B5F8CF70092C926 /* LobbyScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LobbyScene.cpp; sourceTree = "<group>"; };
+		5B89C9CA1B5F8CF70092C926 /* LobbyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LobbyScene.h; sourceTree = "<group>"; };
+		5B89C9CD1B5F8D070092C926 /* AirplaneSelectScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirplaneSelectScene.cpp; sourceTree = "<group>"; };
+		5B89C9CE1B5F8D070092C926 /* AirplaneSelectScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirplaneSelectScene.h; sourceTree = "<group>"; };
+		5B89C9D11B5F8D100092C926 /* StageSelectScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StageSelectScene.cpp; sourceTree = "<group>"; };
+		5B89C9D21B5F8D100092C926 /* StageSelectScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageSelectScene.h; sourceTree = "<group>"; };
+		5B89C9D51B5FF38E0092C926 /* SceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneManager.cpp; sourceTree = "<group>"; };
+		5B89C9D61B5FF38E0092C926 /* SceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneManager.h; sourceTree = "<group>"; };
 		5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExSprite3D.cpp; sourceTree = "<group>"; };
 		5B94B0751B5A2C3C0094340C /* ExSprite3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExSprite3D.h; sourceTree = "<group>"; };
 		5B94B07D1B5A2C900094340C /* ExVertexIndexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExVertexIndexBuffer.h; sourceTree = "<group>"; };
@@ -315,9 +331,7 @@
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 				5B88F5FD1B564B7D00375BB2 /* Global.cpp */,
 				5B88F5FE1B564B7D00375BB2 /* Global.h */,
-				46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */,
-				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
-				5B88F6091B564B8E00375BB2 /* GameScene */,
+				5B89C9C81B5F8CD00092C926 /* Scenes */,
 				5B88F60D1B56BC1900375BB2 /* Models */,
 				5B4CB9151B5EF2C50084916C /* DataSources */,
 				5B94B0721B5A2C030094340C /* cocos2d-Ex */,
@@ -403,19 +417,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		5B88F6091B564B8E00375BB2 /* GameScene */ = {
+		5B88F6091B564B8E00375BB2 /* GameScenes */ = {
 			isa = PBXGroup;
 			children = (
+				5B88F6161B56BF5600375BB2 /* GameSceneManager.cpp */,
+				5B88F6171B56BF5600375BB2 /* GameSceneManager.h */,
 				5B88F5FB1B564B7D00375BB2 /* GameScene.cpp */,
 				5B88F5FC1B564B7D00375BB2 /* GameScene.h */,
 				5B88F60E1B56BCF200375BB2 /* ResultScene.cpp */,
 				5B88F60F1B56BCF200375BB2 /* ResultScene.h */,
 				5B88F6121B56BE0400375BB2 /* ParameterScene.cpp */,
 				5B88F6131B56BE0400375BB2 /* ParameterScene.h */,
-				5B88F6161B56BF5600375BB2 /* GameSceneManager.cpp */,
-				5B88F6171B56BF5600375BB2 /* GameSceneManager.h */,
 			);
-			name = GameScene;
+			name = GameScenes;
 			sourceTree = "<group>";
 		};
 		5B88F60D1B56BC1900375BB2 /* Models */ = {
@@ -429,6 +443,24 @@
 				5B88F6001B564B7D00375BB2 /* Sphere.h */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		5B89C9C81B5F8CD00092C926 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				5B89C9D51B5FF38E0092C926 /* SceneManager.cpp */,
+				5B89C9D61B5FF38E0092C926 /* SceneManager.h */,
+				46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */,
+				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
+				5B89C9C91B5F8CF70092C926 /* LobbyScene.cpp */,
+				5B89C9CA1B5F8CF70092C926 /* LobbyScene.h */,
+				5B89C9CD1B5F8D070092C926 /* AirplaneSelectScene.cpp */,
+				5B89C9CE1B5F8D070092C926 /* AirplaneSelectScene.h */,
+				5B89C9D11B5F8D100092C926 /* StageSelectScene.cpp */,
+				5B89C9D21B5F8D100092C926 /* StageSelectScene.h */,
+				5B88F6091B564B8E00375BB2 /* GameScenes */,
+			);
+			name = Scenes;
 			sourceTree = "<group>";
 		};
 		5B94B0721B5A2C030094340C /* cocos2d-Ex */ = {
@@ -587,6 +619,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				5B89C9CB1B5F8CF70092C926 /* LobbyScene.cpp in Sources */,
+				5B89C9CF1B5F8D070092C926 /* AirplaneSelectScene.cpp in Sources */,
 				5B88F6101B56BCF200375BB2 /* ResultScene.cpp in Sources */,
 				5B4396651B5B3F5D00972BD6 /* CollisionMesh.cpp in Sources */,
 				5B419ED81B598B650056C69E /* Field.cpp in Sources */,
@@ -598,11 +632,13 @@
 				5B89C9C21B5F74900092C926 /* FieldDataSource.cpp in Sources */,
 				5B88F6051B564B7D00375BB2 /* Global.cpp in Sources */,
 				5B88F6181B56BF5600375BB2 /* GameSceneManager.cpp in Sources */,
+				5B89C9D71B5FF38E0092C926 /* SceneManager.cpp in Sources */,
 				5B88F6031B564B7D00375BB2 /* GameScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				5B94B0761B5A2C3C0094340C /* ExSprite3D.cpp in Sources */,
 				5B4CB9181B5EF3120084916C /* AirplaneDataSource.cpp in Sources */,
 				5B88F6011B564B7D00375BB2 /* Airplane.cpp in Sources */,
+				5B89C9D31B5F8D100092C926 /* StageSelectScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,11 +646,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B89C9D01B5F8D070092C926 /* AirplaneSelectScene.cpp in Sources */,
 				5B88F6061B564B7D00375BB2 /* Global.cpp in Sources */,
 				5B88F6041B564B7D00375BB2 /* GameScene.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				5B88F6021B564B7D00375BB2 /* Airplane.cpp in Sources */,
+				5B89C9D41B5F8D100092C926 /* StageSelectScene.cpp in Sources */,
 				5B4CB9191B5EF3120084916C /* AirplaneDataSource.cpp in Sources */,
+				5B89C9CC1B5F8CF70092C926 /* LobbyScene.cpp in Sources */,
 				5B419ED91B598B650056C69E /* Field.cpp in Sources */,
 				5B88F6191B56BF5600375BB2 /* GameSceneManager.cpp in Sources */,
 				5B89C9C31B5F74900092C926 /* FieldDataSource.cpp in Sources */,
@@ -625,6 +664,7 @@
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				5B94B0771B5A2C3C0094340C /* ExSprite3D.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
+				5B89C9D81B5FF38E0092C926 /* SceneManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ParameterScene.h"
 #include "GameSceneManager.h"
+#include "SceneManager.h"
 
 using namespace cocos2d;
 
@@ -69,6 +70,9 @@ void ParameterScene::grabElements()
     this->nextButton = this->rootNode->getChildByName<ui::Button*>("NextButton");
     CCASSERT(nextButton, "NextButton in ParameterScene is not found");
 
+    this->lobbyButton = this->rootNode->getChildByName<ui::Button*>("LobbyButton");
+    CCASSERT(nextButton, "LobbyButton in ParameterScene is not found");
+
     this->expLabel = this->rootNode->getChildByName<ui::Text*>("ExpValueLabel");
     CCASSERT(expLabel, "ExpValueLabel in ParameterScene is not found");
 
@@ -84,6 +88,12 @@ void ParameterScene::setupUI()
     this->nextButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             GameSceneManager::getInstance()->showGameScene();
+        }
+    });
+
+    this->lobbyButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
+        if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SceneManager::getInstance()->showLobbyScene();
         }
     });
 
