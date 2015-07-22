@@ -15,10 +15,12 @@
 class Field : public ExSprite3D
 {
 public:
-    CREATE_FUNC(Field);
+    // Life Cycle
+    static Field* createById(int i);
 
 protected:
-    bool init() override;
+    static Field* createWithFilename(const std::string& filename);
+
 };
 
 #endif /* defined(__Flight__Field__) */

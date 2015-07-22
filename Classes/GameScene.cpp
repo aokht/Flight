@@ -141,7 +141,7 @@ void GameScene::endGame()
 
 void GameScene::setupField()
 {
-    this->field = Field::create();
+    this->field = Field::createById(1);
     field->setPosition3D(Vec3(0, 0, 0));
     this->addChild(field);
 
