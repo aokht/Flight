@@ -16,7 +16,7 @@ class Sphere : public cocos2d::Sprite3D
 public:
     CREATE_FUNC(Sphere);
 
-    static std::vector<cocos2d::Vec3>getSpherePositionList();
+    static std::vector<std::vector<cocos2d::Vec3>> getSphereGroupPositionList(const std::string& path);
 
 protected:
     bool init();

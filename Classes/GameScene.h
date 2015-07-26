@@ -52,8 +52,6 @@ private:
 
     int coinCount;
 
-    std::vector<Sphere*> sphereList;
-
     void setupField();
     void setupAirplane();
     void setupSkyDome();

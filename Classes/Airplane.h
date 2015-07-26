@@ -22,10 +22,10 @@ public:
 
     // 姿勢制御
     void step(float dt);
-    void goForward(float dt);
     void rotate(float dt);
     void setRotationToDefault(float dt);
     cocos2d::Vec3 getRotation3D() const override;
+    cocos2d::Vec3 getDirection() const;
 
     // 入力応答
     void onInputBegan();

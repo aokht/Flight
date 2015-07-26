@@ -79,7 +79,7 @@ void Airplane::setCameraToAirplane(Camera* camera)
 void Airplane::step(float dt)
 {
     this->rotate(dt);
-    this->goForward(dt);
+    // 前進は Field を動かすことによって行う
 }
 
 void Airplane::rotate(float dt)
@@ -127,26 +127,6 @@ void Airplane::rotate(float dt)
     this->setRotation3D(this->getRotation3D() + direction);
 }
 
-void Airplane::goForward(float dt)
-{
-    // TODO: 単位時間あたりの前進距離パラメータ
-    float distance_per_dt = 2500.f;
-    float distance = distance_per_dt * dt;
-
-    const Vec3& rotation = this->getRotation3D();
-    float diff_rad_x = CC_DEGREES_TO_RADIANS(rotation.x);
-    float diff_rad_y = CC_DEGREES_TO_RADIANS(rotation.y);
-
-    Vec3 pos = this->getPosition3D();
-    // Y軸回転を左右の進行距離に変換
-    pos.x += distance * sin(diff_rad_y);
-    pos.z += distance * cos(diff_rad_y);
-    // X軸回転を上下の進行距離に変換
-    pos.y += distance * sin(-diff_rad_x);
-
-    this->setPosition3D(pos);
-}
-
 void Airplane::setRotationToDefault(float dt)
 {
     // Z軸(左右)のスプライトの回転量を 0 に向かわせる
@@ -167,6 +147,20 @@ Vec3 Airplane::getRotation3D() const
     // 360度を超えないようにする
     Vec3 r = Node::getRotation3D();
     return Vec3(fmod(r.x, 360.f), fmod(r.y, 360.f), fmod(r.z, 360.f));
+}
+
+Vec3 Airplane::getDirection() const
+{
+    const Vec3& r = this->getRotation3D();
+    float diff_rad_x = CC_DEGREES_TO_RADIANS(r.x);
+    float diff_rad_y = CC_DEGREES_TO_RADIANS(r.y);
+
+    Vec3 direction;
+    direction.x = sin(diff_rad_y);
+    direction.z = cos(diff_rad_y);
+    direction.y = sin(diff_rad_x);
+
+    return direction;
 }
 
 #pragma mark -

@@ -80,16 +80,11 @@ void GameScene::update(float dt)
         }
 
         this->airplane->step(dt);
+        this->field->step(dt);
 
-        const Vec3& airplanePosition = this->airplane->getPosition3D();
-        float distance = 1000;  // TODO: 当たり判定距離
-        for (auto s = sphereList.begin(), last = sphereList.end(); s != last; ++s) {
-            const Vec3 diff = (*s)->getPosition3D() -  airplanePosition;
-            if (abs(diff.x) < distance && abs(diff.y) < distance && abs(diff.z) < distance &&  (*s)->isVisible()) {
-                (*s)->setVisible(false);
-                this->incrementCoinCount(1);
-            }
-        }
+        int sphereCount = this->field->getSphereCollisionCount();
+        this->incrementCoinCount(sphereCount);
+
 
         if (this->checkGameEnds()) {
             this->endGame();
@@ -150,14 +145,6 @@ void GameScene::setupField()
     this->field = Field::createById(fieldId, true);
     this->addChild(field);
 
-    vector<Vec3> spherePositionList = Sphere::getSpherePositionList();
-    for (auto s = spherePositionList.begin(), last = spherePositionList.end(); s != last; ++s) {
-        Sphere* sphere = Sphere::create();
-        sphere->setPosition3D(*s * 100);
-        sphere->setScale(100);
-        field->addChild(sphere);
-        sphereList.push_back(sphere);
-    }
 }
 
 void GameScene::setupSkyDome()
@@ -174,6 +161,8 @@ void GameScene::setupAirplane()
     int airplaneId = GameSceneManager::getInstance()->getSceneData().airplaneId;
     this->airplane = Airplane::createById(airplaneId);
     this->addChild(airplane);
+
+    this->field->setAirplaneToField(airplane);
 }
 
 void GameScene::setupCamera()
@@ -413,7 +402,7 @@ void GameScene::setupEventListeners()
 
 void GameScene::updateDebugInfo()
 {
-    Vec3 position = this->airplane->getPosition3D();
+    Vec3 position = -this->field->getPosition3D();
     Vec3 rotation = this->airplane->getRotation3D();
     Vec3 spriteRotation = this->airplane->getSpriteRotation();
     Vec3 rotationTarget = this->airplane->getRotationTarget();
