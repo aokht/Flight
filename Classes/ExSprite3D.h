@@ -19,6 +19,8 @@ public:
     static ExSprite3D* create(const std::string &modelPath);
 
     // Collision Detection
+    void enableCollisionDetection(bool flag);
+    bool collisionDetectionEnabled() const;
     bool getIntersection(int* triangleIndex, float *tOut, const cocos2d::Vec3& begin, const cocos2d::Vec3& vec) const;
     bool isIntersect(const cocos2d::Vec3& begin, const cocos2d::Vec3& vec) const;
 
@@ -29,6 +31,7 @@ protected:
     bool initWithFile(const std::string &path);
 
     // Collision Detection
+    bool _collisionDetectionEnabled;
     void extractVertexInfo();
     void buildCollisionMesh();
     std::vector<cocos2d::Vec3> positionList;

@@ -118,15 +118,18 @@ void GameScene::incrementCoinCount(int count)
 bool GameScene::checkGameEnds()
 {
     // 衝突検知
-    // 前方 100
-    if (this->field->isIntersect(this->airplane->getPosition3D(), Vec3(0, 0, 100))) {
-        CCLOG("COLLISION!! forward 100");
-        return true;
-    }
-    // 下方 100
-    if (this->field->isIntersect(this->airplane->getPosition3D(), Vec3(0, -100, 0))) {
-        CCLOG("COLLISION!! down 100");
-        return true;
+    if (this->field->collisionDetectionEnabled()) {
+        // 前方 10
+        if (this->field->isIntersect(this->field->getAirplanePosition(), Vec3(0, 0, 10))) {
+            CCLOG("COLLISION!! forward 10");
+            return true;
+        }
+
+        // 下方 10
+        if (this->field->isIntersect(this->field->getAirplanePosition(), Vec3(0, -10, 0))) {
+            CCLOG("COLLISION!! down 10");
+            return true;
+        }
     }
 
     return this->coinCount == this->sphereList.size() || this->runningTime > 120.f;

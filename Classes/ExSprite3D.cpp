@@ -19,13 +19,16 @@ using namespace cocos2d;
 #pragma mark Life Cycle
 
 ExSprite3D::ExSprite3D() :
+    _collisionDetectionEnabled(false),
     collisionMesh(nullptr)
 {
 }
 
 ExSprite3D::~ExSprite3D()
 {
-    this->collisionMesh->release();
+    if (_collisionDetectionEnabled) {
+        this->collisionMesh->release();
+    }
 }
 
 ExSprite3D* ExSprite3D::create(const std::string &modelPath)
@@ -46,17 +49,22 @@ ExSprite3D* ExSprite3D::create(const std::string &modelPath)
 
 bool ExSprite3D::initWithFile(const string &path)
 {
-    // 頂点情報はデフォルトで捨てられてしまうためシャドーコピーを作成する
-    VertexBuffer::enableShadowCopy(true);
-    IndexBuffer::enableShadowCopy(true);
+    // 頂点情報はデフォルトで捨てられてしまうためシャドーコピーを作成する(キャッシュされていない場合)
+    auto spritedata = Sprite3DCache::getInstance()->getSpriteData(path);
+    if (! spritedata) {
+        VertexBuffer::enableShadowCopy(true);
+        IndexBuffer::enableShadowCopy(true);
+    }
 
     if (! Sprite3D::initWithFile(path)) {
         return false;
     }
 
     // TODO: Cacheとか
-    this->extractVertexInfo();
-    this->buildCollisionMesh();
+    if (collisionDetectionEnabled()) {
+        this->extractVertexInfo();
+        this->buildCollisionMesh();
+    }
 
     return true;
 }
@@ -164,4 +172,14 @@ bool ExSprite3D::isIntersect(const cocos2d::Vec3 &begin, const cocos2d::Vec3 &ve
     float t;
 
     return this->getIntersection(&index, &t, begin, vec);
+}
+
+bool ExSprite3D::collisionDetectionEnabled() const
+{
+    return _collisionDetectionEnabled;
+}
+
+void ExSprite3D::enableCollisionDetection(bool flag)
+{
+    _collisionDetectionEnabled = flag;
 }
