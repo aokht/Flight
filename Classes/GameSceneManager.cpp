@@ -64,3 +64,13 @@ void GameSceneManager::resetScene()
         this->sceneCount--;
     }
 }
+
+void GameSceneManager::setSceneData(SceneData sceneData)
+{
+    this->sceneData = sceneData;
+}
+
+SceneData GameSceneManager::getSceneData() const
+{
+    return sceneData;
+}

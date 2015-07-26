@@ -10,12 +10,14 @@
 #define __Flight__Airplane__
 
 #include "cocos2d.h"
+#include "AirplaneDataSource.h"
 
 class Airplane : public cocos2d::Node
 {
 public:
     // Life Cycle
     static Airplane* createById(int i);
+    static Airplane* createByData(const AirplaneData& airplaneData);
     void setCameraToAirplane(cocos2d::Camera* camera);
 
     // 姿勢制御
@@ -30,6 +32,10 @@ public:
     void onInputMoved(const cocos2d::Vec2& diff);
     void onInputEnded(const cocos2d::Vec2& diff);
 
+    // パラメータ
+    int getAirplaneId() const;
+    const std::string& getAirplaneName() const;
+
     // デバッグ用
     cocos2d::Vec3 getSpriteRotation() const;
     cocos2d::Vec3 getRotationTarget() const;
@@ -37,7 +43,6 @@ public:
 protected:
     static Airplane* createWithFilename(const std::string& filename);
     bool initWithFilename(const std::string& filename);
-    void onEnter() override;
 
     cocos2d::Sprite3D* spriteAirplane;
 
@@ -49,6 +54,11 @@ protected:
     cocos2d::Vec3 rotationStart;
     // 飛行機スプライトの回転量
     cocos2d::Vec3 spriteRotationStart;
+
+    // パラメータ
+    int airplaneId;
+    std::string airplaneName;
+
 };
 
 #endif /* defined(__Flight__Airplane__) */

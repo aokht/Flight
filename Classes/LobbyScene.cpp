@@ -10,6 +10,7 @@
 #include "LobbyScene.h"
 #include "Global.h"
 #include "SceneManager.h"
+#include "SceneData.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -32,6 +33,8 @@ bool LobbyScene::init()
 
     this->rootNode = CSLoader::createNode("LobbyScene.csb");
     this->addChild(rootNode);
+
+    SceneManager::getInstance()->initSceneData();
 
     return true;
 }
@@ -57,14 +60,18 @@ void LobbyScene::setupUI()
 {
     this->singlePlayerButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            SceneManager::getInstance()->showAirplaneSelectScene();
+            SceneManager* sceneManager = SceneManager::getInstance();
+            sceneManager->setSceneData({ SceneData::Mode::SINGLE });
+            sceneManager->showSelectScene();
         }
     });
 
     this->multiplayerButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SceneManager* sceneManager = SceneManager::getInstance();
+            sceneManager->setSceneData({ SceneData::Mode::MULTI });
             // TODO: multiplayer mode not implemented
-            SceneManager::getInstance()->showAirplaneSelectScene();
+            sceneManager->showSelectScene();
         }
     });
 }

@@ -9,10 +9,8 @@
 #include "SceneManager.h"
 
 #include "LobbyScene.h"
-#include "AirplaneSelectScene.h"
-#include "StageSelectScene.h"
+#include "SelectScene.h"
 #include "GameSceneManager.h"
-
 
 using namespace std;
 using namespace cocos2d;
@@ -42,19 +40,30 @@ void SceneManager::showLobbyScene()
     Director::getInstance()->pushScene(lobbyScene);
 }
 
-void SceneManager::showAirplaneSelectScene()
+void SceneManager::showSelectScene()
 {
-    Scene* airplaneSelectScene = AirplaneSelectScene::createScene();
-    Director::getInstance()->pushScene(airplaneSelectScene);
-}
-
-void SceneManager::showStageSelectScene()
-{
-    Scene* stageSelectScene = StageSelectScene::createScene();
-    Director::getInstance()->pushScene(stageSelectScene);
+    Scene* selectScene = SelectScene::createScene();
+    Director::getInstance()->pushScene(selectScene);
 }
 
 void SceneManager::showGameScene()
 {
-    GameSceneManager::getInstance()->showGameScene();
+    GameSceneManager* gameSceneManager = GameSceneManager::getInstance();
+    gameSceneManager->setSceneData(sceneData);
+    gameSceneManager->showGameScene();
+}
+
+void SceneManager::initSceneData()
+{
+    this->sceneData = {};
+}
+
+void SceneManager::setSceneData(SceneData sceneData)
+{
+    this->sceneData = sceneData;
+}
+
+SceneData SceneManager::getSceneData() const
+{
+    return sceneData;
 }

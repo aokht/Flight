@@ -6,14 +6,18 @@
 //
 //
 
+#include <iostream>
 #include "Field.h"
 #include "ExSprite3D.h"
 #include "FieldDataSource.h"
+#include "Airplane.h"
+#include "Global.h"
+#include "Sphere.h"
 
 using namespace std;
 using namespace cocos2d;
 
-Field* Field::createById(int id)
+Field* Field::createById(int id, bool collisionMesh)
 {
     const FieldData FieldData = FieldDataSource::findById(id);
 
@@ -21,19 +25,40 @@ Field* Field::createById(int id)
         return nullptr;
     }
 
-    return Field::createWithFilename(FieldData.filenameTerrain);
+    return Field::createWithData(FieldData, collisionMesh);
 }
 
-Field* Field::createWithFilename(const std::string &filename)
+Field* Field::createWithData(const FieldData& data, bool collisionMesh)
 {
     Field* field = new Field();
 
-    if (field && field->initWithFile(filename)) {
-        field->autorelease();
-        return field;
+    if (field) {
+        field->enableCollisionDetection(collisionMesh);
+
+        if (field->initWithFile(data.filenameTerrain)) {
+            field->autorelease();
+        }
     } else {
         delete field;
         field = nullptr;
         return nullptr;
     }
+
+    field->fieldId = data.id;
+    field->fieldName = data.name;
+
+    return field;
+}
+
+#pragma mark -
+#pragma mark パラメータ
+
+int Field::getFieldId() const
+{
+    return fieldId;
+}
+
+const string& Field::getFieldName() const
+{
+    return fieldName;
 }

@@ -14,6 +14,9 @@ struct FieldData
     int id;
     std::string name;
     std::string filenameTerrain;
+    std::string filenameTextureNormal;
+    std::string filenameSky;
+    std::string filenameSphereLine;
 
     static const int NOT_FOUND = -1;
 };

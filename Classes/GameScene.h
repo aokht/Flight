@@ -35,6 +35,7 @@ private:
     Field* field;
     cocos2d::Camera* camera;
     Airplane* airplane;
+    cocos2d::Sprite3D* skydome;
     cocos2d::Sprite* header;
     cocos2d::Label* labelCoins;
     cocos2d::Label* labelTime;
@@ -55,6 +56,7 @@ private:
 
     void setupField();
     void setupAirplane();
+    void setupSkyDome();
     void setupCamera();
     void setupUI();
     void setupEventListeners();

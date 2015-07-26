@@ -10,6 +10,7 @@
 #define __Flight__SceneManager__
 
 #include "cocos2d.h"
+#include "SceneData.h"
 
 class SceneManager
 {
@@ -17,9 +18,15 @@ public:
     static SceneManager* getInstance();
 
     void showLobbyScene();
-    void showAirplaneSelectScene();
-    void showStageSelectScene();
+    void showSelectScene();
     void showGameScene();
+
+    void initSceneData();
+    void setSceneData(SceneData sceneData);
+    SceneData getSceneData() const;
+
+protected:
+    SceneData sceneData;
 
 private:
     SceneManager();

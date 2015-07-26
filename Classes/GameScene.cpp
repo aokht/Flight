@@ -17,6 +17,7 @@
 #include "Field.h"
 #include "HelloWorldScene.h"
 #include "GameSceneManager.h"
+#include "FieldDataSource.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -53,6 +54,7 @@ void GameScene::onEnter()
 
     this->setupField();
     this->setupAirplane();
+    this->setupSkyDome();
     this->setupUI();
     this->setupCamera();
     this->setupEventListeners();
@@ -141,8 +143,8 @@ void GameScene::endGame()
 
 void GameScene::setupField()
 {
-    this->field = Field::createById(1);
-    field->setPosition3D(Vec3(0, 0, 0));
+    int fieldId = GameSceneManager::getInstance()->getSceneData().stageId;
+    this->field = Field::createById(fieldId, true);
     this->addChild(field);
 
     vector<Vec3> spherePositionList = Sphere::getSpherePositionList();
@@ -155,13 +157,20 @@ void GameScene::setupField()
     }
 }
 
+void GameScene::setupSkyDome()
+{
+    FieldData data = FieldDataSource::findById(this->field->getFieldId());
+
+    this->skydome = Sprite3D::create(data.filenameSky);
+    skydome->setPosition3D(Vec3(0, -2000, 0));
+    this->addChild(skydome);
+}
+
 void GameScene::setupAirplane()
 {
-    // create airplane
-    this->airplane = Airplane::createById(1);
-    this->airplane->setPosition3D(Vec3(-10000, 9500, 18000));
-    this->airplane->setRotation3D(Vec3(0, 90, 0));
-    this->addChild(this->airplane);
+    int airplaneId = GameSceneManager::getInstance()->getSceneData().airplaneId;
+    this->airplane = Airplane::createById(airplaneId);
+    this->addChild(airplane);
 }
 
 void GameScene::setupCamera()
@@ -178,6 +187,7 @@ void GameScene::setupCamera()
     this->camera->setCameraFlag(CameraFlag::USER1);
     this->field->setCameraMask((unsigned short)CameraFlag::USER1);
     this->airplane->setCameraMask((unsigned short)CameraFlag::USER1);
+    this->skydome->setCameraMask((unsigned short)CameraFlag::USER1);
 }
 
 void GameScene::setupUI()

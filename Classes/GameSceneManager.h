@@ -10,6 +10,7 @@
 #define __Flight__GameSceneManager__
 
 #include "GameScene.h"
+#include "SceneData.h"
 
 class ResultScene;
 class ParameterScene;
@@ -24,8 +25,13 @@ public:
     void showParameterScene(const GameScene::GameScore& score);
     void resetScene();
 
+    void setSceneData(SceneData sceneData);
+    SceneData getSceneData() const;
+
 private:
     int sceneCount;
+
+    SceneData sceneData;
 
     GameSceneManager();
     ~GameSceneManager();

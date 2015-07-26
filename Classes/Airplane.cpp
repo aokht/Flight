@@ -21,7 +21,17 @@ Airplane* Airplane::createById(int id)
         return nullptr;
     }
 
-    return Airplane::createWithFilename(airplaneData.filename);
+    return createByData(airplaneData);
+}
+
+Airplane* Airplane::createByData(const AirplaneData &airplaneData)
+{
+    Airplane* airplane = Airplane::createWithFilename(airplaneData.filename);
+
+    airplane->airplaneId = airplaneData.id;
+    airplane->airplaneName = airplaneData.name;
+
+    return airplane;
 }
 
 Airplane* Airplane::createWithFilename(const std::string &filename)
@@ -48,19 +58,11 @@ bool Airplane::initWithFilename(const string& filename)
     if (! this->spriteAirplane) {
         return false;
     }
+    this->addChild(spriteAirplane);
 
     this->rotationStep = Vec3(0, 0, 0);
 
     return true;
-}
-
-void Airplane::onEnter()
-{
-    Node::onEnter();
-
-    spriteAirplane->setScale(0.03);
-    spriteAirplane->setPosition3D(Vec3(0, 0, 0));
-    this->addChild(spriteAirplane);
 }
 
 void Airplane::setCameraToAirplane(Camera* camera)
@@ -198,6 +200,19 @@ void Airplane::onInputEnded(const cocos2d::Vec2& diff)
     // 開始ベクトルと開始回転量をリセット
     this->rotationStart.setZero();
     this->spriteRotationStart.setZero();
+}
+
+#pragma mark -
+#pragma mark パラメータ
+
+int Airplane::getAirplaneId() const
+{
+    return airplaneId;
+}
+
+const string& Airplane::getAirplaneName() const
+{
+    return airplaneName;
 }
 
 #pragma mark -
