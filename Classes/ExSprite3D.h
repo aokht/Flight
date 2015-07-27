@@ -12,6 +12,9 @@
 #include "cocos2d.h"
 #include "CollisionMesh.h"
 
+class ExVertexBuffer;
+class ExIndexBuffer;
+
 class ExSprite3D : public cocos2d::Sprite3D
 {
 public:
@@ -23,6 +26,9 @@ public:
     bool collisionDetectionEnabled() const;
     bool getIntersection(int* triangleIndex, float *tOut, const cocos2d::Vec3& begin, const cocos2d::Vec3& vec) const;
     bool isIntersect(const cocos2d::Vec3& begin, const cocos2d::Vec3& vec) const;
+
+    const cocos2d::MeshVertexData* getMeshVertexData() const;
+    const ExVertexBuffer* getVertexBuffer() const;
 
 protected:
     // Life Cycle

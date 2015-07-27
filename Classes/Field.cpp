@@ -13,6 +13,8 @@
 #include "Airplane.h"
 #include "Global.h"
 #include "Sphere.h"
+#include "SphereBatch.h"
+#include "Global.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -55,6 +57,9 @@ Field* Field::createWithData(const FieldData& data, bool collisionMesh)
 void Field::setupSpheres(const FieldData& data)
 {
     vector<vector<Vec3>> sphereGroupList = Sphere::getSphereGroupPositionList(data.filenameSphereLine);
+
+#if SPRITE3DBATCHNODE_ENABLED
+    SphereBatch* sphereBatch = SphereBatch::create();
     for (vector<Vec3> sphereGroup : sphereGroupList) {
         for (int i = 0, last = sphereGroup.size() - 1; i < last; ++i) {
             Vec3 p0 = sphereGroup[i];
@@ -62,18 +67,33 @@ void Field::setupSpheres(const FieldData& data)
             float distance = p1.distance(p0);
 
             for (float j = 0.f; j < distance; j += 200.f) {
-                //for (int k = 0; k < 9; ++k) {
-                    Vec3 position = p0 + (p1 - p0) / distance * j;
-//                    Vec3 position = p0 + (p1 - p0) / distance * j + Vec3(rand() % 100 - 50, rand() % 100 - 50, rand() % 100 - 50);
-                    Sprite3D* sphere = Sprite3D::create("spheres/sphere.obj");
-                    sphere->setScale(10);
-                    sphere->setPosition3D(position);
-                    this->addChild(sphere);
-                    sphereList.push_back(sphere);
-                //}
+                for (int k = 0; k < 9; ++k) {
+                    Vec3 position = p0 + (p1 - p0) / distance * j + Vec3(rand() % 100 - 50, rand() % 100 - 50, rand() % 100 - 50);
+                    sphereBatch->addSphere(position);
+                }
             }
         }
     }
+    sphereBatch->buildBatch();
+    sphereBatch->setPosition3D(Vec3(3500, 0, 3000));
+    this->addChild(sphereBatch);
+#else
+    for (vector<Vec3> sphereGroup : sphereGroupList) {
+        for (int i = 0, last = sphereGroup.size() - 1; i < last; ++i) {
+            Vec3 p0 = sphereGroup[i];
+            Vec3 p1 = sphereGroup[i + 1];
+            float distance = p1.distance(p0);
+            for (float j = 0.f; j < distance; j += 200.f) {
+                Vec3 position = p0 + (p1 - p0) / distance * j;
+                Sprite3D* diamond = Sprite3D::create("objects/diamond.obj");
+                diamond->setPosition3D(position);
+                diamond->setScale(0.5);
+                this->addChild(diamond);
+                sphereList.push_back(diamond);
+            }
+        }
+    }
+#endif
 }
 
 void Field::setAirplaneToField(Airplane *airplane)
@@ -126,6 +146,11 @@ int Field::getSphereCollisionCount()
      }
 
     return coinCount;
+}
+
+int Field::getSphereCount() const
+{
+    return sphereList.size();
 }
 
 Vec3 Field::getAirplanePosition() const

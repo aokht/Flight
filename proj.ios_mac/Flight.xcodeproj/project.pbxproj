@@ -59,6 +59,10 @@
 		5B4CB9191B5EF3120084916C /* AirplaneDataSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4CB9161B5EF3120084916C /* AirplaneDataSource.cpp */; };
 		5B58B5B01B649A3500539BEA /* SelectScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B58B5AE1B649A3500539BEA /* SelectScene.cpp */; };
 		5B58B5B11B649A3500539BEA /* SelectScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B58B5AE1B649A3500539BEA /* SelectScene.cpp */; };
+		5B58B5C91B6582EE00539BEA /* SphereBatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B58B5C71B6582EE00539BEA /* SphereBatch.cpp */; };
+		5B58B5CA1B6582EE00539BEA /* SphereBatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B58B5C71B6582EE00539BEA /* SphereBatch.cpp */; };
+		5B58B5CD1B65A55D00539BEA /* ExMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B58B5CB1B65A55D00539BEA /* ExMesh.cpp */; };
+		5B58B5CE1B65A55D00539BEA /* ExMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B58B5CB1B65A55D00539BEA /* ExMesh.cpp */; };
 		5B88F5F81B56409E00375BB2 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B88F5F41B56407100375BB2 /* libcocos2d Mac.a */; };
 		5B88F6011B564B7D00375BB2 /* Airplane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F5F91B564B7D00375BB2 /* Airplane.cpp */; };
 		5B88F6021B564B7D00375BB2 /* Airplane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B88F5F91B564B7D00375BB2 /* Airplane.cpp */; };
@@ -166,6 +170,10 @@
 		5B4CB9171B5EF3120084916C /* AirplaneDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirplaneDataSource.h; sourceTree = "<group>"; };
 		5B58B5AE1B649A3500539BEA /* SelectScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SelectScene.cpp; sourceTree = "<group>"; };
 		5B58B5AF1B649A3500539BEA /* SelectScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectScene.h; sourceTree = "<group>"; };
+		5B58B5C71B6582EE00539BEA /* SphereBatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SphereBatch.cpp; sourceTree = "<group>"; };
+		5B58B5C81B6582EE00539BEA /* SphereBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphereBatch.h; sourceTree = "<group>"; };
+		5B58B5CB1B65A55D00539BEA /* ExMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExMesh.cpp; sourceTree = "<group>"; };
+		5B58B5CC1B65A55D00539BEA /* ExMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExMesh.h; sourceTree = "<group>"; };
 		5B876E7B1B6422D90053D065 /* SceneData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneData.h; sourceTree = "<group>"; };
 		5B88F5EE1B56407000375BB2 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		5B88F5F91B564B7D00375BB2 /* Airplane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Airplane.cpp; sourceTree = "<group>"; };
@@ -434,6 +442,8 @@
 				5B419ED71B598B650056C69E /* Field.h */,
 				5B88F5FF1B564B7D00375BB2 /* Sphere.cpp */,
 				5B88F6001B564B7D00375BB2 /* Sphere.h */,
+				5B58B5C71B6582EE00539BEA /* SphereBatch.cpp */,
+				5B58B5C81B6582EE00539BEA /* SphereBatch.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -461,6 +471,8 @@
 				5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */,
 				5B94B0751B5A2C3C0094340C /* ExSprite3D.h */,
 				5B94B07D1B5A2C900094340C /* ExVertexIndexBuffer.h */,
+				5B58B5CB1B65A55D00539BEA /* ExMesh.cpp */,
+				5B58B5CC1B65A55D00539BEA /* ExMesh.h */,
 			);
 			name = "cocos2d-Ex";
 			sourceTree = "<group>";
@@ -613,6 +625,7 @@
 				5B89C9CB1B5F8CF70092C926 /* LobbyScene.cpp in Sources */,
 				5B88F6101B56BCF200375BB2 /* ResultScene.cpp in Sources */,
 				5B4396651B5B3F5D00972BD6 /* CollisionMesh.cpp in Sources */,
+				5B58B5CD1B65A55D00539BEA /* ExMesh.cpp in Sources */,
 				5B419ED81B598B650056C69E /* Field.cpp in Sources */,
 				5B88F6071B564B7D00375BB2 /* Sphere.cpp in Sources */,
 				5B88F6141B56BE0400375BB2 /* ParameterScene.cpp in Sources */,
@@ -628,6 +641,7 @@
 				5B94B0761B5A2C3C0094340C /* ExSprite3D.cpp in Sources */,
 				5B4CB9181B5EF3120084916C /* AirplaneDataSource.cpp in Sources */,
 				5B88F6011B564B7D00375BB2 /* Airplane.cpp in Sources */,
+				5B58B5C91B6582EE00539BEA /* SphereBatch.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,6 +654,7 @@
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				5B88F6021B564B7D00375BB2 /* Airplane.cpp in Sources */,
 				5B4CB9191B5EF3120084916C /* AirplaneDataSource.cpp in Sources */,
+				5B58B5CA1B6582EE00539BEA /* SphereBatch.cpp in Sources */,
 				5B89C9CC1B5F8CF70092C926 /* LobbyScene.cpp in Sources */,
 				5B419ED91B598B650056C69E /* Field.cpp in Sources */,
 				5B88F6191B56BF5600375BB2 /* GameSceneManager.cpp in Sources */,
@@ -651,6 +666,7 @@
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				5B94B0771B5A2C3C0094340C /* ExSprite3D.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
+				5B58B5CE1B65A55D00539BEA /* ExMesh.cpp in Sources */,
 				5B58B5B11B649A3500539BEA /* SelectScene.cpp in Sources */,
 				5B89C9D81B5FF38E0092C926 /* SceneManager.cpp in Sources */,
 			);

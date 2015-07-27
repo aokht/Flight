@@ -183,3 +183,16 @@ void ExSprite3D::enableCollisionDetection(bool flag)
 {
     _collisionDetectionEnabled = flag;
 }
+
+const MeshVertexData* ExSprite3D::getMeshVertexData() const
+{
+    return this->_meshVertexDatas.at(0);
+}
+
+const ExVertexBuffer* ExSprite3D::getVertexBuffer() const
+{
+    const MeshVertexData* meshVertexData = this->getMeshVertexData();
+    const VertexBuffer* vertexBuffer = meshVertexData->getVertexBuffer();
+    return (const ExVertexBuffer*)vertexBuffer;
+//    return (const ExVertexBuffer*)this->getMeshVertexData()->getVertexBuffer();
+}

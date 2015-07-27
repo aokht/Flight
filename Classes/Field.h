@@ -26,6 +26,7 @@ public:
 
     void step(float dt);
     int getSphereCollisionCount();
+    int getSphereCount() const;
 
     // パラメータ
     int getFieldId() const;
