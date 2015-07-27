@@ -35,7 +35,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::createWithRect("Flight", Rect(0, 0, 1334, 750));
+        glview = GLViewImpl::create("Flight");
         director->setOpenGLView(glview);
     }
 
@@ -51,6 +51,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     FileUtils::getInstance()->addSearchPath("res");
     FileUtils::getInstance()->addSearchPath("plists");
+    FileUtils::getInstance()->addSearchPath("scenes");
 
     // create a scene. it's an autorelease object
     auto scene = HelloWorld::createScene();
