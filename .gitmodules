@@ -4,3 +4,6 @@
 [submodule "Resources"]
 	path = Resources
 	url = git@github.com:aokht/FlightAssets.git
+[submodule "contrib/MultipeerConnectivityCpp"]
+	path = contrib/MultipeerConnectivityCpp
+	url = https://github.com/MakeSchool/MultipeerConnectivityCpp.git
