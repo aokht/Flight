@@ -14,7 +14,7 @@
 #include "Global.h"
 #include "Sphere.h"
 #include "SphereBatch.h"
-#include "Global.h"
+#include "ExMesh.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -49,9 +49,53 @@ Field* Field::createWithData(const FieldData& data, bool collisionMesh)
     field->fieldId = data.id;
     field->fieldName = data.name;
 
+    field->setupShaders(data);
     field->setupSpheres(data);
 
+    // シェーダでフィールドをつなげて見せるため
+    // カメラにクリッピングされないように AABB を実際の 2倍程度に大きくごまかしておく
+    ((ExMesh*)field->getMesh())->setAABB(AABB(Vec3(-FIELD_LENGTH, -FIELD_LENGTH, -FIELD_LENGTH), Vec3(FIELD_LENGTH, FIELD_LENGTH, FIELD_LENGTH)));
+
     return field;
+}
+
+void Field::setupShaders(const FieldData& data)
+{
+    GLProgram* glProgram = GLProgram::createWithFilenames("FieldShader.vert", "FieldShader.frag");
+    GLProgramState* glProgramState = GLProgramState::create(glProgram);
+    this->setGLProgramState(glProgramState);
+
+    // メッシュ取得(obj形式では1つのみの前提)
+    MeshVertexData* mesh = this->_meshVertexDatas.at(0);
+    for (ssize_t i = 0, attributeCount = mesh->getMeshVertexAttribCount(), offset = 0; i < attributeCount; i++) {
+        const MeshVertexAttrib& meshattribute = mesh->getMeshVertexAttrib(i);
+        glProgramState->setVertexAttribPointer(
+            s_attributeNames[meshattribute.vertexAttrib],
+            meshattribute.size,
+            meshattribute.type,
+            GL_FALSE,
+            mesh->getVertexBuffer()->getSizePerVertex(),
+            (GLvoid*)offset
+        );
+
+        offset += meshattribute.attribSizeBytes;
+    }
+
+    // 法線マップがあれば指定 TODO: シェーダを分ける
+    if (! data.filenameTextureNormal.empty()) {
+        Texture2D* normalTexture = Director::getInstance()->getTextureCache()->addImage(data.filenameTextureNormal);
+        glProgramState->setUniformTexture("u_normalMap", normalTexture);
+    }
+
+    // uniform をセット
+    glProgramState->setUniformCallback("u_currentPosition", [this](GLProgram* program, Uniform* uniform) {
+        const Vec3& p = this->getAirplanePosition();
+        program->setUniformLocationWith3f(uniform->location, p.x, p.y, p.z);
+    });
+    glProgramState->setUniformCallback("u_currentRotation", [this](GLProgram* program, Uniform* uniform) {
+        const Vec3& r = this->airplane->getRotation3D();
+        program->setUniformLocationWith3f(uniform->location, r.x, r.y, r.z);
+    });
 }
 
 void Field::setupSpheres(const FieldData& data)

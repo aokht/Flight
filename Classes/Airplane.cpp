@@ -84,6 +84,11 @@ void Airplane::step(float dt)
 
 void Airplane::rotate(float dt)
 {
+    if (dt == 0.f) {
+        // たまにある(0割が起きるのではじく)
+        return;
+    }
+
     // 機体を傾ける (Sprite に対する操作)
 
     // TODO: 単位時間あたりの回転可能量パラメータ

@@ -144,7 +144,6 @@ void GameScene::setupField()
     int fieldId = GameSceneManager::getInstance()->getSceneData().stageId;
     this->field = Field::createById(fieldId, true);
     this->addChild(field);
-
 }
 
 void GameScene::setupSkyDome()

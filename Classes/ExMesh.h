@@ -24,5 +24,10 @@ public:
         Mesh::setGLProgramState(glProgramState);
     }
 
+    void setAABB(cocos2d::AABB aabb)
+    {
+        this->_aabb = aabb;
+    }
+
 };
 #endif /* defined(__Flight__ExMesh__) */

@@ -23,6 +23,18 @@ ostream& operator<<(ostream& stream, const Vec3& vec)
     return stream;
 }
 
+ostream& operator<<(ostream& stream, const Rect& rec)
+{
+    stream << rec.origin << ", " << rec.size;
+    return stream;
+}
+
+ostream& operator<<(ostream& stream, const AABB& aabb)
+{
+    stream << aabb._min << ", " << aabb._max;
+    return stream;
+}
+
 ostream& operator<<(ostream& stream, const GameScene::GameScore& score)
 {
     stream << "score: { coinsCount: " << score.coinsCount << ", " << "elapsedTime: " << score.elapsedTime << "}";
