@@ -19,7 +19,7 @@
 using namespace std;
 using namespace cocos2d;
 
-Field* Field::createById(int id, bool collisionMesh)
+Field* Field::createById(int id, bool collisionMesh, bool subField)
 {
     const FieldData FieldData = FieldDataSource::findById(id);
 
@@ -27,24 +27,23 @@ Field* Field::createById(int id, bool collisionMesh)
         return nullptr;
     }
 
-    return Field::createWithData(FieldData, collisionMesh);
+    return Field::createWithData(FieldData, collisionMesh, subField);
 }
 
-Field* Field::createWithData(const FieldData& data, bool collisionMesh)
+Field* Field::createWithModelPath(const std::string& modelPath)
 {
     Field* field = new Field();
-
-    if (field) {
-        field->enableCollisionDetection(collisionMesh);
-
-        if (field->initWithFile(data.filenameTerrain)) {
-            field->autorelease();
-        }
-    } else {
-        delete field;
-        field = nullptr;
-        return nullptr;
+    if (field && field->initWithFile(modelPath)) {
+        field->autorelease();
+        return field;
     }
+    CC_SAFE_DELETE(field);
+    return nullptr;
+}
+
+Field* Field::createWithData(const FieldData& data, bool collisionMesh, bool subField)
+{
+    Field* field = Field::createWithModelPath(data.filenameTerrain);
 
     field->fieldId = data.id;
     field->fieldName = data.name;
@@ -52,16 +51,47 @@ Field* Field::createWithData(const FieldData& data, bool collisionMesh)
     field->setupShaders(data);
     field->setupSpheres(data);
 
-    // シェーダでフィールドをつなげて見せるため
-    // カメラにクリッピングされないように AABB を実際の 2倍程度に大きくごまかしておく
-    ((ExMesh*)field->getMesh())->setAABB(AABB(Vec3(-FIELD_LENGTH, -FIELD_LENGTH, -FIELD_LENGTH), Vec3(FIELD_LENGTH, FIELD_LENGTH, FIELD_LENGTH)));
+    // フィールドを無限に表示するための細工
+    // シェーダでやろうとしたけどうまくいかなくて時間がないので頭悪いけど妥協
+    if (subField) {
+        for (int i = 0; i < 8; ++i) {
+            Field* subField = Field::createWithData(data, false, false);
+            switch (i) {
+                case 0:
+                    subField->setPosition3D(Vec3(-FIELD_LENGTH, 0.f,  FIELD_LENGTH));
+                    break;
+                case 1:
+                    subField->setPosition3D(Vec3(          0.f, 0.f,  FIELD_LENGTH));
+                    break;
+                case 2:
+                    subField->setPosition3D(Vec3( FIELD_LENGTH, 0.f,  FIELD_LENGTH));
+                    break;
+                case 3:
+                    subField->setPosition3D(Vec3(-FIELD_LENGTH, 0.f,           0.f));
+                    break;
+                case 4:
+                    subField->setPosition3D(Vec3( FIELD_LENGTH, 0.f,           0.f));
+                    break;
+                case 5:
+                    subField->setPosition3D(Vec3(-FIELD_LENGTH, 0.f, -FIELD_LENGTH));
+                    break;
+                case 6:
+                    subField->setPosition3D(Vec3(          0.f, 0.f, -FIELD_LENGTH));
+                    break;
+                case 7:
+                    subField->setPosition3D(Vec3( FIELD_LENGTH, 0.f, -FIELD_LENGTH));
+                    break;
+            }
+            field->addChild(subField);
+        }
+    }
 
     return field;
 }
 
 void Field::setupShaders(const FieldData& data)
 {
-    GLProgram* glProgram = GLProgram::createWithFilenames("FieldShader.vert", "FieldShader.frag");
+    GLProgram* glProgram = GLProgram::createWithFilenames("DuplicateFieldShader.vert", "DuplicateFieldShader.frag");
     GLProgramState* glProgramState = GLProgramState::create(glProgram);
     this->setGLProgramState(glProgramState);
 
@@ -86,16 +116,6 @@ void Field::setupShaders(const FieldData& data)
         Texture2D* normalTexture = Director::getInstance()->getTextureCache()->addImage(data.filenameTextureNormal);
         glProgramState->setUniformTexture("u_normalMap", normalTexture);
     }
-
-    // uniform をセット
-    glProgramState->setUniformCallback("u_currentPosition", [this](GLProgram* program, Uniform* uniform) {
-        const Vec3& p = this->getAirplanePosition();
-        program->setUniformLocationWith3f(uniform->location, p.x, p.y, p.z);
-    });
-    glProgramState->setUniformCallback("u_currentRotation", [this](GLProgram* program, Uniform* uniform) {
-        const Vec3& r = this->airplane->getRotation3D();
-        program->setUniformLocationWith3f(uniform->location, r.x, r.y, r.z);
-    });
 }
 
 void Field::setupSpheres(const FieldData& data)
@@ -149,7 +169,9 @@ void Field::step(float dt)
     // X軸回転を上下の進行距離に変換
     pos.y -= distance * sin(-diff_rad_x);
 
-    float adjust = 5000.f;
+
+    // XZ方向は、端まで行ったら逆端に移動
+    float adjust = FIELD_LENGTH * 0.5f;
     pos.x = fmod(pos.x + adjust, adjust * 2.f) - adjust;
     if (pos.x < -adjust) {
         pos.x += adjust * 2.f;

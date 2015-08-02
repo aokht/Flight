@@ -142,7 +142,7 @@ void GameScene::endGame()
 void GameScene::setupField()
 {
     int fieldId = GameSceneManager::getInstance()->getSceneData().stageId;
-    this->field = Field::createById(fieldId, true);
+    this->field = Field::createById(fieldId, true, true);
     this->addChild(field);
 }
 

@@ -13,13 +13,20 @@ using namespace cocos2d;
 
 Sprite3DBatchNode* Sprite3DBatchNode::create(const std::string& modelPath)
 {
+    return Sprite3DBatchNode::create(modelPath, "Sprite3DBatchNodeShader.vert", "Sprite3DBatchNodeShader.frag");
+}
+
+Sprite3DBatchNode* Sprite3DBatchNode::create(const string& modelPath, const string& vertShader, const string& fragShader)
+{
     Sprite3DBatchNode* sprite3DBatchNode = new Sprite3DBatchNode();
-    if (sprite3DBatchNode && sprite3DBatchNode->initWithFile(modelPath)) {
+    if (sprite3DBatchNode && sprite3DBatchNode->initWithFileAndShaders(modelPath, vertShader, fragShader)) {
         sprite3DBatchNode->autorelease();
         return sprite3DBatchNode;
     }
     CC_SAFE_DELETE(sprite3DBatchNode);
     return nullptr;
+
+
 }
 
 Sprite3DBatchNode::Sprite3DBatchNode() :
@@ -32,18 +39,18 @@ Sprite3DBatchNode::~Sprite3DBatchNode()
 {
 }
 
-bool Sprite3DBatchNode::initWithFile(const std::string &modelPath)
+bool Sprite3DBatchNode::initWithFileAndShaders(const string& modelPath, const string& vertShader, const string& fragShader)
 {
     bool ret = ExSprite3D::initWithFile(modelPath);
 
-    this->setupShaders();
+    this->setupShaders(vertShader, fragShader);
 
     return ret;
 }
 
-void Sprite3DBatchNode::setupShaders()
+void Sprite3DBatchNode::setupShaders(const string& vertShader, const string& fragShader)
 {
-    GLProgram* glProgram = GLProgram::createWithFilenames("Sprite3DBatchNodeShader.vert", "Sprite3DBatchNodeShader.frag");
+    GLProgram* glProgram = GLProgram::createWithFilenames(vertShader, fragShader);
     GLProgramState* glProgramState = GLProgramState::create(glProgram);
     this->setGLProgramState(glProgramState);
 
@@ -102,9 +109,14 @@ void Sprite3DBatchNode::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& t
         glCullFace(GL_BACK);
         glEnable(GL_DEPTH_TEST);
 
-        MeshIndexData* meshIndexData = this->getMesh()->getMeshIndexData();
+        Mesh* mesh = this->getMesh();
+        MeshIndexData* meshIndexData = mesh->getMeshIndexData();
         GLuint vertexBuffer = meshIndexData->getVertexBuffer()->getVBO();
         GLuint indexBuffer = meshIndexData->getIndexBuffer()->getVBO();
+
+        if (mesh->getTexture()) {
+            GL::bindTexture2D(mesh->getTexture()->getName());
+        }
 
         glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
         this->getGLProgramState()->apply(transform);

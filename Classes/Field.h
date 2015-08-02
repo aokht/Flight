@@ -19,8 +19,9 @@ class Field : public ExSprite3D
 {
 public:
     // Life Cycle
-    static Field* createById(int i, bool collisionMesh = false);
-    static Field* createWithData(const FieldData& data, bool collisionMesh = false);
+    static Field* createById(int i, bool collisionMesh = false, bool subField = false);
+    static Field* createWithModelPath(const std::string& modelPath);
+    static Field* createWithData(const FieldData& data, bool collisionMesh = false, bool subField = false);
     void setAirplaneToField(Airplane* airplane);
     cocos2d::Vec3 getAirplanePosition() const;
 

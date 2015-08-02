@@ -16,6 +16,7 @@ class Sprite3DBatchNode : public ExSprite3D
 {
 public:
     static Sprite3DBatchNode* create(const std::string& modelPath);
+    static Sprite3DBatchNode* create(const std::string& modelPath, const std::string& vertShader, const std::string& fragShader);
 
     void add(cocos2d::Vec3 position);
 
@@ -30,8 +31,8 @@ protected:
 
     Sprite3DBatchNode();
     ~Sprite3DBatchNode();
-    bool initWithFile(const std::string& modelPath);
-    void setupShaders();
+    bool initWithFileAndShaders(const std::string& modelPath, const std::string& vertShader, const std::string& fragShader);
+    void setupShaders(const std::string& vertShader, const std::string& fragShader);
 
     cocos2d::CustomCommand command;
 };
