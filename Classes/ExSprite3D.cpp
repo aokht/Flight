@@ -191,8 +191,5 @@ const MeshVertexData* ExSprite3D::getMeshVertexData() const
 
 const ExVertexBuffer* ExSprite3D::getVertexBuffer() const
 {
-    const MeshVertexData* meshVertexData = this->getMeshVertexData();
-    const VertexBuffer* vertexBuffer = meshVertexData->getVertexBuffer();
-    return (const ExVertexBuffer*)vertexBuffer;
-//    return (const ExVertexBuffer*)this->getMeshVertexData()->getVertexBuffer();
+    return (const ExVertexBuffer*)this->getMeshVertexData()->getVertexBuffer();
 }

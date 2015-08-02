@@ -53,6 +53,13 @@
 		5B4396651B5B3F5D00972BD6 /* CollisionMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4396631B5B3F5D00972BD6 /* CollisionMesh.cpp */; };
 		5B4396661B5B3F5D00972BD6 /* CollisionMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4396631B5B3F5D00972BD6 /* CollisionMesh.cpp */; };
 		5B43966B1B5C7C5700972BD6 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B88F5F61B56407100375BB2 /* libcocos2d iOS.a */; };
+		5B4B04031B6C72D4008B6C09 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4B04021B6C72D4008B6C09 /* OpenGLES.framework */; };
+		5B4B04081B6D72E8008B6C09 /* Sprite3DBatchNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4B04061B6D72E8008B6C09 /* Sprite3DBatchNode.cpp */; };
+		5B4B04091B6D72E8008B6C09 /* Sprite3DBatchNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4B04061B6D72E8008B6C09 /* Sprite3DBatchNode.cpp */; };
+		5B4B040B1B6D8890008B6C09 /* Sprite3DBatchNodeShader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 5B4B040A1B6D8890008B6C09 /* Sprite3DBatchNodeShader.frag */; };
+		5B4B040C1B6D8890008B6C09 /* Sprite3DBatchNodeShader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 5B4B040A1B6D8890008B6C09 /* Sprite3DBatchNodeShader.frag */; };
+		5B4B040E1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert in Resources */ = {isa = PBXBuildFile; fileRef = 5B4B040D1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert */; };
+		5B4B040F1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert in Resources */ = {isa = PBXBuildFile; fileRef = 5B4B040D1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert */; };
 		5B4CB9131B5EF1F90084916C /* plists in Resources */ = {isa = PBXBuildFile; fileRef = 5B4CB9121B5EF1F90084916C /* plists */; };
 		5B4CB9141B5EF1F90084916C /* plists in Resources */ = {isa = PBXBuildFile; fileRef = 5B4CB9121B5EF1F90084916C /* plists */; };
 		5B4CB9181B5EF3120084916C /* AirplaneDataSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4CB9161B5EF3120084916C /* AirplaneDataSource.cpp */; };
@@ -61,8 +68,6 @@
 		5B58B5B11B649A3500539BEA /* SelectScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B58B5AE1B649A3500539BEA /* SelectScene.cpp */; };
 		5B58B5B91B652CF100539BEA /* scenes in Resources */ = {isa = PBXBuildFile; fileRef = 5B58B5B81B652CF100539BEA /* scenes */; };
 		5B58B5BA1B652CF100539BEA /* scenes in Resources */ = {isa = PBXBuildFile; fileRef = 5B58B5B81B652CF100539BEA /* scenes */; };
-		5B58B5C91B6582EE00539BEA /* SphereBatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B58B5C71B6582EE00539BEA /* SphereBatch.cpp */; };
-		5B58B5CA1B6582EE00539BEA /* SphereBatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B58B5C71B6582EE00539BEA /* SphereBatch.cpp */; };
 		5B58B5F31B669B6400539BEA /* NetworkingWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5B58B5EC1B669B6400539BEA /* NetworkingWrapper.mm */; };
 		5B58B5F41B669B6400539BEA /* NetworkingWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5B58B5EC1B669B6400539BEA /* NetworkingWrapper.mm */; };
 		5B58B5F51B669B6400539BEA /* NetworkManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5B58B5EE1B669B6400539BEA /* NetworkManager.mm */; };
@@ -105,7 +110,6 @@
 		5B94B0771B5A2C3C0094340C /* ExSprite3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */; };
 		7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */ = {isa = PBXBuildFile; fileRef = FA144D09A52357282113E0F8 /* res */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
-		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
@@ -180,6 +184,11 @@
 		5B419ED71B598B650056C69E /* Field.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Field.h; sourceTree = "<group>"; };
 		5B4396631B5B3F5D00972BD6 /* CollisionMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollisionMesh.cpp; sourceTree = "<group>"; };
 		5B4396641B5B3F5D00972BD6 /* CollisionMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollisionMesh.h; sourceTree = "<group>"; };
+		5B4B04021B6C72D4008B6C09 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
+		5B4B04061B6D72E8008B6C09 /* Sprite3DBatchNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sprite3DBatchNode.cpp; sourceTree = "<group>"; };
+		5B4B04071B6D72E8008B6C09 /* Sprite3DBatchNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite3DBatchNode.h; sourceTree = "<group>"; };
+		5B4B040A1B6D8890008B6C09 /* Sprite3DBatchNodeShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Sprite3DBatchNodeShader.frag; path = Shaders/Sprite3DBatchNodeShader.frag; sourceTree = "<group>"; };
+		5B4B040D1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Sprite3DBatchNodeShader.vert; path = Shaders/Sprite3DBatchNodeShader.vert; sourceTree = "<group>"; };
 		5B4CB8FA1B5E05630084916C /* FieldShader.frag */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = FieldShader.frag; sourceTree = "<group>"; };
 		5B4CB8FB1B5E05630084916C /* FieldShader.vert */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = FieldShader.vert; sourceTree = "<group>"; };
 		5B4CB9121B5EF1F90084916C /* plists */ = {isa = PBXFileReference; lastKnownFileType = folder; path = plists; sourceTree = "<group>"; };
@@ -188,8 +197,6 @@
 		5B58B5AE1B649A3500539BEA /* SelectScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SelectScene.cpp; sourceTree = "<group>"; };
 		5B58B5AF1B649A3500539BEA /* SelectScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectScene.h; sourceTree = "<group>"; };
 		5B58B5B81B652CF100539BEA /* scenes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = scenes; sourceTree = "<group>"; };
-		5B58B5C71B6582EE00539BEA /* SphereBatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SphereBatch.cpp; sourceTree = "<group>"; };
-		5B58B5C81B6582EE00539BEA /* SphereBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphereBatch.h; sourceTree = "<group>"; };
 		5B58B5CC1B65A55D00539BEA /* ExMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExMesh.h; sourceTree = "<group>"; };
 		5B58B5EB1B669B6400539BEA /* NetworkingWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingWrapper.h; sourceTree = "<group>"; };
 		5B58B5EC1B669B6400539BEA /* NetworkingWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NetworkingWrapper.mm; sourceTree = "<group>"; };
@@ -243,6 +250,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B4B04031B6C72D4008B6C09 /* OpenGLES.framework in Frameworks */,
 				5B58B5FE1B669EF900539BEA /* MultipeerConnectivity.framework in Frameworks */,
 				5B43966B1B5C7C5700972BD6 /* libcocos2d iOS.a in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
@@ -250,7 +258,6 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
-				BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */,
 				BF1712471292920000B8313A /* libz.dylib in Frameworks */,
 				BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */,
 				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
@@ -322,6 +329,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5B4B04021B6C72D4008B6C09 /* OpenGLES.framework */,
 				5B58B5FD1B669EF900539BEA /* MultipeerConnectivity.framework */,
 				5B58B5FB1B669EC400539BEA /* MultipeerConnectivity.framework */,
 				8262943D1AAF051F00CB7CF7 /* Security.framework */,
@@ -427,6 +435,8 @@
 			children = (
 				5B4396631B5B3F5D00972BD6 /* CollisionMesh.cpp */,
 				5B4396641B5B3F5D00972BD6 /* CollisionMesh.h */,
+				5B4B04061B6D72E8008B6C09 /* Sprite3DBatchNode.cpp */,
+				5B4B04071B6D72E8008B6C09 /* Sprite3DBatchNode.h */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -437,6 +447,8 @@
 				5B58B6001B6A865C00539BEA /* FieldShader.old.vert */,
 				5B4CB8FA1B5E05630084916C /* FieldShader.frag */,
 				5B4CB8FB1B5E05630084916C /* FieldShader.vert */,
+				5B4B040A1B6D8890008B6C09 /* Sprite3DBatchNodeShader.frag */,
+				5B4B040D1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert */,
 			);
 			name = Shaders;
 			sourceTree = "<group>";
@@ -524,8 +536,6 @@
 				5B419ED71B598B650056C69E /* Field.h */,
 				5B88F5FF1B564B7D00375BB2 /* Sphere.cpp */,
 				5B88F6001B564B7D00375BB2 /* Sphere.h */,
-				5B58B5C71B6582EE00539BEA /* SphereBatch.cpp */,
-				5B58B5C81B6582EE00539BEA /* SphereBatch.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -671,11 +681,13 @@
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
+				5B4B040E1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				5B4CB9131B5EF1F90084916C /* plists in Resources */,
 				5B88F60B1B564C8200375BB2 /* fonts in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
+				5B4B040B1B6D8890008B6C09 /* Sprite3DBatchNodeShader.frag in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
@@ -701,6 +713,8 @@
 				5B8D57541B61F3DE00601532 /* FieldShader.frag in Resources */,
 				5B58B5F81B669B6400539BEA /* networkingDiagram.png in Resources */,
 				7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */,
+				5B4B040F1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert in Resources */,
+				5B4B040C1B6D8890008B6C09 /* Sprite3DBatchNodeShader.frag in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -717,6 +731,7 @@
 				5B88F6101B56BCF200375BB2 /* ResultScene.cpp in Sources */,
 				5B4396651B5B3F5D00972BD6 /* CollisionMesh.cpp in Sources */,
 				5B419ED81B598B650056C69E /* Field.cpp in Sources */,
+				5B4B04081B6D72E8008B6C09 /* Sprite3DBatchNode.cpp in Sources */,
 				5B88F6071B564B7D00375BB2 /* Sphere.cpp in Sources */,
 				5B88F6141B56BE0400375BB2 /* ParameterScene.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
@@ -734,7 +749,6 @@
 				5B4CB9181B5EF3120084916C /* AirplaneDataSource.cpp in Sources */,
 				5B88F6011B564B7D00375BB2 /* Airplane.cpp in Sources */,
 				5B58B5F51B669B6400539BEA /* NetworkManager.mm in Sources */,
-				5B58B5C91B6582EE00539BEA /* SphereBatch.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,11 +763,11 @@
 				5B58B5F61B669B6400539BEA /* NetworkManager.mm in Sources */,
 				5B88F6021B564B7D00375BB2 /* Airplane.cpp in Sources */,
 				5B4CB9191B5EF3120084916C /* AirplaneDataSource.cpp in Sources */,
-				5B58B5CA1B6582EE00539BEA /* SphereBatch.cpp in Sources */,
 				5B58B5FA1B669B6400539BEA /* README.md in Sources */,
 				5B89C9CC1B5F8CF70092C926 /* LobbyScene.cpp in Sources */,
 				5B419ED91B598B650056C69E /* Field.cpp in Sources */,
 				5B88F6191B56BF5600375BB2 /* GameSceneManager.cpp in Sources */,
+				5B4B04091B6D72E8008B6C09 /* Sprite3DBatchNode.cpp in Sources */,
 				5B89C9C31B5F74900092C926 /* FieldDataSource.cpp in Sources */,
 				5B4396661B5B3F5D00972BD6 /* CollisionMesh.cpp in Sources */,
 				5B88F6151B56BE0400375BB2 /* ParameterScene.cpp in Sources */,

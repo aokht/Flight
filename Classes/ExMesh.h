@@ -14,16 +14,6 @@
 class ExMesh : public cocos2d::Mesh
 {
 public:
-    cocos2d::MeshCommand& getMeshCommand()
-    {
-        return cocos2d::Mesh::getMeshCommand();
-    };
-
-    void setGLProgramState(cocos2d::GLProgramState* glProgramState)
-    {
-        Mesh::setGLProgramState(glProgramState);
-    }
-
     void setAABB(cocos2d::AABB aabb)
     {
         this->_aabb = aabb;

@@ -13,7 +13,7 @@
 #include "Airplane.h"
 #include "Global.h"
 #include "Sphere.h"
-#include "SphereBatch.h"
+#include "Sprite3DBatchNode.h"
 #include "ExMesh.h"
 
 using namespace std;
@@ -101,43 +101,30 @@ void Field::setupShaders(const FieldData& data)
 void Field::setupSpheres(const FieldData& data)
 {
     vector<vector<Vec3>> sphereGroupList = Sphere::getSphereGroupPositionList(data.filenameSphereLine);
+    static const int sphereDivisor = 10.f;      // TODO: スフィア配置の分割数
+    static const int sphereDistribution = 100;  // TODO: スフィア配置の分散値
 
-#if SPRITE3DBATCHNODE_ENABLED
-    SphereBatch* sphereBatch = SphereBatch::create();
-    for (vector<Vec3> sphereGroup : sphereGroupList) {
-        for (int i = 0, last = sphereGroup.size() - 1; i < last; ++i) {
-            Vec3 p0 = sphereGroup[i];
-            Vec3 p1 = sphereGroup[i + 1];
-            float distance = p1.distance(p0);
+    for (const vector<Vec3>& sphereGroup : sphereGroupList) {
+        Sprite3DBatchNode* sprite3DBatchNode = Sprite3DBatchNode::create("objects/diamond.obj");
+        for (int i = 0, last = (int)sphereGroup.size() - 1; i < last; ++i) {
+            const Vec3& p0 = sphereGroup[i];
+            const Vec3& p1 = sphereGroup[i + 1];
+            Vec3 distanceUnit = (p1 - p0) / (float)sphereDivisor;
 
-            for (float j = 0.f; j < distance; j += 200.f) {
+            for (int j = 0; j < sphereDivisor; ++j) {
                 for (int k = 0; k < 9; ++k) {
-                    Vec3 position = p0 + (p1 - p0) / distance * j + Vec3(rand() % 100 - 50, rand() % 100 - 50, rand() % 100 - 50);
-                    sphereBatch->addSphere(position);
+                    Vec3 dist(
+                        rand() % sphereDistribution - sphereDistribution * 0.5,
+                        rand() % sphereDistribution - sphereDistribution * 0.5,
+                        rand() % sphereDistribution - sphereDistribution * 0.5
+                    );
+                    sprite3DBatchNode->add(p0 + distanceUnit * j + dist);
                 }
             }
         }
+
+        this->addChild(sprite3DBatchNode);
     }
-    sphereBatch->buildBatch();
-    sphereBatch->setPosition3D(Vec3(3500, 0, 3000));
-    this->addChild(sphereBatch);
-#else
-    for (vector<Vec3> sphereGroup : sphereGroupList) {
-        for (int i = 0, last = sphereGroup.size() - 1; i < last; ++i) {
-            Vec3 p0 = sphereGroup[i];
-            Vec3 p1 = sphereGroup[i + 1];
-            float distance = p1.distance(p0);
-            for (float j = 0.f; j < distance; j += 200.f) {
-                Vec3 position = p0 + (p1 - p0) / distance * j;
-                Sprite3D* diamond = Sprite3D::create("objects/diamond.obj");
-                diamond->setPosition3D(position);
-                diamond->setScale(0.5);
-                this->addChild(diamond);
-                sphereList.push_back(diamond);
-            }
-        }
-    }
-#endif
 }
 
 void Field::setAirplaneToField(Airplane *airplane)
