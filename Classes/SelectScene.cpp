@@ -135,38 +135,43 @@ void SelectScene::setupUI()
 
 void SelectScene::loadStages()
 {
-    for (FieldData data : FieldDataSource::findAll()) {
-        Field* field = Field::createWithData(data);
-        field->setScale(0.03);
-        field->setRotation3D(Vec3(5, 0, 0));
-        this->fieldList.pushBack(field);
+    for (const FieldData& data : FieldDataSource::findAll()) {
+        fieldIdList.push_back(data.id);
     }
 }
 
 void SelectScene::loadAirplanes()
 {
-    for (AirplaneData data : AirplaneDataSource::findAll()) {
-        Airplane* airplane = Airplane::createByData(data);
-        airplane->setScale(100);
-        airplane->setRotation3D(Vec3(15, 0, 0));
-        this->airplaneList.pushBack(airplane);
+    for (const AirplaneData& data : AirplaneDataSource::findAll()) {
+        airplaneIdList.push_back(data.id);
     }
 }
 
 void SelectScene::showStage(int index)
 {
-    if (index < 0) {
-        index = fieldList.size() - 1;
-    } else {
-        index = index % fieldList.size();
-    }
-
     Field* prevField = this->stageNode->getChildByName<Field*>("spriteField");
     if (prevField) {
         prevField->removeFromParent();
     }
+    // TODO: loading 的な何か
 
-    Field* field = fieldList.at(index);
+    if (index < 0) {
+        index = (int)fieldIdList.size() - 1;
+    } else {
+        index = index % fieldIdList.size();
+    }
+    int fieldId = fieldIdList[index];
+
+    Field* field = fieldList.at(fieldId);
+    if (field == nullptr) {
+        FieldData data = FieldDataSource::findById(fieldId);
+        CCLOG("Loading stage: %s", data.filenameTerrain.data());
+        field = Field::createWithData(data);
+        field->setScale(0.03);
+        field->setRotation3D(Vec3(5, 0, 0));
+        this->fieldList.insert(fieldId, field);
+    }
+
     this->stageNameLabel->setString(field->getFieldName());
     this->stageNode->addChild(field, 0, "spriteField");
     this->currentField = index;
@@ -176,18 +181,29 @@ void SelectScene::showStage(int index)
 
 void SelectScene::showAirplane(int index)
 {
-    if (index < 0) {
-        index = airplaneList.size() - 1;
-    } else {
-        index = index % airplaneList.size();
-    }
-
     Airplane* prevAirplane = this->airplaneNode->getChildByName<Airplane*>("spriteAirplane");
     if (prevAirplane) {
         prevAirplane->removeFromParent();
     }
+    // TODO: loading 的な何か
 
-    Airplane* airplane = airplaneList.at(index);
+    if (index < 0) {
+        index = (int)airplaneIdList.size() - 1;
+    } else {
+        index = index % airplaneIdList.size();
+    }
+    int airplaneId = airplaneIdList[index];
+
+    Airplane* airplane = airplaneList.at(airplaneId);
+    if (airplane == nullptr) {
+        AirplaneData data = AirplaneDataSource::findById(airplaneId);
+        CCLOG("Loading airplane: %s", data.name.data());
+        airplane = Airplane::createByData(data);
+        airplane->setScale(100);
+        airplane->setRotation3D(Vec3(15, 0, 0));
+        this->airplaneList.insert(airplaneId, airplane);
+    }
+
     this->airplaneNameLabel->setString(airplane->getAirplaneName());
     this->airplaneNode->addChild(airplane, 0, "spriteAirplane");
     this->currentAirplane = index;

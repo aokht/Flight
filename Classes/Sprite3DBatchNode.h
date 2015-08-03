@@ -17,14 +17,27 @@ class Sprite3DBatchNode : public ExSprite3D
 public:
     static Sprite3DBatchNode* create(const std::string& modelPath);
     static Sprite3DBatchNode* create(const std::string& modelPath, const std::string& vertShader, const std::string& fragShader);
+    static Sprite3DBatchNode* createShared(const Sprite3DBatchNode& src);
 
     void add(cocos2d::Vec3 position);
+    int getNodeCount() const;
 
     void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
 
+    struct NodeStatus {
+        bool isVisible;
+        cocos2d::Vec3 position;
+    };
+    const std::vector<NodeStatus>& getNodeStatusList() const;
+
+    void setNodeVisible(int index, bool visible);
+
 protected:
     int nodeCount;
-    std::vector<float> positionOffsetList;
+    std::vector<float>* positionOffsetList;
+    std::vector<float>* visibleList;
+    std::vector<NodeStatus>* statusList;
+    bool isShared;
 
     bool isBuilt;
     void build();
@@ -35,6 +48,10 @@ protected:
     void setupShaders(const std::string& vertShader, const std::string& fragShader);
 
     cocos2d::CustomCommand command;
+
+    std::string modelPath;
+    std::string shaderPathVert;
+    std::string shaderPathFrag;
 };
 
 #endif /* defined(__Flight__Sprite3DBatchNode__) */

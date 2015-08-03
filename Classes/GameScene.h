@@ -11,6 +11,7 @@
 
 #include "cocos2d.h"
 #include "cocosGUI.h"
+#include "GameSceneData.h"
 
 class Field;
 class Airplane;
@@ -27,7 +28,7 @@ public:
     void update(float dt) override;
 
     struct GameScore {
-        int coinsCount;
+        std::vector<AchievedSphereInfo> sphereList;
         float elapsedTime;
     };
 
@@ -53,6 +54,7 @@ private:
     int coinCount;
 
     void setupField();
+    void setupSpheres();
     void setupAirplane();
     void setupSkyDome();
     void setupCamera();

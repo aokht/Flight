@@ -25,23 +25,44 @@ Sprite3DBatchNode* Sprite3DBatchNode::create(const string& modelPath, const stri
     }
     CC_SAFE_DELETE(sprite3DBatchNode);
     return nullptr;
+}
 
+Sprite3DBatchNode* Sprite3DBatchNode::createShared(const Sprite3DBatchNode& src)
+{
+    Sprite3DBatchNode* sprite3DBatchNode = Sprite3DBatchNode::create(src.modelPath, src.shaderPathVert, src.shaderPathFrag);
+    sprite3DBatchNode->nodeCount = src.nodeCount;
+    sprite3DBatchNode->positionOffsetList = src.positionOffsetList;
+    sprite3DBatchNode->visibleList = src.visibleList;
+    sprite3DBatchNode->statusList = src.statusList;
 
+    sprite3DBatchNode->isShared = true;
+
+    return sprite3DBatchNode;
 }
 
 Sprite3DBatchNode::Sprite3DBatchNode() :
     nodeCount(0),
-    isBuilt(false)
+    isBuilt(false),
+    isShared(false),
+    positionOffsetList(new vector<float>()),
+    visibleList(new vector<float>()),
+    statusList(new vector<Sprite3DBatchNode::NodeStatus>())
 {
 }
 
 Sprite3DBatchNode::~Sprite3DBatchNode()
 {
+    if (! isShared) {
+        delete positionOffsetList;
+        delete visibleList;
+        delete statusList;
+    }
 }
 
 bool Sprite3DBatchNode::initWithFileAndShaders(const string& modelPath, const string& vertShader, const string& fragShader)
 {
     bool ret = ExSprite3D::initWithFile(modelPath);
+    this->modelPath = modelPath;
 
     this->setupShaders(vertShader, fragShader);
 
@@ -69,6 +90,9 @@ void Sprite3DBatchNode::setupShaders(const string& vertShader, const string& fra
         offset += attrib.attribSizeBytes;
     }
 
+    this->shaderPathVert = vertShader;
+    this->shaderPathFrag = fragShader;
+
 // メモ： GL_EXT_instanced_arrays がサポートされていないっぽいけど使える場合の例
 //     glGenBuffers(1, &offsetBuffer);
 //     glBindBuffer(GL_ARRAY_BUFFER, offsetBuffer);
@@ -83,15 +107,30 @@ void Sprite3DBatchNode::add(cocos2d::Vec3 position)
     ++nodeCount;
 
     Vec3 offset = position - this->getPosition3D();
-    positionOffsetList.push_back(offset.x);
-    positionOffsetList.push_back(offset.y);
-    positionOffsetList.push_back(offset.z);
+    positionOffsetList->push_back(offset.x);
+    positionOffsetList->push_back(offset.y);
+    positionOffsetList->push_back(offset.z);
+
+    statusList->push_back({
+        true,
+        offset
+    });
+    visibleList->push_back(1.f);
+}
+
+int Sprite3DBatchNode::getNodeCount() const
+{
+    return nodeCount;
 }
 
 void Sprite3DBatchNode::build()
 {
     this->getGLProgramState()->setUniformCallback("u_offset", [&](GLProgram* program, Uniform* uniform) {
-        program->setUniformLocationWith3fv(uniform->location, positionOffsetList.data(), nodeCount);
+        program->setUniformLocationWith3fv(uniform->location, positionOffsetList->data(), nodeCount);
+    });
+
+    this->getGLProgramState()->setUniformCallback("u_visible", [&](GLProgram* program, Uniform* uniform) {
+        program->setUniformLocationWith1fv(uniform->location, visibleList->data(), nodeCount);
     });
 
     this->isBuilt = true;
@@ -140,3 +179,17 @@ void Sprite3DBatchNode::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& t
 //        glVertexAttribPointer(12, 3, GL_FLOAT, GL_FALSE, 12, 0);
 //        glVertexAttribDivisorEXT(0, 0);
 //        glVertexAttribDivisorEXT(12, 1);
+
+
+const vector<Sprite3DBatchNode::NodeStatus>& Sprite3DBatchNode::getNodeStatusList() const
+{
+    return *statusList;
+}
+
+void Sprite3DBatchNode::setNodeVisible(int index, bool visible)
+{
+    CCASSERT(0 <= index && index < statusList->size(), "Invalid index for statusList");
+
+    statusList->at(index).isVisible = visible;
+    visibleList->at(index) = visible ? 1.f : 0.f;
+}

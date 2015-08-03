@@ -189,6 +189,7 @@
 		5B4B04071B6D72E8008B6C09 /* Sprite3DBatchNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite3DBatchNode.h; sourceTree = "<group>"; };
 		5B4B040A1B6D8890008B6C09 /* Sprite3DBatchNodeShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Sprite3DBatchNodeShader.frag; path = Shaders/Sprite3DBatchNodeShader.frag; sourceTree = "<group>"; };
 		5B4B040D1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Sprite3DBatchNodeShader.vert; path = Shaders/Sprite3DBatchNodeShader.vert; sourceTree = "<group>"; };
+		5B4C54421B6EF0E90031B121 /* GameSceneData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameSceneData.h; sourceTree = "<group>"; };
 		5B4CB9121B5EF1F90084916C /* plists */ = {isa = PBXFileReference; lastKnownFileType = folder; path = plists; sourceTree = "<group>"; };
 		5B4CB9161B5EF3120084916C /* AirplaneDataSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirplaneDataSource.cpp; sourceTree = "<group>"; };
 		5B4CB9171B5EF3120084916C /* AirplaneDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirplaneDataSource.h; sourceTree = "<group>"; };
@@ -522,6 +523,7 @@
 				5B88F6131B56BE0400375BB2 /* ParameterScene.h */,
 				5B88F6161B56BF5600375BB2 /* GameSceneManager.cpp */,
 				5B88F6171B56BF5600375BB2 /* GameSceneManager.h */,
+				5B4C54421B6EF0E90031B121 /* GameSceneData.h */,
 			);
 			name = GameScenes;
 			sourceTree = "<group>";

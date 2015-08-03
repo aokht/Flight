@@ -37,6 +37,6 @@ ostream& operator<<(ostream& stream, const AABB& aabb)
 
 ostream& operator<<(ostream& stream, const GameScene::GameScore& score)
 {
-    stream << "score: { coinsCount: " << score.coinsCount << ", " << "elapsedTime: " << score.elapsedTime << "}";
+    stream << "score: { coinsCount: " << score.sphereList.size() << ", " << "elapsedTime: " << score.elapsedTime << "}";
     return stream;
 }

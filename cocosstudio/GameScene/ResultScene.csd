@@ -104,13 +104,28 @@
             <PrePosition X="0.6700" Y="0.3500" />
             <PreSize />
           </AbstractNodeData>
-          <AbstractNodeData Name="NextButton" ActionTag="-171350522" Tag="85" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1117.2999" RightMargin="66.7001" TopMargin="70.0000" BottomMargin="600.0000" TouchEnable="True" FontSize="48" ButtonText="Next" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
+          <AbstractNodeData Name="NextButton" ActionTag="2108253710" Tag="40" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1117.2999" RightMargin="66.7001" TopMargin="70.0000" BottomMargin="600.0000" TouchEnable="True" FontSize="48" ButtonText="Again" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
             <Size X="150.0000" Y="80.0000" />
             <AnchorPoint ScaleX="1.0000" />
             <Position X="1267.2999" Y="600.0000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.9500" Y="0.8000" />
+            <PreSize X="0.1124" Y="0.1067" />
+            <TextColor A="255" R="65" G="65" B="70" />
+            <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
+            <PressedFileData Type="Default" Path="Default/Button_Press.png" Plist="" />
+            <NormalFileData Type="Default" Path="Default/Button_Normal.png" Plist="" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="LobbyButton" ActionTag="-2083074004" Tag="41" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="917.2001" RightMargin="266.7999" TopMargin="70.0000" BottomMargin="600.0000" TouchEnable="True" FontSize="48" ButtonText="Lobby" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
+            <Size X="150.0000" Y="80.0000" />
+            <AnchorPoint ScaleX="1.0000" />
+            <Position X="1067.2001" Y="600.0000" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.8000" Y="0.8000" />
             <PreSize X="0.1124" Y="0.1067" />
             <TextColor A="255" R="65" G="65" B="70" />
             <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />

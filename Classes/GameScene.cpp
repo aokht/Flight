@@ -18,6 +18,8 @@
 #include "HelloWorldScene.h"
 #include "GameSceneManager.h"
 #include "FieldDataSource.h"
+#include "Sprite3DBatchNode.h"
+#include "SceneManager.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -53,6 +55,7 @@ void GameScene::onEnter()
     Layer::onEnter();
 
     this->setupField();
+    this->setupSpheres();
     this->setupAirplane();
     this->setupSkyDome();
     this->setupUI();
@@ -82,7 +85,7 @@ void GameScene::update(float dt)
         this->airplane->step(dt);
         this->field->step(dt);
 
-        int sphereCount = this->field->getSphereCollisionCount();
+        int sphereCount = this->field->checkSphereCollision();
         this->incrementCoinCount(sphereCount);
 
 
@@ -112,31 +115,40 @@ void GameScene::incrementCoinCount(int count)
 
 bool GameScene::checkGameEnds()
 {
+    // ゴールオブジェクト通過判定テスト用ボード
+    //Sprite* board = Sprite::create("ui/white.png");
+    //board->setTextureRect(Rect(0, 0, 8000, 8000));
+    //board->setRotation3D(Vec3(0, 90, 0));
+    //board->setPosition3D(goal->getPosition3D() + Vec3(0, 4000, 0));
+    //field->addChild(board);
+//    if (! this->lastAirplanePosition.isZero()) {
+//        const Vec3& last = this->lastAirplanePosition;
+//        const Vec3& cur = this->airplane->getPosition3D();
+//        const Vec3& 
+//    }
+
     // 衝突検知
     if (this->field->collisionDetectionEnabled()) {
         // 前方 10
         if (this->field->isIntersect(this->field->getAirplanePosition(), Vec3(0, 0, 10))) {
-            CCLOG("COLLISION!! forward 10");
             return true;
         }
 
         // 下方 10
         if (this->field->isIntersect(this->field->getAirplanePosition(), Vec3(0, -10, 0))) {
-            CCLOG("COLLISION!! down 10");
             return true;
         }
     }
 
-    return this->coinCount == this->sphereList.size() || this->runningTime > 120.f;
+    return this->coinCount == this->field->getSphereCount() || this->runningTime > 120.f;
 }
 
 void GameScene::endGame()
 {
-    GameScore score({
-        coinCount,
+    GameSceneManager::getInstance()->showResultScene({
+        this->field->getAchievedSphereInfoList(),
         runningTime,
     });
-    GameSceneManager::getInstance()->showResultScene(score);
 }
 
 void GameScene::setupField()
@@ -144,6 +156,11 @@ void GameScene::setupField()
     int fieldId = GameSceneManager::getInstance()->getSceneData().stageId;
     this->field = Field::createById(fieldId, true, true);
     this->addChild(field);
+}
+
+void GameScene::setupSpheres()
+{
+    this->field->setupSpheres();
 }
 
 void GameScene::setupSkyDome()

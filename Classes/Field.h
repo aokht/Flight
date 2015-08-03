@@ -12,6 +12,8 @@
 #include "cocos2d.h"
 #include "ExSprite3D.h"
 #include "FieldDataSource.h"
+#include "Sprite3DBatchNode.h"
+#include "GameSceneData.h"
 
 class Airplane;
 
@@ -20,14 +22,18 @@ class Field : public ExSprite3D
 public:
     // Life Cycle
     static Field* createById(int i, bool collisionMesh = false, bool subField = false);
-    static Field* createWithModelPath(const std::string& modelPath);
+    static Field* createWithModelPath(const std::string& modelPath, bool collisionMesh = false);
     static Field* createWithData(const FieldData& data, bool collisionMesh = false, bool subField = false);
     void setAirplaneToField(Airplane* airplane);
     cocos2d::Vec3 getAirplanePosition() const;
 
     void step(float dt);
-    int getSphereCollisionCount();
+
+    void setupSpheres();
+    void shareSphereList(std::vector<Sprite3DBatchNode*> sphereBatchList);
+    int checkSphereCollision();
     int getSphereCount() const;
+    const std::vector<AchievedSphereInfo>& getAchievedSphereInfoList() const;
 
     // パラメータ
     int getFieldId() const;
@@ -35,9 +41,12 @@ public:
 
 protected:
     Airplane* airplane;
-    void setupSpheres(const FieldData& data);
 
-    std::vector<cocos2d::Sprite3D*> sphereList;
+    void setupShaders(const FieldData& data);
+
+    std::vector<Field*> subFieldList;
+    std::vector<Sprite3DBatchNode*> sphereBatchList;
+    std::vector<AchievedSphereInfo> achievedSphereList;
 
     // パラメータ
     int fieldId;

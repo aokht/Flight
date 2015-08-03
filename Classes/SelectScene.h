@@ -34,10 +34,12 @@ private:
     cocos2d::ui::Button* airplaneLeftButton;
     cocos2d::ui::Button* airplaneRightButton;
 
-    cocos2d::Vector<Field*> fieldList;
+    std::vector<int> fieldIdList;
+    cocos2d::Map<int, Field*> fieldList;
     int currentField;
 
-    cocos2d::Vector<Airplane*> airplaneList;
+    std::vector<int> airplaneIdList;
+    cocos2d::Map<int, Airplane*> airplaneList;
     int currentAirplane;
 
     bool init();

@@ -13,8 +13,6 @@
 #include "Airplane.h"
 #include "Global.h"
 #include "Sphere.h"
-#include "Sprite3DBatchNode.h"
-#include "ExMesh.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -30,9 +28,10 @@ Field* Field::createById(int id, bool collisionMesh, bool subField)
     return Field::createWithData(FieldData, collisionMesh, subField);
 }
 
-Field* Field::createWithModelPath(const std::string& modelPath)
+Field* Field::createWithModelPath(const std::string& modelPath, bool collisionMesh)
 {
     Field* field = new Field();
+    field->enableCollisionDetection(collisionMesh);
     if (field && field->initWithFile(modelPath)) {
         field->autorelease();
         return field;
@@ -43,13 +42,12 @@ Field* Field::createWithModelPath(const std::string& modelPath)
 
 Field* Field::createWithData(const FieldData& data, bool collisionMesh, bool subField)
 {
-    Field* field = Field::createWithModelPath(data.filenameTerrain);
+    Field* field = Field::createWithModelPath(data.filenameTerrain, collisionMesh);
 
     field->fieldId = data.id;
     field->fieldName = data.name;
 
     field->setupShaders(data);
-    field->setupSpheres(data);
 
     // フィールドを無限に表示するための細工
     // シェーダでやろうとしたけどうまくいかなくて時間がないので頭悪いけど妥協
@@ -83,6 +81,7 @@ Field* Field::createWithData(const FieldData& data, bool collisionMesh, bool sub
                     break;
             }
             field->addChild(subField);
+            field->subFieldList.push_back(subField);
         }
     }
 
@@ -118,8 +117,9 @@ void Field::setupShaders(const FieldData& data)
     }
 }
 
-void Field::setupSpheres(const FieldData& data)
+void Field::setupSpheres()
 {
+    FieldData data = FieldDataSource::findById(this->getFieldId());
     vector<vector<Vec3>> sphereGroupList = Sphere::getSphereGroupPositionList(data.filenameSphereLine);
     static const int sphereDivisor = 10.f;      // TODO: スフィア配置の分割数
     static const int sphereDistribution = 100;  // TODO: スフィア配置の分散値
@@ -138,12 +138,28 @@ void Field::setupSpheres(const FieldData& data)
                         rand() % sphereDistribution - sphereDistribution * 0.5,
                         rand() % sphereDistribution - sphereDistribution * 0.5
                     );
-                    sprite3DBatchNode->add(p0 + distanceUnit * j + dist);
+                    Vec3 position = p0 + distanceUnit * j + dist;
+                    sprite3DBatchNode->add(position);
                 }
             }
         }
 
         this->addChild(sprite3DBatchNode);
+        sphereBatchList.push_back(sprite3DBatchNode);
+    }
+
+    // sphereの状態を共有する FIXME: 絶対危険
+    for (Field* subField : subFieldList) {
+        subField->shareSphereList(sphereBatchList);
+    }
+}
+
+void Field::shareSphereList(std::vector<Sprite3DBatchNode*> sphereBatchList)
+{
+    for (Sprite3DBatchNode* src : sphereBatchList) {
+        Sprite3DBatchNode* dst = Sprite3DBatchNode::createShared(*src);
+        this->addChild(dst);
+        this->sphereBatchList.push_back(dst);
     }
 }
 
@@ -185,25 +201,44 @@ void Field::step(float dt)
     this->setPosition3D(pos);
 }
 
-int Field::getSphereCollisionCount()
+int Field::checkSphereCollision()
 {
     int coinCount = 0;
     const Vec3& airplanePosition = this->getAirplanePosition();
-    float distance = 200;  // TODO: 当たり判定距離
-    for (auto s = sphereList.begin(), last = sphereList.end(); s != last; ++s) {
-        const Vec3 diff = (*s)->getPosition3D() -  airplanePosition;
-        if (abs(diff.x) < distance && abs(diff.y) < distance && abs(diff.z) < distance &&  (*s)->isVisible()) {
-            (*s)->setVisible(false);
-            coinCount++;
+    float distance = 200.f;  // TODO: 当たり判定距離
+
+    for (auto batchNode = sphereBatchList.begin(), lastBatchNode = sphereBatchList.end(); batchNode != lastBatchNode; ++batchNode) {
+        const vector<Sprite3DBatchNode::NodeStatus>& sphereList = (*batchNode)->getNodeStatusList();
+        for (auto s = sphereList.begin(), last = sphereList.end(); s != last; ++s) {
+            const Vec3 diff = s->position -  airplanePosition;
+            if (abs(diff.x) < distance && abs(diff.y) < distance && abs(diff.z) < distance &&  s->isVisible) {
+                (*batchNode)->setNodeVisible(std::distance(sphereList.begin(), s), false);
+                coinCount++;  // TODO sphere の種類に応じたスコア
+                achievedSphereList.push_back({
+                    std::distance(sphereBatchList.begin(), batchNode),
+                    std::distance(sphereList.begin(), s),
+                    1  // TODO: peerId とか
+                });
+            }
         }
-     }
+    }
 
     return coinCount;
 }
 
+const vector<AchievedSphereInfo>& Field::getAchievedSphereInfoList() const
+{
+    return achievedSphereList;
+}
+
 int Field::getSphereCount() const
 {
-    return sphereList.size();
+    int count = 0;
+    for (Sprite3DBatchNode* batchNode : sphereBatchList) {
+        count += batchNode->getNodeCount();
+    }
+
+    return count;
 }
 
 Vec3 Field::getAirplanePosition() const
