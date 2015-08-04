@@ -53,12 +53,6 @@ void SelectScene::onEnter()
 
 void SelectScene::grabElements()
 {
-    this->stageNode = this->rootNode->getChildByName<Node*>("StageNode");;
-    CCASSERT(stageNode, "StageNode in SelectScene is not found");
-
-    this->airplaneNode = this->rootNode->getChildByName<Node*>("AirplaneNode");;
-    CCASSERT(airplaneNode, "AirplaneNode in SelectScene is not found");
-
     this->backgroundSprite = this->rootNode->getChildByName<Sprite*>("BackgroundSprite");;
     CCASSERT(backgroundSprite, "BackgroundSprite in SelectScene is not found");
 
@@ -68,11 +62,8 @@ void SelectScene::grabElements()
     this->backButton = this->rootNode->getChildByName<ui::Button*>("BackButton");;
     CCASSERT(backButton, "BackButton in SelectScene is not found");
 
-    this->stageLeftButton = this->rootNode->getChildByName<ui::Button*>("StageLeftButton");;
-    CCASSERT(stageLeftButton, "StageLeftButton in SelectScene is not found");
-
-    this->stageRightButton = this->rootNode->getChildByName<ui::Button*>("StageRightButton");;
-    CCASSERT(stageRightButton, "StageRightButton in SelectScene is not found");
+    this->airplaneNode = this->rootNode->getChildByName<Node*>("AirplaneNode");;
+    CCASSERT(airplaneNode, "AirplaneNode in SelectScene is not found");
 
     this->airplaneLeftButton = this->rootNode->getChildByName<ui::Button*>("AirplaneLeftButton");;
     CCASSERT(airplaneLeftButton, "AirplaneLeftButton in SelectScene is not found");
@@ -80,11 +71,28 @@ void SelectScene::grabElements()
     this->airplaneRightButton = this->rootNode->getChildByName<ui::Button*>("AirplaneRightButton");;
     CCASSERT(airplaneRightButton, "AirplaneRightButton in SelectScene is not found");
 
+    this->airplaneNameLabel = this->rootNode->getChildByName<ui::Text*>("AirplaneNameLabel");;
+    CCASSERT(airplaneNameLabel, "AirplaneNameLabel in SelectScene is not found");
+
     this->stageNameLabel = this->rootNode->getChildByName<ui::Text*>("StageNameLabel");;
     CCASSERT(stageNameLabel, "StageNameLabel in SelectScene is not found");
 
-    this->airplaneNameLabel = this->rootNode->getChildByName<ui::Text*>("AirplaneNameLabel");;
-    CCASSERT(airplaneNameLabel, "AirplaneNameLabel in SelectScene is not found");
+    this->stageNode = this->rootNode->getChildByName<Node*>("StageNode");;
+    CCASSERT(stageNode, "StageNode in SelectScene is not found");
+
+    this->stageLeftButton = this->rootNode->getChildByName<ui::Button*>("StageLeftButton");;
+    CCASSERT(stageLeftButton, "StageLeftButton in SelectScene is not found");
+
+    this->stageRightButton = this->rootNode->getChildByName<ui::Button*>("StageRightButton");;
+    CCASSERT(stageRightButton, "StageRightButton in SelectScene is not found");
+
+    if (! canSelectStage()) {
+        this->stageLeftButton->setVisible(false);
+        this->stageNode->setVisible(false);
+        this->stageRightButton->setVisible(false);
+        this->stageNameLabel->setVisible(false);
+        // TODO: 「相手が選択中」画像を出す
+    }
 }
 
 void SelectScene::setupUI()
@@ -99,12 +107,20 @@ void SelectScene::setupUI()
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             SceneManager* sceneManager = SceneManager::getInstance();
 
-            SceneData data = sceneManager->getSceneData();
-            data.stageId = fieldList.at(currentField)->getFieldId();
-            data.airplaneId = airplaneList.at(currentAirplane)->getAirplaneId();
-            sceneManager->setSceneData(data);
+            int stageId = fieldList.at(fieldIdList[currentField])->getFieldId();
+            int airplaneId = airplaneList.at(airplaneIdList[currentAirplane])->getAirplaneId();
+            sceneManager->setSelectSceneData(stageId, airplaneId);
 
-            sceneManager->showGameScene();
+            if (sceneManager->isSinglePlay()) {
+                sceneManager->showGameScene();
+            }
+            else {
+                // TODO: waiting... 的なサムシング
+                sceneManager->sendSelectSceneDataToPeer();
+                if (sceneManager->isMultiplayReady()) {
+                    sceneManager->showGameScene();
+                }
+            }
         }
     });
 
@@ -209,4 +225,10 @@ void SelectScene::showAirplane(int index)
     this->currentAirplane = index;
 
     airplane->runAction(RepeatForever::create(Sequence::create(RotateBy::create(20, Vec3(0, -360, 0)), nullptr)));
+}
+
+bool SelectScene::canSelectStage() const
+{
+    SceneManager* sceneManager = SceneManager::getInstance();
+    return sceneManager->isSinglePlay() || sceneManager->isMultiplayMaster();
 }

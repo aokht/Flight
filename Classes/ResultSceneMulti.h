@@ -6,28 +6,28 @@
 //
 //
 
-#ifndef __Flight__ResultScene__
-#define __Flight__ResultScene__
+#ifndef __Flight__ResultSceneMulti__
+#define __Flight__ResultSceneMulti__
 
 #include "cocos2d.h"
 #include "cocosGUI.h"
 #include "GameScene.h"
 
-class ResultScene : public cocos2d::Layer
+class ResultSceneMulti : public cocos2d::Layer
 {
 public:
     static cocos2d::Scene* createScene(const GameScene::GameScore& score);
-    static ResultScene* createWithScore(const GameScene::GameScore& score);
 
 private:
     cocos2d::Node* rootNode;
-    cocos2d::ui::Button* nextButton;
     cocos2d::ui::Button* lobbyButton;
-    cocos2d::ui::Text* coinCountLabel;
-    cocos2d::ui::Text* timeCountLabel;
-    cocos2d::ui::Text* totalScoreLabel;
-    cocos2d::Node* courseMapNode;
+    cocos2d::ui::Text* playerScoreLabel;
+    cocos2d::ui::Text* otherScoreLabel;
+    cocos2d::Node* fieldNode;
+    cocos2d::Node* playerAirplaneNode;
+    cocos2d::Node* otherAirplaneNode;
 
+    static ResultSceneMulti* createWithScore(const GameScene::GameScore& score);
     bool init();
     void onEnter() override;
     void setupUI();
@@ -35,7 +35,7 @@ private:
 
     void setupScores();
 
-    ResultScene(const GameScene::GameScore& score);
+    ResultSceneMulti(const GameScene::GameScore& score);
     static cocos2d::Scene* create();
     const GameScene::GameScore score;
 };

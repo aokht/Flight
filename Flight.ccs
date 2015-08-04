@@ -6,6 +6,7 @@
         <Folder Name="GameScene">
           <Project Name="ParameterScene.csd" Type="Scene" />
           <Project Name="ResultScene.csd" Type="Scene" />
+          <Project Name="ResultSceneMulti.csd" Type="Scene" />
         </Folder>
         <TTF Name="arial.ttf" />
         <Project Name="LobbyScene.csd" Type="Scene" />

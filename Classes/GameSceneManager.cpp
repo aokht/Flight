@@ -10,7 +10,8 @@
 #include "GameSceneManager.h"
 #include "GameScene.h"
 #include "ResultScene.h"
-#include "ParameterScene.h"
+#include "ResultSceneMulti.h"
+#include "SceneManager.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -26,9 +27,10 @@ GameSceneManager* GameSceneManager::getInstance()
     return instance;
 }
 
-GameSceneManager::GameSceneManager()
+GameSceneManager::GameSceneManager() :
+    gameScene(nullptr),
+    sceneCount(0)
 {
-    this->sceneCount = 0;
 }
 
 GameSceneManager::~GameSceneManager()
@@ -38,22 +40,24 @@ GameSceneManager::~GameSceneManager()
 void GameSceneManager::showGameScene()
 {
     this->resetScene();
-    Scene* gameScene = GameScene::createScene();
-    Director::getInstance()->pushScene(gameScene);
+
+    this->gameScene = GameScene::create();
+
+    auto scene = Scene::create();
+    scene->addChild(gameScene);
+    Director::getInstance()->pushScene(scene);
+
     this->sceneCount++;
 }
 
 void GameSceneManager::showResultScene(const GameScene::GameScore& score)
 {
-    Scene* resultScene = ResultScene::createScene(score);
-    Director::getInstance()->pushScene(resultScene);
-    this->sceneCount++;
-}
+    // 結果を表示する時点でコネクションを切断フラグを立てる
+    SceneManager::getInstance()->setNetworking(false);
 
-void GameSceneManager::showParameterScene(const GameScene::GameScore& score)
-{
-    Scene* parameterScene = ParameterScene::createScene(score);
-    Director::getInstance()->pushScene(parameterScene);
+    Scene* resultScene = isSinglePlay() ? ResultScene::createScene(score) : ResultSceneMulti::createScene(score);
+
+    Director::getInstance()->pushScene(resultScene);
     this->sceneCount++;
 }
 
@@ -63,6 +67,7 @@ void GameSceneManager::resetScene()
         Director::getInstance()->popScene();
         this->sceneCount--;
     }
+    this->gameScene = nullptr;
 }
 
 void GameSceneManager::setSceneData(SceneData sceneData)
@@ -73,4 +78,23 @@ void GameSceneManager::setSceneData(SceneData sceneData)
 SceneData GameSceneManager::getSceneData() const
 {
     return sceneData;
+}
+
+void GameSceneManager::clearSceneData()
+{
+    this->sceneData = {};
+}
+
+void GameSceneManager::receivedData(const AirplaneInfoNetworkPacket& data)
+{
+    if (gameScene) {
+        gameScene->receivedData(data);
+    }
+}
+
+void GameSceneManager::receivedData(const GameScoreNetworkPacket& data)
+{
+    if (gameScene) {
+        gameScene->receivedData(data);
+    }
 }

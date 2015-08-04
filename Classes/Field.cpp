@@ -166,6 +166,10 @@ void Field::shareSphereList(std::vector<Sprite3DBatchNode*> sphereBatchList)
 void Field::setAirplaneToField(Airplane *airplane)
 {
     this->airplane = airplane;
+
+    // フィールドを動かす
+    this->setPosition3D(-airplane->getPosition3D());
+    airplane->setPosition3D(Vec3::ZERO);
 }
 
 void Field::step(float dt)
@@ -198,10 +202,13 @@ void Field::step(float dt)
         pos.z += adjust * 2.f;
     }
 
+    // Y方向は最大より上には行けないようにする
+    pos.y = max(pos.y, (float)-FIELD_HEIGHT);
+
     this->setPosition3D(pos);
 }
 
-int Field::checkSphereCollision()
+void Field::checkSphereCollision(vector<AchievedSphereInfo>* achievedSphereInfoListPerFrame)
 {
     int coinCount = 0;
     const Vec3& airplanePosition = this->getAirplanePosition();
@@ -212,18 +219,19 @@ int Field::checkSphereCollision()
         for (auto s = sphereList.begin(), last = sphereList.end(); s != last; ++s) {
             const Vec3 diff = s->position -  airplanePosition;
             if (abs(diff.x) < distance && abs(diff.y) < distance && abs(diff.z) < distance &&  s->isVisible) {
-                (*batchNode)->setNodeVisible(std::distance(sphereList.begin(), s), false);
+                (*batchNode)->setNodeVisible((int)std::distance(sphereList.begin(), s), false);
                 coinCount++;  // TODO sphere の種類に応じたスコア
-                achievedSphereList.push_back({
-                    std::distance(sphereBatchList.begin(), batchNode),
-                    std::distance(sphereList.begin(), s),
+
+                AchievedSphereInfo achievedSphereInfo({
+                    (int)std::distance(sphereBatchList.begin(), batchNode),
+                    (int)std::distance(sphereList.begin(), s),
                     1  // TODO: peerId とか
                 });
+                achievedSphereList.push_back(achievedSphereInfo);
+                achievedSphereInfoListPerFrame->push_back(achievedSphereInfo);
             }
         }
     }
-
-    return coinCount;
 }
 
 const vector<AchievedSphereInfo>& Field::getAchievedSphereInfoList() const
@@ -241,10 +249,78 @@ int Field::getSphereCount() const
     return count;
 }
 
+int Field::getRemainingSphereCount() const
+{
+    int count = 0;
+    for (Sprite3DBatchNode* batchNode : sphereBatchList) {
+        count += batchNode->getRemainingNodeCount();
+    }
+
+    return count;
+}
+
 Vec3 Field::getAirplanePosition() const
 {
     return -this->getPosition3D();
 }
+
+void Field::setOtherAirplane(int peerId, Airplane *airplane)
+{
+    this->otherAirplaneList[peerId] = airplane;
+    airplane->setCameraMask((unsigned short)CameraFlag::USER1);
+    this->addChild(airplane);
+
+    // FIXME: 頭悪い
+    for (Field* subField : subFieldList) {
+        Airplane* subAirplane = Airplane::createById(airplane->getAirplaneId());
+        subAirplane->setPosition3D(airplane->getPosition3D());
+        subField->setOtherAirplane(peerId, subAirplane);
+    }
+}
+
+void Field::setOtherAirplaneAchievedSphere(int peerId, int sphereCount, const AchievedSphereInfo* sphereInfoList)
+{
+    for (int i = 0; i < sphereCount; ++i) {
+        const AchievedSphereInfo& sphereInfo = sphereInfoList[i];
+
+        // batchId と sphereId のバリデーション
+        if (sphereInfo.batchId < 0 || sphereBatchList.size() <= sphereInfo.batchId) {
+            return;
+        }
+        Sprite3DBatchNode* batchNode = sphereBatchList[sphereInfo.batchId];
+
+        if (sphereInfo.sphereId < 0 || batchNode->getNodeCount() <= sphereInfo.sphereId) {
+            return;
+        }
+
+        batchNode->setNodeVisible(sphereInfo.sphereId, false);
+        otherAirplaneAchievedSphereList[peerId].push_back(sphereInfo);
+    }
+}
+
+const map<int, vector<AchievedSphereInfo>>& Field::getOtherAirplaneAchievedSphereList() const
+{
+    return otherAirplaneAchievedSphereList;
+}
+
+void Field::setOtherAirplaneInfo(int peerId, const Vec3& position, const Vec3& rotation)
+{
+    Airplane* targetAirplane = this->otherAirplaneList[peerId];
+
+    targetAirplane->setPosition3D(position);
+    targetAirplane->setRotation3D(rotation);
+
+    // FIXME: 頭悪い
+    for (Field* subField: subFieldList) {
+        subField->setOtherAirplaneInfo(peerId, position, rotation);
+    }
+}
+
+const map<int, Airplane*>& Field::getOtherAirplaneList() const
+{
+    return this->otherAirplaneList;
+}
+
 
 #pragma mark -
 #pragma mark パラメータ

@@ -13,7 +13,7 @@
 #include "ExSprite3D.h"
 #include "FieldDataSource.h"
 #include "Sprite3DBatchNode.h"
-#include "GameSceneData.h"
+#include "SceneData.h"
 
 class Airplane;
 
@@ -31,9 +31,17 @@ public:
 
     void setupSpheres();
     void shareSphereList(std::vector<Sprite3DBatchNode*> sphereBatchList);
-    int checkSphereCollision();
+    void checkSphereCollision(std::vector<AchievedSphereInfo>* achievedSphereInfoListPerFrame);
     int getSphereCount() const;
     const std::vector<AchievedSphereInfo>& getAchievedSphereInfoList() const;
+    int getRemainingSphereCount() const;
+
+    void setOtherAirplane(int peerId, Airplane* airplane);
+    void setOtherAirplaneInfo(int peerId, const cocos2d::Vec3& position, const cocos2d::Vec3& rotation);
+    void setOtherAirplaneAchievedSphere(int peerId, int sphereCount, const AchievedSphereInfo* sphereInfoList);
+    const std::map<int, Airplane*>& getOtherAirplaneList() const;
+    const std::map<int, std::vector<AchievedSphereInfo>>& getOtherAirplaneAchievedSphereList() const;
+
 
     // パラメータ
     int getFieldId() const;
@@ -41,12 +49,14 @@ public:
 
 protected:
     Airplane* airplane;
+    std::map<int, Airplane*> otherAirplaneList;
 
     void setupShaders(const FieldData& data);
 
     std::vector<Field*> subFieldList;
     std::vector<Sprite3DBatchNode*> sphereBatchList;
     std::vector<AchievedSphereInfo> achievedSphereList;
+    std::map<int, std::vector<AchievedSphereInfo>> otherAirplaneAchievedSphereList;
 
     // パラメータ
     int fieldId;

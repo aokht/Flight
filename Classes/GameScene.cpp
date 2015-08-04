@@ -24,16 +24,6 @@
 using namespace std;
 using namespace cocos2d;
 
-Scene* GameScene::createScene()
-{
-    auto scene = Scene::create();
-
-    auto layer = GameScene::create();
-    scene->addChild(layer);
-
-    return scene;
-}
-
 bool GameScene::init()
 {
     if (! Layer::init()) {
@@ -43,9 +33,14 @@ bool GameScene::init()
     Director::getInstance()->setDepthTest(true);
 
     this->onTouch = false;
-    this->running = false;
+    this->opening = true;
+    this->running = true;
     this->runningTime = 0.f;
     this->coinCount = 0;
+
+    this->isTimeUp = false;
+    this->isCollided = false;
+    this->isCompleted = false;
 
     return true;
 }
@@ -69,9 +64,21 @@ void GameScene::update(float dt)
 {
     Layer::update(dt);
 
+    // オープニング演出(適当
+    static float waitingTime = 3.f;
+    if (this->running && this->opening) {
+        this->labelTime->setString(StringUtils::format("%.0f", waitingTime == 3.f ? 3.f : waitingTime + 1.f));
+        waitingTime -= dt;
+
+        if (waitingTime < 0.f) {
+            this->opening = false;
+            this->running = true;
+        }
+    }
+
     static float noTouchTime = 0.f;
 
-    if (this->running) {
+    if (this->running && !this->opening) {
         if (! this->onTouch) {
             // タッチ中で無ければ進行方向をデフォルトに戻そうとする
             if (noTouchTime > 0.1f) {  // 適当な待ち時間
@@ -85,9 +92,13 @@ void GameScene::update(float dt)
         this->airplane->step(dt);
         this->field->step(dt);
 
-        int sphereCount = this->field->checkSphereCollision();
-        this->incrementCoinCount(sphereCount);
+        vector<AchievedSphereInfo> achivedSphereInfoList;
+        this->field->checkSphereCollision(&achivedSphereInfoList);
+        this->incrementCoinCount((int)achivedSphereInfoList.size());
 
+        if (! GameSceneManager::getInstance()->isSinglePlay()) {
+            this->sendAirplaneInfoWithSphereInfo(achivedSphereInfoList);
+        }
 
         if (this->checkGameEnds()) {
             this->endGame();
@@ -104,7 +115,7 @@ void GameScene::update(float dt)
 void GameScene::updateRunningTime(float dt)
 {
     this->runningTime += dt;
-    this->labelTime->setString(StringUtils::format("%.2f", 120.f - this->runningTime));
+    this->labelTime->setString(StringUtils::format("%.2f", PLAY_SECONDS - this->runningTime));
 }
 
 void GameScene::incrementCoinCount(int count)
@@ -115,40 +126,76 @@ void GameScene::incrementCoinCount(int count)
 
 bool GameScene::checkGameEnds()
 {
-    // ゴールオブジェクト通過判定テスト用ボード
-    //Sprite* board = Sprite::create("ui/white.png");
-    //board->setTextureRect(Rect(0, 0, 8000, 8000));
-    //board->setRotation3D(Vec3(0, 90, 0));
-    //board->setPosition3D(goal->getPosition3D() + Vec3(0, 4000, 0));
-    //field->addChild(board);
-//    if (! this->lastAirplanePosition.isZero()) {
-//        const Vec3& last = this->lastAirplanePosition;
-//        const Vec3& cur = this->airplane->getPosition3D();
-//        const Vec3& 
-//    }
+    // 全部取り終わったら終わり
+    if (this->field->getRemainingSphereCount() == 0) {
+        this->isCompleted = true;
+        return true;
+    }
 
     // 衝突検知
     if (this->field->collisionDetectionEnabled()) {
         // 前方 10
         if (this->field->isIntersect(this->field->getAirplanePosition(), Vec3(0, 0, 10))) {
+            this->isCollided = true;
             return true;
         }
 
         // 下方 10
         if (this->field->isIntersect(this->field->getAirplanePosition(), Vec3(0, -10, 0))) {
+            this->isCollided = true;
             return true;
         }
     }
 
-    return this->coinCount == this->field->getSphereCount() || this->runningTime > 120.f;
+    if (this->runningTime > PLAY_SECONDS) {
+        this->runningTime = PLAY_SECONDS;
+        this->isTimeUp = true;
+        return true;
+    }
+
+    return false;
 }
 
 void GameScene::endGame()
 {
-    GameSceneManager::getInstance()->showResultScene({
-        this->field->getAchievedSphereInfoList(),
-        runningTime,
+    // TODO: 終了演出
+    this->running = false;
+    this->unscheduleUpdate();
+
+    GameScore score({
+        this->isTimeUp,
+        this->isCollided,
+        this->isCompleted,
+        this->runningTime,
+        this->field->getAchievedSphereInfoList()
     });
+
+    // シングルプレイ
+    if (GameSceneManager::getInstance()->isSinglePlay()) {
+        GameSceneManager::getInstance()->showResultScene(score);
+    }
+    // マルチプレイ
+    else {
+        this->sendGameScore(score);
+
+        // 相手が既に終わっていた場合は結果を表示
+        if (this->score.otherAirplaneScore != -1) {
+            score.otherAirplaneScore = this->score.otherAirplaneScore;
+            score.isOtherAirplaneCollided = this->score.isOtherAirplaneCollided;
+            score.isOtherAirplaneCompleted = this->score.isOtherAirplaneCompleted;
+
+            GameSceneManager::getInstance()->showResultScene(score);
+        }
+        // 相手のスコアが来るまで待機
+        else {
+            this->score = score;
+        }
+    }
+}
+
+bool GameScene::isGameEnded() const
+{
+    return !running && (isCompleted || isTimeUp || isCollided);
 }
 
 void GameScene::setupField()
@@ -174,9 +221,34 @@ void GameScene::setupSkyDome()
 
 void GameScene::setupAirplane()
 {
-    int airplaneId = GameSceneManager::getInstance()->getSceneData().airplaneId;
+    GameSceneManager* gameSceneManager = GameSceneManager::getInstance();
+    SceneData sceneData = gameSceneManager->getSceneData();
+
+    int airplaneId = sceneData.airplaneId;
     this->airplane = Airplane::createById(airplaneId);
     this->addChild(airplane);
+
+    airplane->setRotation3D(Vec3(0, -180, 0));          // TODO
+    airplane->setPosition3D(Vec3(4500, 400, 4500));  // TODO
+
+    if (! gameSceneManager->isSinglePlay()) {
+        // TODO: peerID で複数人対応
+        int peerId = DUMMY_PEER_ID;
+        int targetAirplaneId = sceneData.targetAirplaneId;
+        Airplane* targetAirplane = Airplane::createById(targetAirplaneId);
+        targetAirplane->setScale(25);
+
+        if (gameSceneManager->isMultiplayMaster()) {
+            // TODO
+            targetAirplane->setPosition3D(Vec3(-4500, 400, -4500));
+        }
+        else {
+            // TODO
+            targetAirplane->setPosition3D(Vec3(4500, 400, 4500));
+            airplane->setPosition3D(Vec3(-4500, 400, -4500));
+        }
+        this->field->setOtherAirplane(peerId, targetAirplane);
+    }
 
     this->field->setAirplaneToField(airplane);
 }
@@ -238,7 +310,7 @@ void GameScene::setupUI()
     this->labelTime = labelTimeNum;
 
     // make start / stop button
-    ui::Button* startButton = ui::Button::create("ui/startButton.png", "ui/startButtonPressed.png");
+    ui::Button* startButton = ui::Button::create("ui/stopButton.png", "ui/stopButtonPressed.png");
     startButton->setAnchorPoint(Vec2(1.0f, 1.0f));
     startButton->setPosition(header->getContentSize() - Size(20, 0));
     startButton->setScale(1.3);
@@ -247,11 +319,14 @@ void GameScene::setupUI()
     startButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             if (this->running) {
+                // stop
                 this->startButton->loadTextures("ui/startButton.png", "ui/startButtonPressed.png");
+                this->running = false;
             } else {
+                // start
                 this->startButton->loadTextures("ui/stopButton.png", "ui/stopButtonPressed.png");
+                this->running = true;
             }
-            this->running = !this->running;
         }
     });
 
@@ -266,6 +341,12 @@ void GameScene::setupUI()
             GameSceneManager::getInstance()->showGameScene();
         }
     });
+
+    if (! GameSceneManager::getInstance()->isSinglePlay()) {
+        // hide start / stop / reset buttons
+        startButton->setVisible(false);
+        resetButton->setVisible(false);
+    }
 
     if (Director::getInstance()->isDisplayStats()) {
         this->labelPosition = Label::createWithTTF("Position: (00000.0, 00000.0, 00000.0)", "fonts/arial.ttf", 24);
@@ -287,6 +368,16 @@ void GameScene::setupUI()
         labelRotationTarget->setAnchorPoint(Vec2(0.f, 0.f));
         labelRotationTarget->setPosition(Vec2(0.f, 90));
         this->addChild(labelRotationTarget);
+
+        this->labelTargetPosition = Label::createWithTTF("TargetPosition: (000.0, 000.0, 000.0)", "fonts/arial.ttf", 24);
+        labelTargetPosition->setAnchorPoint(Vec2(1.f, 0.f));
+        labelTargetPosition->setPosition(Vec2(visibleSize.width, 10));
+        this->addChild(labelTargetPosition);
+
+        this->labelTargetRotation = Label::createWithTTF("TargetRotation: (000.0, 000.0, 000.0)", "fonts/arial.ttf", 24);
+        labelTargetRotation->setAnchorPoint(Vec2(1.f, 0.f));
+        labelTargetRotation->setPosition(Vec2(visibleSize.width, 40));
+        this->addChild(labelTargetRotation);
     }
 }
 
@@ -416,15 +507,89 @@ void GameScene::setupEventListeners()
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyEventListener, this);
 }
 
+void GameScene::sendAirplaneInfoWithSphereInfo(const vector<AchievedSphereInfo>& achievedSphereInfoList)
+{
+    AirplaneInfoNetworkPacket packet(
+        this->field->getAirplanePosition(),
+        this->airplane->getRotation3D(),
+        achievedSphereInfoList
+    );
+    SceneManager::getInstance()->sendGameSceneAirplaneInfoToPeer(packet);
+}
+
+void GameScene::sendGameScore(const GameScene::GameScore& score)
+{
+    GameScoreNetworkPacket packet({
+        (int)score.sphereList.size(),
+        score.isTimeUp,
+        score.isCollided,
+        score.isCompleted
+    });
+    SceneManager::getInstance()->sendGameSceneScoreToPeer(packet);
+}
+
+void GameScene::receivedData(const AirplaneInfoNetworkPacket& data)
+{
+    int peerId = data.peerId;
+    Vec3 position(data.position.x, data.position.y, data.position.z);
+    Vec3 rotation(data.rotation.x, data.rotation.y, data.rotation.z);
+
+    this->field->setOtherAirplaneInfo(peerId, position, rotation);
+    this->field->setOtherAirplaneAchievedSphere(peerId, data.achievedSphereInfoCount, data.achievedSphereInfoList);
+}
+
+void GameScene::receivedData(const GameScoreNetworkPacket& data)
+{
+    int peerId = data.peerId;  // TODO: 使っていない
+
+    this->score.otherAirplaneScore = data.score;
+    this->score.isOtherAirplaneCollided = data.isCollided;
+    this->score.isOtherAirplaneCompleted = data.isCompleted;
+
+    // まだプレイ中の場合
+    if (! isGameEnded()) {
+        // 相手が衝突していた場合はすぐに終わらせる
+        if (score.isOtherAirplaneCollided) {
+            this->endGame();
+        }
+        // 時間切れの場合は、こちらが終わるまで待つ
+        else {
+            ;
+        }
+    }
+    // 既に終わっていた場合
+    else {
+        GameSceneManager::getInstance()->showResultScene(score);
+    }
+}
+
 void GameScene::updateDebugInfo()
 {
-    Vec3 position = -this->field->getPosition3D();
-    Vec3 rotation = this->airplane->getRotation3D();
-    Vec3 spriteRotation = this->airplane->getSpriteRotation();
-    Vec3 rotationTarget = this->airplane->getRotationTarget();
+    const Vec3& position = -this->field->getPosition3D();
+    const Vec3& rotation = this->airplane->getRotation3D();
+    const Vec3& spriteRotation = this->airplane->getSpriteRotation();
+    const Vec3& rotationTarget = this->airplane->getRotationTarget();
 
     this->labelPosition->setString(StringUtils::format("Position: (%.1f, %.1f, %.1f)", position.x, position.y, position.z));
     this->labelRotation->setString(StringUtils::format("Rotation: (%.1f, %.1f, %.1f)", rotation.x, rotation.y, rotation.z));
     this->labelSpriteRotation->setString(StringUtils::format("SpriteRotation: (%.1f, %.1f, %.1f)", spriteRotation.x, spriteRotation.y, spriteRotation.z));
     this->labelRotationTarget->setString(StringUtils::format("RotationTarget: (%.1f, %.1f, %.1f)", rotationTarget.x, rotationTarget.y, rotationTarget.z));
+
+    const map<int, Airplane*>& otherAirplaneList = this->field->getOtherAirplaneList();
+    if (! otherAirplaneList.empty()) {
+        Airplane* otherAirplane = otherAirplaneList.at(DUMMY_PEER_ID);
+        const Vec3& p = otherAirplane->getPosition3D();
+        const Vec3& r = otherAirplane->getRotation3D();
+
+        this->labelTargetPosition->setString(StringUtils::format("TargetPosition: (%.1f, %.1f, %.1f)", p.x, p.y, p.z));
+        this->labelTargetRotation->setString(StringUtils::format("TargetPosition: (%.1f, %.1f, %.1f)", r.x, r.y, r.z));
+    }
+}
+
+GameScene::GameScene()
+{
+}
+
+GameScene::~GameScene()
+{
 }

@@ -13,15 +13,6 @@
 using namespace std;
 using namespace cocos2d;
 
-bool Sphere::init()
-{
-    if (! Sprite3D::initWithFile("spheres/sphere.obj")) {
-        return false;
-    }
-
-    return true;
-}
-
 vector<vector<Vec3>> Sphere::getSphereGroupPositionList(const string& path)
 {
     stringstream sphereGroupListStringStream(FileUtils::getInstance()->getStringFromFile(path));
@@ -33,7 +24,7 @@ vector<vector<Vec3>> Sphere::getSphereGroupPositionList(const string& path)
         int index = 0;
         int groupNumber, positionNumber;
         Vec3 coordinate;
-        int prefixLength = string("SphereGroup").size();
+        int prefixLength = (int)string("SphereGroup").size();
         while (getline(lineStream, param, ',')) {
             switch (index) {
                 case 0:

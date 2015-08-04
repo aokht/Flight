@@ -45,6 +45,8 @@ void LobbyScene::onEnter()
 
     this->grabElements();
     this->setupUI();
+
+    SceneManager::getInstance()->startAdvertisingAvailability();
 }
 
 void LobbyScene::grabElements()
@@ -68,10 +70,7 @@ void LobbyScene::setupUI()
 
     this->multiplayerButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            SceneManager* sceneManager = SceneManager::getInstance();
-            sceneManager->setSceneData({ SceneData::Mode::MULTI });
-            // TODO: multiplayer mode not implemented
-            sceneManager->showSelectScene();
+            SceneManager::getInstance()->showPeerList();
         }
     });
 }

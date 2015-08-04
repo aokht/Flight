@@ -31,6 +31,7 @@ public:
     const std::vector<NodeStatus>& getNodeStatusList() const;
 
     void setNodeVisible(int index, bool visible);
+    int getRemainingNodeCount() const;
 
 protected:
     int nodeCount;

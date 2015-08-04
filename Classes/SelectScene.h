@@ -50,6 +50,7 @@ private:
     void showStage(int index);
     void loadAirplanes();
     void showAirplane(int index);
+    bool canSelectStage() const;
 };
 
 #endif /* defined(__Flight__SelectScene__) */

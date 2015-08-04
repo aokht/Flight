@@ -11,6 +11,7 @@
 #include "GameSceneManager.h"
 #include "Global.h"
 #include "Field.h"
+#include "SceneManager.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -52,13 +53,6 @@ bool ResultScene::init()
     this->rootNode = CSLoader::createNode("GameScene/ResultScene.csb");
     this->addChild(rootNode);
 
-    // tmp: カウントアップアニメーション系
-    this->time = 0.f;
-    this->onStart = 0.f;
-    this->onCoinCountEnded = 0.f;
-    this->onTimeCountEnded = 0.f;
-    this->totalScore = 0.f;
-
     return true;
 }
 
@@ -77,7 +71,7 @@ void ResultScene::grabElements()
     CCASSERT(nextButton, "NextButton in ResultScene is not found");
 
     this->lobbyButton = this->rootNode->getChildByName<ui::Button*>("LobbyButton");
-    CCASSERT(nextButton, "LobbyButton in ResultScene is not found");
+    CCASSERT(lobbyButton, "LobbyButton in ResultScene is not found");
 
     this->coinCountLabel = this->rootNode->getChildByName<ui::Text*>("CoinsValueLabel");
     CCASSERT(coinCountLabel, "CoinsValueLabel in ResultScene is not found");
@@ -118,5 +112,5 @@ void ResultScene::setupUI()
 void ResultScene::setupScores()
 {
     this->coinCountLabel->setString(StringUtils::toString(score.sphereList.size()));
-    this->timeCountLabel->setString(StringUtils::format("%.2f", 120.f - score.elapsedTime));
+    this->timeCountLabel->setString(StringUtils::format("%.2f", PLAY_SECONDS - score.elapsedTime));
 }

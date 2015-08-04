@@ -193,3 +193,15 @@ void Sprite3DBatchNode::setNodeVisible(int index, bool visible)
     statusList->at(index).isVisible = visible;
     visibleList->at(index) = visible ? 1.f : 0.f;
 }
+
+int Sprite3DBatchNode::getRemainingNodeCount() const
+{
+    int count = 0;
+    if (statusList) {
+        for (const Sprite3DBatchNode::NodeStatus& status : *statusList) {
+            count += status.isVisible ? 1 : 0;
+        }
+    }
+
+    return count;
+}

@@ -22,13 +22,27 @@ public:
 
     void showGameScene();
     void showResultScene(const GameScene::GameScore& score);
-    void showParameterScene(const GameScene::GameScore& score);
     void resetScene();
 
     void setSceneData(SceneData sceneData);
     SceneData getSceneData() const;
+    void clearSceneData();
+
+    void receivedData(const AirplaneInfoNetworkPacket& data);
+    void receivedData(const GameScoreNetworkPacket& data);
+
+    bool isSinglePlay() const {
+        return sceneData.mode == SceneData::Mode::SINGLE;
+    };
+    bool isMultiplayMaster() const {
+        return sceneData.mode == SceneData::Mode::MULTI_MASTER;
+    };
+    bool isMultiplaySlave() const {
+        return sceneData.mode == SceneData::Mode::MULTI_SLAVE;
+    }
 
 private:
+    GameScene* gameScene;
     int sceneCount;
 
     SceneData sceneData;
