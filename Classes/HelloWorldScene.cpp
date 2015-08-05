@@ -1,3 +1,4 @@
+#include "cocostudio/CocoStudio.h"
 #include "HelloWorldScene.h"
 #include "SceneManager.h"
 #include "GameSceneManager.h"
@@ -28,9 +29,9 @@ bool HelloWorld::init()
     {
         return false;
     }
-    
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+    Node* rootNode = CSLoader::createNode("HelloWorldScene.csb");
+    this->addChild(rootNode);
 
     return true;
 }
