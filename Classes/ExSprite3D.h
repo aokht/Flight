@@ -19,7 +19,8 @@ class ExSprite3D : public cocos2d::Sprite3D
 {
 public:
     // Life Cycle
-    static ExSprite3D* create(const std::string &modelPath);
+    static ExSprite3D* create(const std::string& modelPath);
+    static void createAsync(const std::string& modelPath, const std::function<void(ExSprite3D*, void*)>& callback, void* callbackparam, bool collisionDetection = false);
 
     // Collision Detection
     void enableCollisionDetection(bool flag);
@@ -35,6 +36,8 @@ protected:
     ExSprite3D();
     ~ExSprite3D();
     bool initWithFile(const std::string &path);
+    void initWithFileAsync(const std::string& modelPath, const std::function<void(ExSprite3D*, void*)>& callback, void* callbackparam);
+    void afterAsyncLoad(void* param);
 
     // Collision Detection
     bool _collisionDetectionEnabled;
@@ -45,6 +48,11 @@ protected:
     std::vector<CollisionMesh::Triangle> triangleList;
     CollisionMesh* collisionMesh;
 
+    struct ExAsyncLoadParam : public AsyncLoadParam
+    {
+        std::function<void(ExSprite3D*, void*)> afterLoadCallback;
+    };
+    ExAsyncLoadParam _exAsyncLoadParam;
 };
 
 #endif /* defined(__Flight__ExSprite3D__) */

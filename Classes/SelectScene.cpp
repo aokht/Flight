@@ -53,9 +53,6 @@ void SelectScene::onEnter()
 
 void SelectScene::grabElements()
 {
-    this->backgroundSprite = this->rootNode->getChildByName<Sprite*>("BackgroundSprite");;
-    CCASSERT(backgroundSprite, "BackgroundSprite in SelectScene is not found");
-
     this->nextButton = this->rootNode->getChildByName<ui::Button*>("NextButton");;
     CCASSERT(nextButton, "NextButton in SelectScene is not found");
 
@@ -165,9 +162,8 @@ void SelectScene::loadAirplanes()
 
 void SelectScene::showStage(int index)
 {
-    Field* prevField = this->stageNode->getChildByName<Field*>("spriteField");
-    if (prevField) {
-        prevField->removeFromParent();
+    for (Node* prevField : this->stageNode->getChildren()) {
+        prevField->setVisible(false);
     }
     // TODO: loading 的な何か
 
@@ -181,25 +177,31 @@ void SelectScene::showStage(int index)
     Field* field = fieldList.at(fieldId);
     if (field == nullptr) {
         FieldData data = FieldDataSource::findById(fieldId);
+        Field::createWithDataAsync(data, [this, fieldId](Field* field, void* param){
+            field->setScale(0.017);
+            field->setPosition3D(field->getPosition3D() + Vec3(-120.f, 0.f, 250.f));
+            field->setRotation3D(Vec3(0, 0, 0));
+
+            this->fieldList.insert(fieldId, field);
+
+            this->stageNode->addChild(field, 0, "spriteField");
+            this->stageNameLabel->setString(field->getFieldName());
+            field->runAction(RepeatForever::create(Sequence::create(RotateBy::create(20, Vec3(0, -360, 0)), nullptr)));
+        }, nullptr);
         CCLOG("Loading stage: %s", data.filenameTerrain.data());
-        field = Field::createWithData(data);
-        field->setScale(0.03);
-        field->setRotation3D(Vec3(5, 0, 0));
-        this->fieldList.insert(fieldId, field);
+    }
+    else {
+        this->stageNameLabel->setString(field->getFieldName());
+        field->setVisible(true);
     }
 
-    this->stageNameLabel->setString(field->getFieldName());
-    this->stageNode->addChild(field, 0, "spriteField");
     this->currentField = index;
-
-    field->runAction(RepeatForever::create(Sequence::create(RotateBy::create(20, Vec3(0, -360, 0)), nullptr)));
 }
 
 void SelectScene::showAirplane(int index)
 {
-    Airplane* prevAirplane = this->airplaneNode->getChildByName<Airplane*>("spriteAirplane");
-    if (prevAirplane) {
-        prevAirplane->removeFromParent();
+    for (Node* prevAirplane : this->airplaneNode->getChildren()) {
+        prevAirplane->setVisible(false);
     }
     // TODO: loading 的な何か
 
@@ -213,18 +215,25 @@ void SelectScene::showAirplane(int index)
     Airplane* airplane = airplaneList.at(airplaneId);
     if (airplane == nullptr) {
         AirplaneData data = AirplaneDataSource::findById(airplaneId);
+        Airplane::createByDataAsync(data, [this, airplaneId](Airplane* airplane, void* param){
+            airplane->setScale(50);
+            airplane->setPosition3D(airplane->getPosition3D() + Vec3(120.f, 0.f, 250.f));
+            airplane->setRotation3D(Vec3(15, 0, 0));
+
+            this->airplaneList.insert(airplaneId, airplane);
+
+            this->airplaneNode->addChild(airplane, 0, "spriteAirplane");
+            this->airplaneNameLabel->setString(airplane->getAirplaneName());
+            airplane->runAction(RepeatForever::create(Sequence::create(RotateBy::create(20, Vec3(0, -360, 0)), nullptr)));
+        }, nullptr);
         CCLOG("Loading airplane: %s", data.name.data());
-        airplane = Airplane::createByData(data);
-        airplane->setScale(100);
-        airplane->setRotation3D(Vec3(15, 0, 0));
-        this->airplaneList.insert(airplaneId, airplane);
+    }
+    else {
+        this->airplaneNameLabel->setString(airplane->getAirplaneName());
+        airplane->setVisible(true);;
     }
 
-    this->airplaneNameLabel->setString(airplane->getAirplaneName());
-    this->airplaneNode->addChild(airplane, 0, "spriteAirplane");
     this->currentAirplane = index;
-
-    airplane->runAction(RepeatForever::create(Sequence::create(RotateBy::create(20, Vec3(0, -360, 0)), nullptr)));
 }
 
 bool SelectScene::canSelectStage() const

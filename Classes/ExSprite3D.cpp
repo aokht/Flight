@@ -11,6 +11,7 @@
 #include "ExVertexIndexBuffer.h"
 #include "CollisionMesh.h"
 #include "Global.h"
+#include "base/CCAsyncTaskPool.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -46,6 +47,102 @@ ExSprite3D* ExSprite3D::create(const std::string &modelPath)
     CC_SAFE_DELETE(sprite);
     return nullptr;
 }
+
+void ExSprite3D::createAsync(const std::string& modelPath, const std::function<void (ExSprite3D* , void*)>& callback, void* callbackparam, bool collisionDetection)
+{
+    ExSprite3D *sprite = new ExSprite3D();
+    if (sprite) {
+        if (sprite->loadFromCache(modelPath)) {
+            sprite->autorelease();
+            callback(sprite, callbackparam);
+            return;
+        }
+        // 頂点情報はデフォルトで捨てられてしまうためシャドーコピーを作成する(キャッシュされていない場合)
+        VertexBuffer::enableShadowCopy(true);
+        IndexBuffer::enableShadowCopy(true);
+
+        sprite->enableCollisionDetection(collisionDetection);
+        sprite->initWithFileAsync(modelPath, [callback](ExSprite3D* sprite, void* param){
+            if (sprite->collisionDetectionEnabled()) {
+                sprite->extractVertexInfo();
+                sprite->buildCollisionMesh();
+            }
+            callback(sprite, param);
+        }, callbackparam);
+    } else {
+        callback(nullptr, callbackparam);
+    }
+}
+
+void ExSprite3D::initWithFileAsync(const std::string& modelPath, const std::function<void (ExSprite3D*, void*)>& callback, void* callbackparam)
+{
+    this->_exAsyncLoadParam.afterLoadCallback = callback;
+    this->_exAsyncLoadParam.texPath = "";
+    this->_exAsyncLoadParam.modlePath = modelPath;
+    this->_exAsyncLoadParam.callbackParam = callbackparam;
+    this->_exAsyncLoadParam.materialdatas = new MaterialDatas();
+    this->_exAsyncLoadParam.meshdatas = new (std::nothrow) MeshDatas();
+    this->_exAsyncLoadParam.nodeDatas = new (std::nothrow) NodeDatas();
+    AsyncTaskPool::getInstance()->enqueue(AsyncTaskPool::TaskType::TASK_IO, CC_CALLBACK_1(ExSprite3D::afterAsyncLoad, this), (void*)(&this->_exAsyncLoadParam), [this](){
+        this->_exAsyncLoadParam.result = this->loadFromFile(this->_exAsyncLoadParam.modlePath, this->_exAsyncLoadParam.nodeDatas, this->_exAsyncLoadParam.meshdatas, this->_exAsyncLoadParam.materialdatas);
+    });
+}
+
+void ExSprite3D::afterAsyncLoad(void* param)
+{
+    ExAsyncLoadParam* asyncParam = (ExAsyncLoadParam*)param;
+    autorelease();
+    if (asyncParam)
+    {
+        if (asyncParam->result)
+        {
+            _meshes.clear();
+            _meshVertexDatas.clear();
+            CC_SAFE_RELEASE_NULL(_skeleton);
+            removeAllAttachNode();
+
+            //create in the main thread
+            auto& meshdatas = asyncParam->meshdatas;
+            auto& materialdatas = asyncParam->materialdatas;
+            auto&   nodeDatas = asyncParam->nodeDatas;
+            if (initFrom(*nodeDatas, *meshdatas, *materialdatas))
+            {
+                auto spritedata = Sprite3DCache::getInstance()->getSpriteData(asyncParam->modlePath);
+                if (spritedata == nullptr)
+                {
+                    //add to cache
+                    auto data = new (std::nothrow) Sprite3DCache::Sprite3DData();
+                    data->materialdatas = materialdatas;
+                    data->nodedatas = nodeDatas;
+                    data->meshVertexDatas = _meshVertexDatas;
+                    for (const auto mesh : _meshes) {
+                        data->glProgramStates.pushBack(mesh->getGLProgramState());
+                    }
+
+                    Sprite3DCache::getInstance()->addSprite3DData(asyncParam->modlePath, data);
+
+                    CC_SAFE_DELETE(meshdatas);
+                    materialdatas = nullptr;
+                    nodeDatas = nullptr;
+                }
+            }
+            CC_SAFE_DELETE(meshdatas);
+            CC_SAFE_DELETE(materialdatas);
+            CC_SAFE_DELETE(nodeDatas);
+
+            if (asyncParam->texPath != "")
+            {
+                setTexture(asyncParam->texPath);
+            }
+        }
+        else
+        {
+            CCLOG("file load failed: %s ", asyncParam->modlePath.c_str());
+        }
+        asyncParam->afterLoadCallback(this, asyncParam->callbackParam);
+    }
+}
+
 
 bool ExSprite3D::initWithFile(const string &path)
 {

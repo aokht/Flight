@@ -24,6 +24,10 @@ public:
     static Field* createById(int i, bool collisionMesh = false, bool subField = false);
     static Field* createWithModelPath(const std::string& modelPath, bool collisionMesh = false);
     static Field* createWithData(const FieldData& data, bool collisionMesh = false, bool subField = false);
+    static void createByIdAsync(int i, const std::function<void(Field*, void*)>& callback, void* callbackparam, bool collisionMesh = false, bool subField = false);
+    static void createWithModelPathAsync(const std::string& modelPath, const std::function<void(Field*, void*)>& callback, void* callbackparam, bool collisionMesh = false);
+    static void createWithDataAsync(const FieldData& data, const std::function<void(Field*, void*)>& callback, void* callbackparam, bool collisionMesh = false, bool subField = false);
+
     void setAirplaneToField(Airplane* airplane);
     cocos2d::Vec3 getAirplanePosition() const;
 
@@ -52,6 +56,7 @@ protected:
     std::map<int, Airplane*> otherAirplaneList;
 
     void setupShaders(const FieldData& data);
+    void setupSubFields();
 
     std::vector<Field*> subFieldList;
     std::vector<Sprite3DBatchNode*> sphereBatchList;

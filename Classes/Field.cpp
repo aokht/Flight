@@ -31,13 +31,45 @@ Field* Field::createById(int id, bool collisionMesh, bool subField)
 Field* Field::createWithModelPath(const std::string& modelPath, bool collisionMesh)
 {
     Field* field = new Field();
-    field->enableCollisionDetection(collisionMesh);
-    if (field && field->initWithFile(modelPath)) {
-        field->autorelease();
-        return field;
+    if (field) {
+        field->enableCollisionDetection(collisionMesh);
+        if (field->initWithFile(modelPath)) {
+            field->autorelease();
+            return field;
+        }
     }
+
     CC_SAFE_DELETE(field);
     return nullptr;
+}
+
+void Field::createWithModelPathAsync(const std::string& modelPath, const function<void(Field*, void*)>& callback, void* callbackparam, bool collisionMesh)
+{
+    Field* field = new Field();
+
+    if (field) {
+        if (field->loadFromCache(modelPath)) {
+            field->autorelease();
+            callback(field, callbackparam);
+            return;
+        }
+
+        // 頂点情報はデフォルトで捨てられてしまうためシャドーコピーを作成する(キャッシュされていない場合)
+        VertexBuffer::enableShadowCopy(true);
+        IndexBuffer::enableShadowCopy(true);
+
+        field->enableCollisionDetection(collisionMesh);
+        field->initWithFileAsync(modelPath, [callback](ExSprite3D* sprite, void* param){
+            Field* field = static_cast<Field*>(sprite);
+            if (field->collisionDetectionEnabled()) {
+                field->extractVertexInfo();
+                field->buildCollisionMesh();
+            }
+            callback(field, param);
+        }, callbackparam);
+    } else {
+        callback(nullptr, callbackparam);
+    }
 }
 
 Field* Field::createWithData(const FieldData& data, bool collisionMesh, bool subField)
@@ -49,43 +81,64 @@ Field* Field::createWithData(const FieldData& data, bool collisionMesh, bool sub
 
     field->setupShaders(data);
 
-    // フィールドを無限に表示するための細工
-    // シェーダでやろうとしたけどうまくいかなくて時間がないので頭悪いけど妥協
     if (subField) {
-        for (int i = 0; i < 8; ++i) {
-            Field* subField = Field::createWithData(data, false, false);
-            switch (i) {
-                case 0:
-                    subField->setPosition3D(Vec3(-FIELD_LENGTH, 0.f,  FIELD_LENGTH));
-                    break;
-                case 1:
-                    subField->setPosition3D(Vec3(          0.f, 0.f,  FIELD_LENGTH));
-                    break;
-                case 2:
-                    subField->setPosition3D(Vec3( FIELD_LENGTH, 0.f,  FIELD_LENGTH));
-                    break;
-                case 3:
-                    subField->setPosition3D(Vec3(-FIELD_LENGTH, 0.f,           0.f));
-                    break;
-                case 4:
-                    subField->setPosition3D(Vec3( FIELD_LENGTH, 0.f,           0.f));
-                    break;
-                case 5:
-                    subField->setPosition3D(Vec3(-FIELD_LENGTH, 0.f, -FIELD_LENGTH));
-                    break;
-                case 6:
-                    subField->setPosition3D(Vec3(          0.f, 0.f, -FIELD_LENGTH));
-                    break;
-                case 7:
-                    subField->setPosition3D(Vec3( FIELD_LENGTH, 0.f, -FIELD_LENGTH));
-                    break;
-            }
-            field->addChild(subField);
-            field->subFieldList.push_back(subField);
-        }
+        field->setupSubFields();
     }
 
     return field;
+}
+
+void Field::createWithDataAsync(const FieldData& data, const function<void(Field*, void*)>& callback, void* callbackparam, bool collisionMesh, bool subField)
+{
+    Field::createWithModelPathAsync(data.filenameTerrain, [data, subField, callback](Field* field, void* param){
+        field->fieldId = data.id;
+        field->fieldName = data.name;
+
+        field->setupShaders(data);
+
+        if (subField) {
+            field->setupSubFields();
+        }
+
+        callback(field, param);
+    }, callbackparam, collisionMesh);
+}
+
+void Field::setupSubFields()
+{
+    // FIXME: フィールドを無限に表示するための細工
+    // シェーダでやろうとしたけどうまくいかなくて時間がないので頭悪いけど妥協
+    for (int i = 0; i < 8; ++i) {
+        Field* subField = Field::createById(this->getFieldId(), false, false);
+        switch (i) {
+            case 0:
+                subField->setPosition3D(Vec3(-FIELD_LENGTH, 0.f,  FIELD_LENGTH));
+                break;
+            case 1:
+                subField->setPosition3D(Vec3(          0.f, 0.f,  FIELD_LENGTH));
+                break;
+            case 2:
+                subField->setPosition3D(Vec3( FIELD_LENGTH, 0.f,  FIELD_LENGTH));
+                break;
+            case 3:
+                subField->setPosition3D(Vec3(-FIELD_LENGTH, 0.f,           0.f));
+                break;
+            case 4:
+                subField->setPosition3D(Vec3( FIELD_LENGTH, 0.f,           0.f));
+                break;
+            case 5:
+                subField->setPosition3D(Vec3(-FIELD_LENGTH, 0.f, -FIELD_LENGTH));
+                break;
+            case 6:
+                subField->setPosition3D(Vec3(          0.f, 0.f, -FIELD_LENGTH));
+                break;
+            case 7:
+                subField->setPosition3D(Vec3( FIELD_LENGTH, 0.f, -FIELD_LENGTH));
+                break;
+        }
+        this->addChild(subField);
+        this->subFieldList.push_back(subField);
+    }
 }
 
 void Field::setupShaders(const FieldData& data)

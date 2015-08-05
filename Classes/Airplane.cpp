@@ -24,6 +24,17 @@ Airplane* Airplane::createById(int id)
     return createByData(airplaneData);
 }
 
+void Airplane::createByIdAsync(int id, const function<void(Airplane*, void*)>& callback, void* callbackparam)
+{
+    const AirplaneData airplaneData = AirplaneDataSource::findById(id);
+
+    if (airplaneData.id == AirplaneData::NOT_FOUND) {
+        return callback(nullptr, callbackparam);
+    }
+
+    createByDataAsync(airplaneData, callback, callbackparam);
+}
+
 Airplane* Airplane::createByData(const AirplaneData &airplaneData)
 {
     Airplane* airplane = Airplane::createWithFilename(airplaneData.filename);
@@ -32,6 +43,15 @@ Airplane* Airplane::createByData(const AirplaneData &airplaneData)
     airplane->airplaneName = airplaneData.name;
 
     return airplane;
+}
+
+void Airplane::createByDataAsync(const AirplaneData &airplaneData, const function<void(Airplane*, void*)>& callback, void* callbackparam)
+{
+    Airplane::createWithFilenameAsync(airplaneData.filename, [callback, airplaneData](Airplane* airplane, void* param){
+        airplane->airplaneId = airplaneData.id;
+        airplane->airplaneName = airplaneData.name;
+        callback(airplane, param);
+    }, callbackparam);
 }
 
 Airplane* Airplane::createWithFilename(const std::string &filename)
@@ -45,6 +65,21 @@ Airplane* Airplane::createWithFilename(const std::string &filename)
         delete airplane;
         airplane = nullptr;
         return nullptr;
+    }
+}
+
+void Airplane::createWithFilenameAsync(const std::string &filename, const function<void(Airplane*, void*)>& callback, void* callbackparam)
+{
+    Airplane* airplane = new Airplane();
+
+    if (airplane) {
+        airplane->initWithFilenameAsync(filename, [callback](Airplane* a, void* param){
+            a->autorelease();
+            callback(a, param);
+        }, callbackparam);
+    } else {
+        CC_SAFE_DELETE(airplane);
+        callback(nullptr, callbackparam);
     }
 }
 
@@ -63,6 +98,21 @@ bool Airplane::initWithFilename(const string& filename)
     this->rotationStep = Vec3(0, 0, 0);
 
     return true;
+}
+
+void Airplane::initWithFilenameAsync(const string& filename, const function<void(Airplane*, void*)>& callback, void* callbackparam)
+{
+    if (! Node::init()) {
+        callback(nullptr, callbackparam);
+    }
+
+    Sprite3D::createAsync(filename, [this, callback](Sprite3D* airplane, void* param){
+        this->spriteAirplane = airplane;
+        this->addChild(airplane);
+        callback(this, param);
+    }, callbackparam);
+
+    this->rotationStep = Vec3(0, 0, 0);
 }
 
 void Airplane::setCameraToAirplane(Camera* camera)

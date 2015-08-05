@@ -18,6 +18,8 @@ public:
     // Life Cycle
     static Airplane* createById(int i);
     static Airplane* createByData(const AirplaneData& airplaneData);
+    static void createByIdAsync(int i, const std::function<void(Airplane*, void*)>& callback, void* callbackparam);
+    static void createByDataAsync(const AirplaneData& airplaneData, const std::function<void(Airplane*, void*)>& callback, void* callbackparam);
     void setCameraToAirplane(cocos2d::Camera* camera);
 
     // 姿勢制御
@@ -43,6 +45,8 @@ public:
 protected:
     static Airplane* createWithFilename(const std::string& filename);
     bool initWithFilename(const std::string& filename);
+    static void createWithFilenameAsync(const std::string& filename, const std::function<void(Airplane*, void*)>& callback, void* callbackparam);
+    void initWithFilenameAsync(const std::string& filename, const std::function<void(Airplane*, void*)>& callback, void* callbackparam);
 
     cocos2d::Sprite3D* spriteAirplane;
 

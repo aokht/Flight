@@ -24,7 +24,6 @@ private:
     cocos2d::Node* rootNode;
     cocos2d::Node* stageNode;
     cocos2d::Node* airplaneNode;
-    cocos2d::Sprite* backgroundSprite;
     cocos2d::ui::Text* stageNameLabel;
     cocos2d::ui::Text* airplaneNameLabel;
     cocos2d::ui::Button* nextButton;
