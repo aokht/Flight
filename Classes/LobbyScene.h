@@ -13,6 +13,8 @@
 #include "cocosGUI.h"
 #include "GameScene.h"
 
+class ExSprite3D;
+
 class LobbyScene : public cocos2d::Layer
 {
 public:
@@ -21,13 +23,23 @@ public:
 
 private:
     cocos2d::Node* rootNode;
+    cocos2d::Label* titleLabel;
     cocos2d::ui::Button* singlePlayerButton;
     cocos2d::ui::Button* multiplayerButton;
+    cocos2d::Sprite* backgroundSprite;
+    cocos2d::Sprite* backgroundSpriteBlur;
+    cocos2d::Sprite* backgroundBox;
+    Airplane* airplane;
+    ExSprite3D* sphere1;
+    ExSprite3D* sphere2;
+    ExSprite3D* sphere3;
 
     bool init();
     void onEnter() override;
-    void setupUI();
     void grabElements();
+    void setupUI();
+    void setup3DModels();
+    void setupOpeningAnimations();
 };
 
 #endif /* defined(__Flight__LobbyScene__) */
