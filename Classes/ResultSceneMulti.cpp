@@ -97,25 +97,28 @@ void ResultSceneMulti::setupUI()
 
     const SceneData& sceneData = GameSceneManager::getInstance()->getSceneData();
 
-    // tmp: フィールドを回転させてみる
-    Field* field = Field::createById(sceneData.stageId);
-    field->setScale(0.04);
-    field->runAction(RepeatForever::create(Sequence::create(RotateBy::create(30, Vec3(0, 360, 0)), nullptr)));
+    // フィールド
+    Field* field = Field::createById(sceneData.stageId);  // キャッシュが効くはず
+    field->setScale(0.02);
     this->fieldNode->addChild(field);
     this->fieldNode->setRotation3D(Vec3(10, 0.f, 0.f));  // 目測
+    this->fieldNode->setPosition3D(this->fieldNode->getPosition3D() + Vec3(0.f, 0.f, 250.f));
+    field->runAction(RepeatForever::create(Sequence::create(RotateBy::create(30, Vec3(0, -360, 0)), nullptr)));
 
-    // tmp: 飛行機を回転させてみる
-    Airplane* playerAirplane = Airplane::createById(sceneData.airplaneId);
-    playerAirplane->setScale(70);
-    playerAirplane->runAction(RepeatForever::create(Sequence::create(RotateBy::create(30, Vec3(0, 360, 0)), nullptr)));
+    // 飛行機
+    Airplane* playerAirplane = Airplane::createById(sceneData.airplaneId);  // キャッシュが効くはず
+    playerAirplane->setScale(50);
+    this->playerAirplaneNode->setRotation3D(Vec3(20.f, 0.f, 10.f));
+    this->playerAirplaneNode->setPosition3D(this->playerAirplaneNode->getPosition3D() + Vec3(140.f, 0.f, 250.f));
     this->playerAirplaneNode->addChild(playerAirplane);
-    this->playerAirplaneNode->setRotation3D(Vec3(20, -5.25, 5.25));  // 目測
+    playerAirplane->runAction(RepeatForever::create(Sequence::create(RotateBy::create(30, Vec3(0, -360, 0)), nullptr)));
 
-    Airplane* otherAirplane = Airplane::createById(sceneData.targetAirplaneId);
-    otherAirplane->setScale(70);
-    otherAirplane->runAction(RepeatForever::create(Sequence::create(RotateBy::create(30, Vec3(0, 360, 0)), nullptr)));
+    Airplane* otherAirplane = Airplane::createById(sceneData.targetAirplaneId);  // キャッシュが効くはず
+    otherAirplane->setScale(50);
+    this->otherAirplaneNode->setPosition3D(this->otherAirplaneNode->getPosition3D() + Vec3(-140.f, 0.f, 250.f));
+    this->otherAirplaneNode->setRotation3D(Vec3(20.f, 0.f, -10.f));
     this->otherAirplaneNode->addChild(otherAirplane);
-    this->otherAirplaneNode->setRotation3D(Vec3(20, -5.25, -5.25));  // 目測
+    otherAirplane->runAction(RepeatForever::create(Sequence::create(RotateBy::create(30, Vec3(0, -360, 0)), nullptr)));
 }
 
 void ResultSceneMulti::setupScores()

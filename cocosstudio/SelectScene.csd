@@ -76,13 +76,13 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="StageNode" ActionTag="1862224422" Tag="32" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="973.8200" RightMargin="360.1800" TopMargin="450.0000" BottomMargin="300.0000" ctype="SingleNodeObjectData">
+          <AbstractNodeData Name="StageNode" ActionTag="1862224422" Tag="32" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="973.8200" RightMargin="360.1800" TopMargin="412.5000" BottomMargin="337.5000" ctype="SingleNodeObjectData">
             <Size />
             <AnchorPoint />
-            <Position X="973.8200" Y="300.0000" />
+            <Position X="973.8200" Y="337.5000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.7300" Y="0.4000" />
+            <PrePosition X="0.7300" Y="0.4500" />
             <PreSize />
           </AbstractNodeData>
           <AbstractNodeData Name="AirplaneNameLabel" ActionTag="-1006734623" Tag="33" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="175.0000" RightMargin="842.0000" TopMargin="621.0000" BottomMargin="75.0000" FontSize="48" LabelText="Airplane Name" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
@@ -141,13 +141,13 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="AirplaneNode" ActionTag="-1871980020" Tag="37" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="360.1800" RightMargin="973.8199" TopMargin="450.0000" BottomMargin="300.0000" ctype="SingleNodeObjectData">
+          <AbstractNodeData Name="AirplaneNode" ActionTag="-1871980020" Tag="37" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="360.1800" RightMargin="973.8199" TopMargin="412.5000" BottomMargin="337.5000" ctype="SingleNodeObjectData">
             <Size />
             <AnchorPoint />
-            <Position X="360.1800" Y="300.0000" />
+            <Position X="360.1800" Y="337.5000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.2700" Y="0.4000" />
+            <PrePosition X="0.2700" Y="0.4500" />
             <PreSize />
           </AbstractNodeData>
           <AbstractNodeData Name="StageLeftButton" ActionTag="-661493046" Tag="38" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="693.6800" RightMargin="580.3200" TopMargin="362.5000" BottomMargin="287.5000" TouchEnable="True" FontSize="48" ButtonText="&lt;" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">

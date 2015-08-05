@@ -33,10 +33,12 @@ private:
     cocos2d::ui::Button* airplaneLeftButton;
     cocos2d::ui::Button* airplaneRightButton;
 
+    bool fieldLoading;
     std::vector<int> fieldIdList;
     cocos2d::Map<int, Field*> fieldList;
     int currentField;
 
+    bool airplaneLoading;
     std::vector<int> airplaneIdList;
     cocos2d::Map<int, Airplane*> airplaneList;
     int currentAirplane;
@@ -50,6 +52,7 @@ private:
     void loadAirplanes();
     void showAirplane(int index);
     bool canSelectStage() const;
+    void checkNextButtonEnable();
 };
 
 #endif /* defined(__Flight__SelectScene__) */

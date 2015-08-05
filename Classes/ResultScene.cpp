@@ -100,13 +100,14 @@ void ResultScene::setupUI()
         }
     });
 
-    // tmp: フィールドを回転させてみる
+    // フィールド
     int stageId = GameSceneManager::getInstance()->getSceneData().stageId;
-    Field* field = Field::createById(stageId);
-    field->setScale(0.04);
-    field->runAction(RepeatForever::create(Sequence::create(RotateBy::create(30, Vec3(0, 360, 0)), nullptr)));
+    Field* field = Field::createById(stageId);  // キャッシュが効くはず
+    field->setScale(0.025);
+    field->runAction(RepeatForever::create(Sequence::create(RotateBy::create(30, Vec3(0, -360, 0)), nullptr)));
     this->courseMapNode->addChild(field);
     this->courseMapNode->setRotation3D(Vec3(10, -5.25, -5.25));  // 目測
+    this->courseMapNode->setPosition3D(this->courseMapNode->getPosition3D() + Vec3(-100.f, 60.f, 250.f));
 }
 
 void ResultScene::setupScores()

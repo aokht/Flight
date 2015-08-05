@@ -33,6 +33,9 @@ bool SelectScene::init()
     this->rootNode = CSLoader::createNode("SelectScene.csb");
     this->addChild(rootNode);
 
+    this->fieldLoading = false;
+    this->airplaneLoading = false;
+
     return true;
 }
 
@@ -144,6 +147,11 @@ void SelectScene::setupUI()
             this->showAirplane(currentAirplane - 1);
         }
     });
+
+    this->stageNode->setPosition3D(this->stageNode->getPosition3D() + Vec3(-125.f, 0.f, 250.f));
+    this->airplaneNode->setPosition3D(this->airplaneNode->getPosition3D() + Vec3(125.f, 0.f, 250.f));
+    this->stageNode->setRotation3D(Vec3(20.f, 0.f, -10.f));
+    this->airplaneNode->setRotation3D(Vec3(20.f, 0.f, 10.f));
 }
 
 void SelectScene::loadStages()
@@ -176,17 +184,18 @@ void SelectScene::showStage(int index)
 
     Field* field = fieldList.at(fieldId);
     if (field == nullptr) {
+        this->fieldLoading = true;
+        this->checkNextButtonEnable();
         FieldData data = FieldDataSource::findById(fieldId);
         Field::createWithDataAsync(data, [this, fieldId](Field* field, void* param){
             field->setScale(0.017);
-            field->setPosition3D(field->getPosition3D() + Vec3(-120.f, 0.f, 250.f));
-            field->setRotation3D(Vec3(0, 0, 0));
-
             this->fieldList.insert(fieldId, field);
-
             this->stageNode->addChild(field, 0, "spriteField");
             this->stageNameLabel->setString(field->getFieldName());
             field->runAction(RepeatForever::create(Sequence::create(RotateBy::create(20, Vec3(0, -360, 0)), nullptr)));
+
+            this->fieldLoading = false;
+            this->checkNextButtonEnable();
         }, nullptr);
         CCLOG("Loading stage: %s", data.filenameTerrain.data());
     }
@@ -214,17 +223,18 @@ void SelectScene::showAirplane(int index)
 
     Airplane* airplane = airplaneList.at(airplaneId);
     if (airplane == nullptr) {
+        this->airplaneLoading = true;
+        this->checkNextButtonEnable();
         AirplaneData data = AirplaneDataSource::findById(airplaneId);
         Airplane::createByDataAsync(data, [this, airplaneId](Airplane* airplane, void* param){
             airplane->setScale(50);
-            airplane->setPosition3D(airplane->getPosition3D() + Vec3(120.f, 0.f, 250.f));
-            airplane->setRotation3D(Vec3(15, 0, 0));
-
             this->airplaneList.insert(airplaneId, airplane);
-
             this->airplaneNode->addChild(airplane, 0, "spriteAirplane");
             this->airplaneNameLabel->setString(airplane->getAirplaneName());
             airplane->runAction(RepeatForever::create(Sequence::create(RotateBy::create(20, Vec3(0, -360, 0)), nullptr)));
+
+            this->airplaneLoading = false;
+            this->checkNextButtonEnable();
         }, nullptr);
         CCLOG("Loading airplane: %s", data.name.data());
     }
@@ -240,4 +250,9 @@ bool SelectScene::canSelectStage() const
 {
     SceneManager* sceneManager = SceneManager::getInstance();
     return sceneManager->isSinglePlay() || sceneManager->isMultiplayMaster();
+}
+
+void SelectScene::checkNextButtonEnable()
+{
+    this->nextButton->setEnabled(!(airplaneLoading || fieldLoading));
 }
