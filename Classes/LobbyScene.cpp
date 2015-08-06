@@ -59,8 +59,8 @@ void LobbyScene::onEnter()
 
 void LobbyScene::grabElements()
 {
-    this->titleLabel = this->rootNode->getChildByName<Label*>("TitleLabel");
-    CCASSERT(titleLabel, "TitleLabel in LobbyScene is not found");
+    this->titleSprite = this->rootNode->getChildByName<Sprite*>("TitleSprite");
+    CCASSERT(titleSprite, "TitleSprite in LobbyScene is not found");
 
     this->singlePlayerButton = this->rootNode->getChildByName<ui::Button*>("SinglePlayerButton");
     CCASSERT(singlePlayerButton, "SinglePlayerButton in LobbyScene is not found");
@@ -106,7 +106,7 @@ void LobbyScene::setup3DModels()
     this->sphere1 = ExSprite3D::create("objects/diamond.obj");
     this->sphere2 = ExSprite3D::create("objects/diamond.obj");
     this->sphere3 = ExSprite3D::create("objects/diamond.obj");
-    sphere1->setPosition3D(Vec3(visibleSize.width * 0.65f, visibleSize.height * 0.60f, 300.f));
+    sphere1->setPosition3D(Vec3(visibleSize.width * 0.65f, visibleSize.height * 0.55f, 300.f));
     sphere2->setPosition3D(Vec3(visibleSize.width * 0.55f, visibleSize.height * 0.35f, 300.f));
     sphere3->setPosition3D(Vec3(visibleSize.width * 0.70f, visibleSize.height * 0.30f, 300.f));
     sphere1->setRotation3D(Vec3(0.f,   0.f, 0.f));
@@ -127,7 +127,7 @@ void LobbyScene::setup3DModels()
 
     // set vertex attributes
     const MeshVertexData* meshVertexData = sphere1->getMeshVertexData();
-    for (int i = 0, offset = 0, last = (int)meshVertexData->getMeshVertexAttribCount(); i < last; ++i) {
+    for (long i = 0, offset = 0, last = (int)meshVertexData->getMeshVertexAttribCount(); i < last; ++i) {
         const MeshVertexAttrib& attrib = meshVertexData->getMeshVertexAttrib(i);
         state1->setVertexAttribPointer(
                                        s_attributeNames[attrib.vertexAttrib],
@@ -166,7 +166,7 @@ void LobbyScene::setupOpeningAnimations()
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
     // タイトルの初期状態設定
-    this->titleLabel->setPosition(Vec2(-titleLabel->getBoundingBox().size.width, titleLabel->getPosition().y));
+    this->titleSprite->setPosition(Vec2(-titleSprite->getBoundingBox().size.width, titleSprite->getPosition().y));
 
     // 飛行機の初期状態設定
     this->airplane->setPosition3D(Vec3(visibleSize.width + 100.f, -100.f, 0.f));
@@ -203,8 +203,8 @@ void LobbyScene::setupOpeningAnimations()
                 )
 
             );
-            this->titleLabel->runAction(
-                EaseIn::create(MoveTo::create(0.75f, Vec2(visibleSize.width * 0.5f, titleLabel->getPosition().y)), rate)
+            this->titleSprite->runAction(
+                EaseIn::create(MoveTo::create(0.75f, Vec2(visibleSize.width * 0.5f, titleSprite->getPosition().y)), rate)
             );
         }),
         DelayTime::create(0.75f),

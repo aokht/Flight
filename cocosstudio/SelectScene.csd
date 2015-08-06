@@ -50,14 +50,15 @@
             <FileData Type="Normal" Path="Resources/Backgrounds/box.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="TitleLabel" ActionTag="-2034348323" Tag="30" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="289.0000" RightMargin="289.0000" TopMargin="69.0000" BottomMargin="600.0000" FontSize="72" LabelText="Select Airplane &amp; Stage" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
-            <Size X="756.0000" Y="81.0000" />
+          <AbstractNodeData Name="TitleLabel" ActionTag="-2034348323" Tag="30" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="288.0000" RightMargin="288.0000" TopMargin="74.0000" BottomMargin="600.0000" FontSize="72" LabelText="Select Airplane &amp; Stage" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="758.0000" Y="76.0000" />
             <AnchorPoint ScaleX="0.5000" />
             <Position X="667.0000" Y="600.0000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.5000" Y="0.8000" />
             <PreSize X="0.1529" Y="0.1080" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
@@ -69,6 +70,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.9500" Y="0.8000" />
             <PreSize X="0.1124" Y="0.1067" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <TextColor A="255" R="65" G="65" B="70" />
             <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
             <PressedFileData Type="Default" Path="Default/Button_Press.png" Plist="" />
@@ -85,14 +87,15 @@
             <PrePosition X="0.7300" Y="0.4500" />
             <PreSize />
           </AbstractNodeData>
-          <AbstractNodeData Name="AirplaneNameLabel" ActionTag="-1006734623" Tag="33" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="175.0000" RightMargin="842.0000" TopMargin="621.0000" BottomMargin="75.0000" FontSize="48" LabelText="Airplane Name" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
-            <Size X="317.0000" Y="54.0000" />
+          <AbstractNodeData Name="AirplaneNameLabel" ActionTag="-1006734623" Tag="33" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="199.6800" RightMargin="813.3201" TopMargin="586.5000" BottomMargin="112.5000" FontSize="48" LabelText="Airplane Name" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="321.0000" Y="51.0000" />
             <AnchorPoint ScaleX="0.5000" />
-            <Position X="333.5000" Y="75.0000" />
+            <Position X="360.1800" Y="112.5000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.2500" Y="0.1000" />
+            <PrePosition X="0.2700" Y="0.1500" />
             <PreSize X="0.1529" Y="0.1080" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
@@ -104,6 +107,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.0600" Y="0.4500" />
             <PreSize X="0.0450" Y="0.1333" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <TextColor A="255" R="65" G="65" B="70" />
             <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
             <PressedFileData Type="Default" Path="Default/Button_Press.png" Plist="" />
@@ -119,6 +123,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.9400" Y="0.4500" />
             <PreSize X="0.0450" Y="0.1333" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <TextColor A="255" R="65" G="65" B="70" />
             <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
             <PressedFileData Type="Default" Path="Default/Button_Press.png" Plist="" />
@@ -134,6 +139,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.0500" Y="0.8000" />
             <PreSize X="0.1124" Y="0.1067" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <TextColor A="255" R="65" G="65" B="70" />
             <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
             <PressedFileData Type="Default" Path="Default/Button_Press.png" Plist="" />
@@ -158,6 +164,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.5200" Y="0.4500" />
             <PreSize X="0.0450" Y="0.1333" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <TextColor A="255" R="65" G="65" B="70" />
             <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
             <PressedFileData Type="Default" Path="Default/Button_Press.png" Plist="" />
@@ -173,6 +180,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.4800" Y="0.4500" />
             <PreSize X="0.0450" Y="0.1333" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <TextColor A="255" R="65" G="65" B="70" />
             <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
             <PressedFileData Type="Default" Path="Default/Button_Press.png" Plist="" />
@@ -180,14 +188,39 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="StageNameLabel" ActionTag="-1072385338" Tag="40" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="867.5000" RightMargin="200.5000" TopMargin="621.0000" BottomMargin="75.0000" FontSize="48" LabelText="Stage Name" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
-            <Size X="266.0000" Y="54.0000" />
+          <AbstractNodeData Name="StageNameLabel" ActionTag="-1072385338" Tag="40" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="838.1500" RightMargin="237.8501" TopMargin="586.5000" BottomMargin="112.5000" FontSize="48" LabelText="Stage Name" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="258.0000" Y="51.0000" />
             <AnchorPoint ScaleX="0.5000" />
-            <Position X="1000.5000" Y="75.0000" />
+            <Position X="967.1500" Y="112.5000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.7500" Y="0.1000" />
+            <PrePosition X="0.7250" Y="0.1500" />
             <PreSize X="0.1529" Y="0.1080" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="AirplaneLoadingLabel" ActionTag="2135868951" Tag="77" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="199.6800" RightMargin="813.3201" TopMargin="387.0000" BottomMargin="312.0000" FontSize="36" LabelText="Loading..." OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="159.0000" Y="38.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="360.1800" Y="337.5000" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.2700" Y="0.4500" />
+            <PreSize X="0.1529" Y="0.1080" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="StageLoadingLabel" ActionTag="267195598" Tag="78" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="887.6500" RightMargin="287.3501" TopMargin="393.5000" BottomMargin="318.5000" FontSize="36" LabelText="Loading..." OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="159.0000" Y="38.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="967.1500" Y="337.5000" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.7250" Y="0.4500" />
+            <PreSize X="0.1529" Y="0.1080" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>

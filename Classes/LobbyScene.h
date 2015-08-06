@@ -23,7 +23,7 @@ public:
 
 private:
     cocos2d::Node* rootNode;
-    cocos2d::Label* titleLabel;
+    cocos2d::Sprite* titleSprite;
     cocos2d::ui::Button* singlePlayerButton;
     cocos2d::ui::Button* multiplayerButton;
     cocos2d::Sprite* backgroundSprite;

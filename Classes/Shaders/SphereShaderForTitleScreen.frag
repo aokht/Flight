@@ -10,11 +10,11 @@ void main(void)
     vec3 halfVector = normalize(invLight + invEye);
 
     // diff
-    float diff = clamp(dot(invLight, v_normal), 0.5, 1.0);
+    float diff = clamp(dot(invLight, v_normal), 0.25, 1.0);
     // specular
     float spec = pow(clamp(dot(halfVector, v_normal), 0.1, 1.0), 100.0);
     // ambient
     float ambient = 0.25;
 
-    gl_FragColor = vec4(u_sphereColor.rgb * diff + spec + ambient, 0.95);
+    gl_FragColor = vec4(u_sphereColor.rgb * diff + spec + ambient, 1.0);
 }

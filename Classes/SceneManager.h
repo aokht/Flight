@@ -25,6 +25,7 @@ public:
     void showLobbyScene();
     void showSelectScene();
     void showGameScene();
+    void showLoadingScene(const std::function<void()>& callback, const std::string& label);
 
     void initSceneData();
     void setSceneData(SceneData sceneData);

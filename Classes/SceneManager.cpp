@@ -10,6 +10,7 @@
 #include "SceneManager.h"
 #include "LobbyScene.h"
 #include "SelectScene.h"
+#include "LoadingScene.h"
 #include "GameSceneManager.h"
 #include "Global.h"
 
@@ -68,6 +69,12 @@ void SceneManager::stopGameScene()
         gameSceneManager->clearSceneData();
         gameSceneManager = nullptr;
     }
+}
+
+void SceneManager::showLoadingScene(const std::function<void ()>& callback, const std::string& label)
+{
+    Scene* loadingScene = LoadingScene::createScene(callback, label);
+    Director::getInstance()->pushScene(loadingScene);
 }
 
 bool SceneManager::isInGameScene() const

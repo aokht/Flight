@@ -12,6 +12,7 @@
 #include "ResultScene.h"
 #include "ResultSceneMulti.h"
 #include "SceneManager.h"
+#include "LoadingScene.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -41,12 +42,17 @@ void GameSceneManager::showGameScene()
 {
     this->resetScene();
 
-    this->gameScene = GameScene::create();
+    Director::getInstance()->pushScene(LoadingScene::createScene(
+        [this](){
+            this->gameScene = GameScene::create();
 
-    auto scene = Scene::create();
-    scene->addChild(gameScene);
-    Director::getInstance()->pushScene(scene);
-
+            auto scene = Scene::create();
+            scene->addChild(gameScene);
+            Director::getInstance()->pushScene(scene);
+            this->sceneCount++;
+        },
+        "Loading..."
+    ));
     this->sceneCount++;
 }
 

@@ -138,6 +138,8 @@
 		5B89C9D81B5FF38E0092C926 /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B89C9D51B5FF38E0092C926 /* SceneManager.cpp */; };
 		5B94B0761B5A2C3C0094340C /* ExSprite3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */; };
 		5B94B0771B5A2C3C0094340C /* ExSprite3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */; };
+		5B9AB0821B730C0900DA29D4 /* LoadingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B9AB0801B730C0900DA29D4 /* LoadingScene.cpp */; };
+		5B9AB0831B730C0900DA29D4 /* LoadingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B9AB0801B730C0900DA29D4 /* LoadingScene.cpp */; };
 		7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */ = {isa = PBXBuildFile; fileRef = FA144D09A52357282113E0F8 /* res */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -280,6 +282,8 @@
 		5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExSprite3D.cpp; sourceTree = "<group>"; };
 		5B94B0751B5A2C3C0094340C /* ExSprite3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExSprite3D.h; sourceTree = "<group>"; };
 		5B94B07D1B5A2C900094340C /* ExVertexIndexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExVertexIndexBuffer.h; sourceTree = "<group>"; };
+		5B9AB0801B730C0900DA29D4 /* LoadingScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadingScene.cpp; sourceTree = "<group>"; };
+		5B9AB0811B730C0900DA29D4 /* LoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingScene.h; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -621,6 +625,8 @@
 				5B89C9CA1B5F8CF70092C926 /* LobbyScene.h */,
 				5B58B5AE1B649A3500539BEA /* SelectScene.cpp */,
 				5B58B5AF1B649A3500539BEA /* SelectScene.h */,
+				5B9AB0801B730C0900DA29D4 /* LoadingScene.cpp */,
+				5B9AB0811B730C0900DA29D4 /* LoadingScene.h */,
 				5B88F6091B564B8E00375BB2 /* GameScenes */,
 			);
 			name = Scenes;
@@ -827,6 +833,7 @@
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				5B58B5F31B669B6400539BEA /* NetworkingWrapper.mm in Sources */,
+				5B9AB0821B730C0900DA29D4 /* LoadingScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				5B58B5F91B669B6400539BEA /* README.md in Sources */,
 				5B89C9C21B5F74900092C926 /* FieldDataSource.cpp in Sources */,
@@ -862,6 +869,7 @@
 				5B419ED91B598B650056C69E /* Field.cpp in Sources */,
 				5B88F6191B56BF5600375BB2 /* GameSceneManager.cpp in Sources */,
 				5B4B04091B6D72E8008B6C09 /* Sprite3DBatchNode.cpp in Sources */,
+				5B9AB0831B730C0900DA29D4 /* LoadingScene.cpp in Sources */,
 				5B89C9C31B5F74900092C926 /* FieldDataSource.cpp in Sources */,
 				5B4396661B5B3F5D00972BD6 /* CollisionMesh.cpp in Sources */,
 				5B88F6151B56BE0400375BB2 /* ParameterScene.cpp in Sources */,

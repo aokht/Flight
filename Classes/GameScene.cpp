@@ -189,6 +189,7 @@ void GameScene::endGame()
         // 相手のスコアが来るまで待機
         else {
             this->score = score;
+            SceneManager::getInstance()->showLoadingScene([](){}, "Waiting...");
         }
     }
 }

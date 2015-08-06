@@ -83,8 +83,14 @@ void SelectScene::grabElements()
     this->stageLeftButton = this->rootNode->getChildByName<ui::Button*>("StageLeftButton");;
     CCASSERT(stageLeftButton, "StageLeftButton in SelectScene is not found");
 
-    this->stageRightButton = this->rootNode->getChildByName<ui::Button*>("StageRightButton");;
+    this->stageRightButton = this->rootNode->getChildByName<ui::Button*>("StageRightButton");
     CCASSERT(stageRightButton, "StageRightButton in SelectScene is not found");
+
+    this->airplaneLoadingIndicator = this->rootNode->getChildByName<ui::Text*>("AirplaneLoadingLabel");
+    CCASSERT(airplaneLoadingIndicator, "AirplaneLoadingLabel in SelectScene is not found");
+
+    this->stageLoadingIndicator = this->rootNode->getChildByName<ui::Text*>("StageLoadingLabel");
+    CCASSERT(stageLoadingIndicator, "StageLoadingLabel in SelectScene is not found");
 
     if (! canSelectStage()) {
         this->stageLeftButton->setVisible(false);
@@ -148,10 +154,16 @@ void SelectScene::setupUI()
         }
     });
 
+    this->airplaneNameLabel->setText("");
+    this->stageNameLabel->setText("");
+
     this->stageNode->setPosition3D(this->stageNode->getPosition3D() + Vec3(-125.f, 0.f, 250.f));
     this->airplaneNode->setPosition3D(this->airplaneNode->getPosition3D() + Vec3(125.f, 0.f, 250.f));
     this->stageNode->setRotation3D(Vec3(20.f, 0.f, -10.f));
     this->airplaneNode->setRotation3D(Vec3(20.f, 0.f, 10.f));
+
+    this->stageLoadingIndicator->setVisible(false);
+    this->airplaneLoadingIndicator->setVisible(false);
 }
 
 void SelectScene::loadStages()
@@ -255,4 +267,6 @@ bool SelectScene::canSelectStage() const
 void SelectScene::checkNextButtonEnable()
 {
     this->nextButton->setEnabled(!(airplaneLoading || fieldLoading));
+    this->airplaneLoadingIndicator->setVisible(airplaneLoading);
+    this->stageLoadingIndicator->setVisible(fieldLoading);
 }

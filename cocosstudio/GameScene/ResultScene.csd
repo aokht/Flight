@@ -39,81 +39,87 @@
             <FileData Type="Normal" Path="Resources/Backgrounds/box.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="TitleLabel" ActionTag="-719761869" Tag="33" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="133.4000" RightMargin="996.6000" TopMargin="69.0000" BottomMargin="600.0000" FontSize="72" LabelText="Result" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
-            <Size X="204.0000" Y="81.0000" />
+          <AbstractNodeData Name="TitleLabel" ActionTag="-719761869" Tag="33" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="133.4000" RightMargin="987.6000" TopMargin="74.0000" BottomMargin="600.0000" FontSize="72" LabelText="Result" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="213.0000" Y="76.0000" />
             <AnchorPoint />
             <Position X="133.4000" Y="600.0000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.1000" Y="0.8000" />
             <PreSize X="0.1529" Y="0.1080" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="CoinsTitleLabel" ActionTag="-1276979036" Tag="34" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="133.4000" RightMargin="1078.6000" TopMargin="273.0000" BottomMargin="423.0000" FontSize="48" LabelText="Coins" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
-            <Size X="122.0000" Y="54.0000" />
+          <AbstractNodeData Name="CoinsTitleLabel" ActionTag="-1276979036" Tag="34" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="133.4000" RightMargin="1080.6000" TopMargin="274.5000" BottomMargin="424.5000" FontSize="48" LabelText="Coins" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="120.0000" Y="51.0000" />
             <AnchorPoint ScaleY="0.5000" />
             <Position X="133.4000" Y="450.0000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.1000" Y="0.6000" />
             <PreSize X="0.1634" Y="0.0720" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="TimeTitleLabel" ActionTag="-859605909" Tag="35" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="133.4000" RightMargin="1096.6000" TopMargin="385.5000" BottomMargin="310.5000" FontSize="48" LabelText="Time" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
-            <Size X="104.0000" Y="54.0000" />
+          <AbstractNodeData Name="TimeTitleLabel" ActionTag="-859605909" Tag="35" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="133.4000" RightMargin="1094.6000" TopMargin="387.0000" BottomMargin="312.0000" FontSize="48" LabelText="Time" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="106.0000" Y="51.0000" />
             <AnchorPoint ScaleY="0.5000" />
             <Position X="133.4000" Y="337.5000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.1000" Y="0.4500" />
             <PreSize X="0.1634" Y="0.0720" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="CoinsValueLabel" ActionTag="-318970795" Tag="36" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="333.5000" RightMargin="973.5000" TopMargin="272.5000" BottomMargin="422.5000" FontSize="48" LabelText="0" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
-            <Size X="27.0000" Y="55.0000" />
+          <AbstractNodeData Name="CoinsValueLabel" ActionTag="-318970795" Tag="36" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="433.5500" RightMargin="871.4500" TopMargin="274.5000" BottomMargin="424.5000" FontSize="48" LabelText="0" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="29.0000" Y="51.0000" />
             <AnchorPoint ScaleY="0.5000" />
-            <Position X="333.5000" Y="450.0000" />
+            <Position X="433.5500" Y="450.0000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.2500" Y="0.6000" />
+            <PrePosition X="0.3250" Y="0.6000" />
             <PreSize X="0.1634" Y="0.0720" />
-            <FontResource Type="Normal" Path="arial.ttf" Plist="" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="TimeValueLabel" ActionTag="354609330" Tag="37" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="333.5000" RightMargin="880.5000" TopMargin="385.5000" BottomMargin="310.5000" FontSize="48" LabelText="00.00" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
-            <Size X="120.0000" Y="54.0000" />
+          <AbstractNodeData Name="TimeValueLabel" ActionTag="354609330" Tag="37" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="433.5500" RightMargin="771.4500" TopMargin="387.0000" BottomMargin="312.0000" FontSize="48" LabelText="00.00" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="129.0000" Y="51.0000" />
             <AnchorPoint ScaleY="0.5000" />
-            <Position X="333.5000" Y="337.5000" />
+            <Position X="433.5500" Y="337.5000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.2500" Y="0.4500" />
+            <PrePosition X="0.3250" Y="0.4500" />
             <PreSize X="0.1634" Y="0.0720" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="TotalTitleLabel" ActionTag="-559315981" Tag="38" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="133.4000" RightMargin="1099.6000" TopMargin="498.0000" BottomMargin="198.0000" FontSize="48" LabelText="Total" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
-            <Size X="101.0000" Y="54.0000" />
+          <AbstractNodeData Name="TotalTitleLabel" ActionTag="-559315981" Tag="38" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="133.4000" RightMargin="1089.6000" TopMargin="499.5000" BottomMargin="199.5000" FontSize="48" LabelText="Total Score" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="241.0000" Y="51.0000" />
             <AnchorPoint ScaleY="0.5000" />
             <Position X="133.4000" Y="225.0000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.1000" Y="0.3000" />
             <PreSize X="0.1634" Y="0.0720" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="TotalValueLabel" ActionTag="1175092902" Tag="39" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="333.5000" RightMargin="974.5000" TopMargin="498.0000" BottomMargin="198.0000" FontSize="48" LabelText="0" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
-            <Size X="26.0000" Y="54.0000" />
+          <AbstractNodeData Name="TotalValueLabel" ActionTag="1175092902" Tag="39" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="433.5500" RightMargin="871.4500" TopMargin="499.5000" BottomMargin="199.5000" FontSize="48" LabelText="0" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="29.0000" Y="51.0000" />
             <AnchorPoint ScaleY="0.5000" />
-            <Position X="333.5000" Y="225.0000" />
+            <Position X="433.5500" Y="225.0000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.2500" Y="0.3000" />
+            <PrePosition X="0.3250" Y="0.3000" />
             <PreSize X="0.1634" Y="0.0720" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
@@ -134,6 +140,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.9500" Y="0.8000" />
             <PreSize X="0.1124" Y="0.1067" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <TextColor A="255" R="65" G="65" B="70" />
             <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
             <PressedFileData Type="Default" Path="Default/Button_Press.png" Plist="" />
@@ -149,6 +156,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.8000" Y="0.8000" />
             <PreSize X="0.1124" Y="0.1067" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <TextColor A="255" R="65" G="65" B="70" />
             <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
             <PressedFileData Type="Default" Path="Default/Button_Press.png" Plist="" />

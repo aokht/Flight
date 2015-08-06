@@ -32,6 +32,9 @@ private:
     cocos2d::ui::Button* stageRightButton;
     cocos2d::ui::Button* airplaneLeftButton;
     cocos2d::ui::Button* airplaneRightButton;
+    cocos2d::ui::Text* stageLoadingIndicator;
+    cocos2d::ui::Text* airplaneLoadingIndicator;
+    cocos2d::ui::Text* nextButtonLoadingIndicator;
 
     bool fieldLoading;
     std::vector<int> fieldIdList;
