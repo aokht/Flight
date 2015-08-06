@@ -74,6 +74,7 @@ private:
     cocos2d::Label* labelRotationTarget;
     cocos2d::Label* labelTargetPosition;
     cocos2d::Label* labelTargetRotation;
+    cocos2d::ParticleSystemQuad* particleExplosion;
 
     bool opening;
     bool running;
@@ -93,12 +94,14 @@ private:
     void setupCamera();
     void setupUI();
     void setupEventListeners();
+    void setupParticles();
 
     void updateRunningTime(float dt);
     void incrementCoinCount(int count);
     bool checkGameEnds();
     void endGame();
     bool isGameEnded() const;
+    void stopGame(bool strict = false);
 
     void sendAirplaneInfoWithSphereInfo(const std::vector<AchievedSphereInfo>& achievedSphereInfoList);
     void sendGameScore(const GameScore& score);

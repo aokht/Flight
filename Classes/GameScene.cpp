@@ -56,6 +56,7 @@ void GameScene::onEnter()
     this->setupUI();
     this->setupCamera();
     this->setupEventListeners();
+    this->setupParticles();
 
     this->scheduleUpdate();
 }
@@ -101,7 +102,26 @@ void GameScene::update(float dt)
         }
 
         if (this->checkGameEnds()) {
-            this->endGame();
+            if (this->isCollided) {
+                // 爆発演出
+                this->particleExplosion->setVisible(true);
+                this->particleExplosion->resetSystem();
+                // ゲームを止めて飛行機を消す
+                this->stopGame();
+                this->airplane->setVisible(false);
+
+                // 爆発演出終了後にリザルトに遷移
+                float duration = particleExplosion->getDuration() + particleExplosion->getLife() + particleExplosion->getLifeVar();
+                this->runAction(Sequence::create(
+                    DelayTime::create(duration),
+                    CallFunc::create([this](){
+                        this->endGame();
+                    }),
+                    nullptr
+                ));
+            } else {
+                this->endGame();
+            }
         }
 
         this->updateRunningTime(dt);
@@ -156,12 +176,16 @@ bool GameScene::checkGameEnds()
     return false;
 }
 
+void GameScene::stopGame(bool strict)
+{
+    this->running = false;
+    if (strict) {
+        this->unscheduleUpdate();
+    }
+}
+
 void GameScene::endGame()
 {
-    // TODO: 終了演出
-    this->running = false;
-    this->unscheduleUpdate();
-
     GameScore score({
         this->isTimeUp,
         this->isCollided,
@@ -506,6 +530,15 @@ void GameScene::setupEventListeners()
         }
     };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyEventListener, this);
+}
+
+void GameScene::setupParticles()
+{
+    this->particleExplosion = ParticleSystemQuad::create("explosion.plist");
+    Size size = Director::getInstance()->getVisibleSize();
+    particleExplosion->setPosition3D(Vec3(size.width * 0.5f, size.height * 0.45f, 400.f));
+    particleExplosion->setVisible(false);
+    this->addChild(particleExplosion);
 }
 
 void GameScene::sendAirplaneInfoWithSphereInfo(const vector<AchievedSphereInfo>& achievedSphereInfoList)
