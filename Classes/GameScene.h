@@ -65,6 +65,7 @@ public:
     };
 
 private:
+    cocos2d::Node* rootNode;
     Field* field;
     cocos2d::Camera* camera;
     Airplane* airplane;
@@ -74,14 +75,15 @@ private:
     cocos2d::Sprite* yellowCircle;
     cocos2d::Sprite* redCircle;
     static const float circleScale;
-    cocos2d::Label* blueSphereCount;
-    cocos2d::Label* yellowSphereCount;
-    cocos2d::Label* redSphereCount;
-    cocos2d::Label* blueSphereTotalCount;
-    cocos2d::Label* yellowSphereTotalCount;
-    cocos2d::Label* redSphereTotalCount;
-    cocos2d::Label* labelTime;
+    cocos2d::ui::Text* blueSphereCount;
+    cocos2d::ui::Text* yellowSphereCount;
+    cocos2d::ui::Text* redSphereCount;
+    cocos2d::ui::Text* blueSphereTotalCount;
+    cocos2d::ui::Text* yellowSphereTotalCount;
+    cocos2d::ui::Text* redSphereTotalCount;
+    cocos2d::ui::Text* labelTime;
     cocos2d::ui::Button* startButton;
+    cocos2d::ui::Button* quitButton;
     cocos2d::Label* labelPosition;
     cocos2d::Label* labelRotation;
     cocos2d::Label* labelSpriteRotation;
@@ -99,6 +101,7 @@ private:
     bool isCompleted;
     GameScore score;
 
+    void grabElemets();
     void setupField();
     void setupSpheres();
     void setupAirplane();

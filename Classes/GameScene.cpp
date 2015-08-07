@@ -10,6 +10,7 @@
 #include <sstream>
 #include <iostream>
 
+#include "cocostudio/CocoStudio.h"
 #include "GameScene.h"
 #include "Global.h"
 #include "Airplane.h"
@@ -34,6 +35,9 @@ bool GameScene::init()
         return false;
     }
 
+    this->rootNode = CSLoader::createNode("GameScene/GameScene.csb");
+    this->addChild(rootNode);
+
     Director::getInstance()->setDepthTest(true);
 
     this->onTouch = false;
@@ -52,6 +56,7 @@ void GameScene::onEnter()
 {
     Layer::onEnter();
 
+    this->grabElemets();
     this->setupField();
     this->setupSpheres();
     this->setupAirplane();
@@ -122,7 +127,7 @@ void GameScene::updateSphereCount(const std::vector<AchievedSphereInfo>& achieve
         }
     }
 
-    Label* labelList[] = { blueSphereCount, yellowSphereCount, redSphereCount };
+    ui::Text* labelList[] = { blueSphereCount, yellowSphereCount, redSphereCount };
     Sprite* circleList[] = { blueCircle, yellowCircle, redCircle };
     for (int type = Sphere::Type::NONE + 1; type < Sphere::Type::LAST; ++type) {
         int i = type - 1;
@@ -408,136 +413,85 @@ void GameScene::setupCamera()
     this->skydome->setCameraMask((unsigned short)CameraFlag::USER1);
 }
 
+void GameScene::grabElemets()
+{
+    this->header = this->rootNode->getChildByName<Sprite*>("Header");
+    CCASSERT(header, "Header in GameScene is not found");
+
+    this->blueCircle =this->header->getChildByName<Sprite*>("BlueCircle");
+    this->yellowCircle =this->header->getChildByName<Sprite*>("YellowCircle");
+    this->redCircle =this->header->getChildByName<Sprite*>("RedCircle");
+    CCASSERT(blueCircle, "BlueCircle in GameScene is not found");
+    CCASSERT(yellowCircle, "YellowCircle in GameScene is not found");
+    CCASSERT(redCircle, "RedCircle in GameScene is not found");
+
+
+    this->blueSphereCount = this->header->getChildByName<ui::Text*>("BlueSphereCount");
+    this->yellowSphereCount = this->header->getChildByName<ui::Text*>("YellowSphereCount");
+    this->redSphereCount = this->header->getChildByName<ui::Text*>("RedSphereCount");
+    CCASSERT(blueSphereCount, "BlueSphereCount in GameScene is not found");
+    CCASSERT(yellowSphereCount, "YellowSphereCount in GameScene is not found");
+    CCASSERT(redSphereCount, "RedSphereCount in GameScene is not found");
+
+    this->blueSphereTotalCount = this->header->getChildByName<ui::Text*>("BlueSphereTotalCount");
+    this->yellowSphereTotalCount = this->header->getChildByName<ui::Text*>("YellowSphereTotalCount");
+    this->redSphereTotalCount = this->header->getChildByName<ui::Text*>("RedSphereTotalCount");
+    CCASSERT(blueSphereTotalCount, "BlueSphereTotalCount in GameScene is not found");
+    CCASSERT(yellowSphereTotalCount, "YellowSphereTotalCount in GameScene is not found");
+    CCASSERT(redSphereTotalCount, "RedSphereTotalCount in GameScene is not found");
+
+    this->labelTime = this->header->getChildByName<ui::Text*>("TimerLabel");
+    CCASSERT(labelTime, "TimerLabel in GameScene is not found");
+
+    this->startButton = this->header->getChildByName<ui::Button*>("StartButton");
+    this->quitButton = this->header->getChildByName<ui::Button*>("QuitButton");
+    CCASSERT(startButton, "StartButton in GameScene is not found");
+    CCASSERT(quitButton, "QuitButton in GameScene is not found");
+}
+
 void GameScene::setupUI()
 {
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
-    // make header
-    this->header = Sprite::create();
-    header->setColor(Color3B::WHITE);
-    header->setTextureRect(Rect(0, 0, visibleSize.width, 80.f));
-    header->setAnchorPoint(Vec2(0.f, 1.f));
-    header->setPosition(Vec2(0.f, visibleSize.height));
-    header->setOpacity(100);
-    this->addChild(header);
-
-    const static string fileNameList[] = {
-        "ui/circleBlue.png",
-        "ui/circleYellow.png",
-        "ui/circleRed.png"
-    };
-    const static float fontSize = 40.f;
-    const static float countLabelWidth = 65.f;  // 数字ラベルの幅
-    const static float countWidth = 230.f;      // 1色あたりの合計幅
-    const static string fontFile = "ChangaOne-Regular.ttf";
     const map<Sphere::Type, int>& sphereCountPerColor = this->field->getSphereCountPerColor();
-    for (int i = 0; i < 3; ++i) {
-        Sprite** circle;
-        Label **label, **totalLabel;
-        Sphere::Type sphereColor;
-        switch (i) {
-            case 0:
-                circle = &blueCircle;
-                label = &blueSphereCount;
-                totalLabel = &blueSphereTotalCount;
-                sphereColor = Sphere::Type::BLUE;
-                break;
-            case 1:
-                circle = &yellowCircle;
-                label = &yellowSphereCount;
-                totalLabel = &yellowSphereTotalCount;
-                sphereColor = Sphere::Type::YELLOW;
-                break;
-            case 2:
-                circle = &redCircle;
-                label = &redSphereCount;
-                totalLabel = &redSphereTotalCount;
-                sphereColor = Sphere::Type::RED;
-                break;
-        }
+    this->blueSphereTotalCount->setString(StringUtils::toString(sphereCountPerColor.at(Sphere::Type::BLUE)));
+    this->yellowSphereTotalCount->setString(StringUtils::toString(sphereCountPerColor.at(Sphere::Type::YELLOW)));
+    this->redSphereTotalCount->setString(StringUtils::toString(sphereCountPerColor.at(Sphere::Type::RED)));
 
-        (*circle) = Sprite::create(fileNameList[i]);
-        (*circle)->setAnchorPoint(Vec2(0.5f, 0.5f));
-        (*circle)->setScale(circleScale);
-        (*circle)->setPosition(Vec2(40.f + countWidth * i, 40.f));
-        header->addChild(*circle);
-
-        (*label) = Label::createWithTTF("0", fontFile, fontSize);
-        (*label)->setColor(Color3B::BLACK);
-        (*label)->setAnchorPoint(Vec2(0.f, 0.5f));
-        (*label)->setWidth(countLabelWidth);
-        (*label)->setAlignment(TextHAlignment::RIGHT);
-        (*label)->setPosition(Vec2(60.f + countWidth * i, 40.f));
-
-        Label* perLabel = Label::createWithTTF("/", fontFile, fontSize);
-        perLabel->setColor(Color3B::BLACK);
-        perLabel->setAnchorPoint(Vec2(0.f, 0.5f));
-        perLabel->setPosition(Vec2(130.f + countWidth * i, 40.f));
-
-        (*totalLabel) = Label::createWithTTF("0", fontFile, fontSize);
-        (*totalLabel)->setColor(Color3B::BLACK);
-        (*totalLabel)->setAnchorPoint(Vec2(0.f, 0.5f));
-        (*totalLabel)->setWidth(countLabelWidth);
-        (*totalLabel)->setAlignment(TextHAlignment::RIGHT);
-        (*totalLabel)->setPosition(Vec2(155.f + countWidth * i, 40.f));
-        (*totalLabel)->setString(StringUtils::toString(sphereCountPerColor.at(sphereColor)));
-
-        header->addChild(*label);
-        header->addChild(perLabel);
-        header->addChild(*totalLabel);
-    }
-
-    Label* labelTimeName = Label::createWithTTF("Time: ", "ChangaOne-Regular.ttf", fontSize);
-    labelTimeName->setColor(Color3B::BLACK);
-    labelTimeName->setAnchorPoint(Vec2(0.5f, 0.5f));
-    labelTimeName->setPosition(Vec2(header->getContentSize().width * 0.6f, fontSize));
-    header->addChild(labelTimeName);
-
-    Label* labelTimeNum = Label::createWithTTF("00.00", "ChangaOne-Regular.ttf", fontSize);
-    labelTimeNum->setColor(Color3B::BLACK);
-    labelTimeNum->setAnchorPoint(Vec2(0.f, 0.5f));
-    labelTimeNum->setPosition(Vec2(labelTimeName->getPosition().x + 70.f, 40.f));
-    header->addChild(labelTimeNum);
-    this->labelTime = labelTimeNum;
+    // タイマーをセット
     this->updateRunningTime(0.f);
 
-    // make start / stop button
-    ui::Button* startButton = ui::Button::create("ui/stopButton.png", "ui/stopButtonPressed.png");
-    startButton->setAnchorPoint(Vec2(1.0f, 1.0f));
-    startButton->setPosition(header->getContentSize() - Size(20, 0));
-    startButton->setScale(1.3);
-    this->startButton = startButton;
-    header->addChild(startButton);
-    startButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
+    this->startButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             if (this->running) {
                 // stop
-                this->startButton->loadTextures("ui/startButton.png", "ui/startButtonPressed.png");
+                this->startButton->setTitleText("Start");
+                this->quitButton->setVisible(true);
+                this->quitButton->setEnabled(true);
                 this->running = false;
             } else {
                 // start
-                this->startButton->loadTextures("ui/stopButton.png", "ui/stopButtonPressed.png");
+                this->startButton->setTitleText("Stop");
+                this->quitButton->setVisible(false);
+                this->quitButton->setEnabled(false);
                 this->running = true;
             }
         }
     });
 
-    // reset button
-    ui::Button* resetButton = ui::Button::create("ui/resetButton.png", "ui/resetButtonPressed.png");
-    resetButton->setAnchorPoint(Vec2(1.f, 1.f));
-    resetButton->setPosition(Vec2(startButton->getPosition().x - startButton->getContentSize().width - 30, header->getContentSize().height));
-    resetButton->setScale(1.3);
-    header->addChild(resetButton);
-    resetButton->addTouchEventListener([](Ref* pSender, ui::Widget::TouchEventType eEventType) {
+    // quit button
+    quitButton->setVisible(false);
+    this->quitButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            GameSceneManager::getInstance()->showGameScene();
+            this->isCollided = true;
+            this->endGame();
         }
     });
 
     if (! GameSceneManager::getInstance()->isSinglePlay()) {
-        // hide start / stop / reset buttons
-        startButton->setVisible(false);
-        resetButton->setVisible(false);
+        // hide start / stop / quit buttons
+        this->startButton->setVisible(false);
+        this->quitButton->setVisible(false);
     }
 
     if (Director::getInstance()->isDisplayStats()) {
