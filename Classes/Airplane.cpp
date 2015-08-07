@@ -95,6 +95,9 @@ bool Airplane::initWithFilename(const string& filename)
     }
     this->addChild(spriteAirplane);
 
+    this->setCascadeOpacityEnabled(true);
+    spriteAirplane->setCascadeOpacityEnabled(true);
+
     this->rotationStep = Vec3(0, 0, 0);
 
     return true;

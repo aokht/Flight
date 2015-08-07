@@ -84,9 +84,7 @@ private:
     cocos2d::Label* labelRotationTarget;
     cocos2d::Label* labelTargetPosition;
     cocos2d::Label* labelTargetRotation;
-    cocos2d::ParticleSystemQuad* particleExplosion;
 
-    bool opening;
     bool running;
     float runningTime;
     bool onTouch;
@@ -104,11 +102,11 @@ private:
     void setupCamera();
     void setupUI();
     void setupEventListeners();
-    void setupParticles();
 
     void updateRunningTime(float dt);
     void updateSphereCount(const std::vector<AchievedSphereInfo>& achievedSphereInfoList);
     bool checkGameEnds();
+    void startGame();
     void endGame();
     bool isGameEnded() const;
     void stopGame(bool strict = false);

@@ -197,7 +197,7 @@ void SelectScene::showStage(int index)
     Field* field = fieldList.at(fieldId);
     if (field == nullptr) {
         this->fieldLoading = true;
-        this->checkNextButtonEnable();
+        this->checkButtonEnable();
         FieldData data = FieldDataSource::findById(fieldId);
         Field::createWithDataAsync(data, [this, fieldId](Field* field, void* param){
             field->setScale(0.017);
@@ -207,7 +207,7 @@ void SelectScene::showStage(int index)
             field->runAction(RepeatForever::create(Sequence::create(RotateBy::create(20, Vec3(0, -360, 0)), nullptr)));
 
             this->fieldLoading = false;
-            this->checkNextButtonEnable();
+            this->checkButtonEnable();
         }, nullptr);
         CCLOG("Loading stage: %s", data.filenameTerrain.data());
     }
@@ -236,7 +236,7 @@ void SelectScene::showAirplane(int index)
     Airplane* airplane = airplaneList.at(airplaneId);
     if (airplane == nullptr) {
         this->airplaneLoading = true;
-        this->checkNextButtonEnable();
+        this->checkButtonEnable();
         AirplaneData data = AirplaneDataSource::findById(airplaneId);
         Airplane::createByDataAsync(data, [this, airplaneId](Airplane* airplane, void* param){
             airplane->setScale(50);
@@ -246,7 +246,7 @@ void SelectScene::showAirplane(int index)
             airplane->runAction(RepeatForever::create(Sequence::create(RotateBy::create(20, Vec3(0, -360, 0)), nullptr)));
 
             this->airplaneLoading = false;
-            this->checkNextButtonEnable();
+            this->checkButtonEnable();
         }, nullptr);
         CCLOG("Loading airplane: %s", data.name.data());
     }
@@ -264,9 +264,15 @@ bool SelectScene::canSelectStage() const
     return sceneManager->isSinglePlay() || sceneManager->isMultiplayMaster();
 }
 
-void SelectScene::checkNextButtonEnable()
+void SelectScene::checkButtonEnable()
 {
     this->nextButton->setEnabled(!(airplaneLoading || fieldLoading));
+
     this->airplaneLoadingIndicator->setVisible(airplaneLoading);
+    this->airplaneLeftButton->setEnabled(!airplaneLoading);
+    this->airplaneRightButton->setEnabled(!airplaneLoading);
+
     this->stageLoadingIndicator->setVisible(fieldLoading);
+    this->stageLeftButton->setEnabled(!fieldLoading);
+    this->stageRightButton->setEnabled(!fieldLoading);
 }

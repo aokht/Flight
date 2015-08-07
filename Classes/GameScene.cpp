@@ -35,7 +35,6 @@ bool GameScene::init()
     Director::getInstance()->setDepthTest(true);
 
     this->onTouch = false;
-    this->opening = true;
     this->running = true;
     this->runningTime = 0.f;
     this->coinCount = 0;
@@ -58,30 +57,17 @@ void GameScene::onEnter()
     this->setupUI();
     this->setupCamera();
     this->setupEventListeners();
-    this->setupParticles();
 
-    this->scheduleUpdate();
+    this->startGame();
 }
 
 void GameScene::update(float dt)
 {
     Layer::update(dt);
 
-    // オープニング演出(適当
-    static float waitingTime = 3.f;
-    if (this->running && this->opening) {
-        this->labelTime->setString(StringUtils::format("%.0f", waitingTime == 3.f ? 3.f : waitingTime + 1.f));
-        waitingTime -= dt;
-
-        if (waitingTime < 0.f) {
-            this->opening = false;
-            this->running = true;
-        }
-    }
-
     static float noTouchTime = 0.f;
 
-    if (this->running && !this->opening) {
+    if (this->running) {
         if (! this->onTouch) {
             // タッチ中で無ければ進行方向をデフォルトに戻そうとする
             if (noTouchTime > 0.1f) {  // 適当な待ち時間
@@ -104,26 +90,7 @@ void GameScene::update(float dt)
         }
 
         if (this->checkGameEnds()) {
-            if (this->isCollided) {
-                // 爆発演出
-                this->particleExplosion->setVisible(true);
-                this->particleExplosion->resetSystem();
-                // ゲームを止めて飛行機を消す
-                this->stopGame();
-                this->airplane->setVisible(false);
-
-                // 爆発演出終了後にリザルトに遷移
-                float duration = particleExplosion->getDuration() + particleExplosion->getLife() + particleExplosion->getLifeVar();
-                this->runAction(Sequence::create(
-                    DelayTime::create(duration),
-                    CallFunc::create([this](){
-                        this->endGame();
-                    }),
-                    nullptr
-                ));
-            } else {
-                this->endGame();
-            }
+            this->endGame();
         }
 
         this->updateRunningTime(dt);
@@ -137,7 +104,11 @@ void GameScene::update(float dt)
 void GameScene::updateRunningTime(float dt)
 {
     this->runningTime += dt;
-    this->labelTime->setString(StringUtils::format("%.2f", PLAY_SECONDS - this->runningTime));
+    float remainingTime = PLAY_SECONDS - this->runningTime;
+    if (remainingTime < EPSILON) {
+        remainingTime = 0.f;
+    }
+    this->labelTime->setString(StringUtils::format("%.2f", remainingTime));
 }
 
 void GameScene::updateSphereCount(const std::vector<AchievedSphereInfo>& achievedSphereInfoList)
@@ -200,6 +171,75 @@ bool GameScene::checkGameEnds()
     return false;
 }
 
+void GameScene::startGame()
+{
+    // オープニング演出
+    Sprite* count3Sprite = Sprite::create("ui/countDown.png", Rect(  0.f, 0.f, 128.f, 128.f));
+    Sprite* count2Sprite = Sprite::create("ui/countDown.png", Rect(128.f, 0.f, 128.f, 128.f));
+    Sprite* count1Sprite = Sprite::create("ui/countDown.png", Rect(256.f, 0.f, 128.f, 128.f));
+    Sprite* startSprite  = Sprite::create("ui/status.png", Rect(0.f, 0.f, 512.f, 128.f));
+    count3Sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
+    count2Sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
+    count1Sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
+    startSprite->setAnchorPoint(Vec2(0.5f, 0.5f));
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    count3Sprite->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
+    count2Sprite->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
+    count1Sprite->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
+    startSprite->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
+    count3Sprite->setRotation3D(Vec3(0.f, 90.f, 0.f));
+    count2Sprite->setRotation3D(Vec3(0.f, 90.f, 0.f));
+    count1Sprite->setRotation3D(Vec3(0.f, 90.f, 0.f));
+    count3Sprite->setVisible(false);
+    count2Sprite->setVisible(false);
+    count1Sprite->setVisible(false);
+    startSprite->setVisible(false);
+    this->addChild(count3Sprite);
+    this->addChild(count2Sprite);
+    this->addChild(count1Sprite);
+    this->addChild(startSprite);
+
+    count3Sprite->setVisible(true);
+    count3Sprite->runAction(Sequence::create(
+        RotateBy3D::create(1.f, Vec3(0.f, -180.f, 0.f)),
+        CallFunc::create([=](){
+            count3Sprite->setVisible(false);
+            count2Sprite->setVisible(true);
+            count2Sprite->runAction(Sequence::create(
+                RotateBy3D::create(1.f, Vec3(0.f, -180.f, 0.f)),
+                CallFunc::create([=](){
+                    count2Sprite->setVisible(false);
+                    count1Sprite->setVisible(true);
+                    count1Sprite->runAction(Sequence::create(
+                        RotateBy3D::create(1.f, Vec3(0.f, -180.f, 0.f)),
+                        CallFunc::create([=](){
+                            count1Sprite->setVisible(false);
+                            startSprite->setVisible(true);
+                            startSprite->runAction(Sequence::create(
+                                FadeOut::create(2.f),
+                                CallFunc::create([=](){
+                                    startSprite->setVisible(false);
+                                    startSprite->removeFromParent();
+                                    count1Sprite->removeFromParent();
+                                    count2Sprite->removeFromParent();
+                                    count3Sprite->removeFromParent();
+                                }),
+                                nullptr
+                            ));
+
+                            this->running = true;
+                            this->scheduleUpdate();
+                        }),
+                        nullptr
+                    ));
+                }),
+                nullptr
+            ));
+        }),
+        nullptr
+    ));
+}
+
 void GameScene::stopGame(bool strict)
 {
     this->running = false;
@@ -212,36 +252,83 @@ void GameScene::endGame()
 {
     this->stopGame();
 
-    GameScore score({
-        this->isTimeUp,
-        this->isCollided,
-        this->isCompleted,
-        this->runningTime,
-        this->field->getAchievedSphereInfoList()
-    });
-
-    // シングルプレイ
-    if (GameSceneManager::getInstance()->isSinglePlay()) {
-        GameSceneManager::getInstance()->showResultScene(score);
+    // エンディング
+    Sprite* message = nullptr;
+    if (isTimeUp) {
+        message = Sprite::create("ui/status.png", Rect(0.f, 128.f, 512.f, 128.f));  // Time's Up!
+    } else if (isCompleted) {
+        message = Sprite::create("ui/status.png", Rect(0.f, 256.f, 512.f, 128.f));  // Completed!
     }
-    // マルチプレイ
-    else {
-        this->sendGameScore(score);
 
-        // 相手が既に終わっていた場合は結果を表示
-        if (this->score.otherAirplaneTotalScore != -1) {
-            score.otherAirplaneTotalScore = this->score.otherAirplaneTotalScore;
-            score.otherAirplaneScoreMap = this->score.otherAirplaneScoreMap;
-            score.isOtherAirplaneCollided = this->score.isOtherAirplaneCollided;
-            score.isOtherAirplaneCompleted = this->score.isOtherAirplaneCompleted;
-
+    function<void()> callback = [this](){
+        GameScore score({
+            this->isTimeUp,
+            this->isCollided,
+            this->isCompleted,
+            this->runningTime,
+            this->field->getAchievedSphereInfoList()
+        });
+        
+        // シングルプレイ
+        if (GameSceneManager::getInstance()->isSinglePlay()) {
             GameSceneManager::getInstance()->showResultScene(score);
         }
-        // 相手のスコアが来るまで待機
+        // マルチプレイ
         else {
-            this->score = score;
-            SceneManager::getInstance()->showLoadingScene([](){}, "Waiting...");
+            this->sendGameScore(score);
+
+            // 相手が既に終わっていた場合は結果を表示
+            if (this->score.otherAirplaneTotalScore != -1) {
+                score.otherAirplaneTotalScore = this->score.otherAirplaneTotalScore;
+                score.otherAirplaneScoreMap = this->score.otherAirplaneScoreMap;
+                score.isOtherAirplaneCollided = this->score.isOtherAirplaneCollided;
+                score.isOtherAirplaneCompleted = this->score.isOtherAirplaneCompleted;
+
+                GameSceneManager::getInstance()->showResultScene(score);
+            }
+            // 相手のスコアが来るまで待機
+            else {
+                this->score = score;
+                SceneManager::getInstance()->showLoadingScene([](){}, "Waiting...");
+            }
         }
+    };
+
+    this->airplane->runAction(FadeOut::create(0.5f));
+
+    if (message) {
+        // 時間切れ or 全部取り終わった
+        Size size = Director::getInstance()->getVisibleSize();
+        message->setAnchorPoint(Vec2(0.5f, 0.5f));
+        message->setPosition(Vec2(size.width + message->getContentSize().width * 0.5, size.height * 0.5f));
+        this->addChild(message);
+
+        message->runAction(Sequence::create(
+            EaseOut::create(MoveTo::create(0.8f, Vec2(size.width * 0.5f, size.height * 0.5f)), 10.f),
+            EaseIn::create(MoveTo::create(0.8f, Vec2(-message->getContentSize().width * 0.5f, size.height * 0.5f)), 10.f),
+            CallFunc::create([callback](){
+                callback();
+            }),
+            nullptr
+        ));
+    } else if (isCollided) {
+        // 爆発演出
+        ParticleSystemQuad* particleExplosion = ParticleSystemQuad::create("explosion.plist");
+        Size size = Director::getInstance()->getVisibleSize();
+        particleExplosion->setPosition3D(Vec3(size.width * 0.5f, size.height * 0.45f, 400.f));
+        this->addChild(particleExplosion);
+
+        float duration = particleExplosion->getDuration() + particleExplosion->getLife() + particleExplosion->getLifeVar();
+        this->runAction(Sequence::create(
+            DelayTime::create(duration),
+            CallFunc::create([callback](){
+                callback();
+            }),
+            nullptr
+        ));
+    } else {
+        // 念のため
+        callback();
     }
 }
 
@@ -409,6 +496,7 @@ void GameScene::setupUI()
     labelTimeNum->setPosition(Vec2(labelTimeName->getPosition().x + 70.f, 40.f));
     header->addChild(labelTimeNum);
     this->labelTime = labelTimeNum;
+    this->updateRunningTime(0.f);
 
     // make start / stop button
     ui::Button* startButton = ui::Button::create("ui/stopButton.png", "ui/stopButtonPressed.png");
@@ -606,15 +694,6 @@ void GameScene::setupEventListeners()
         }
     };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyEventListener, this);
-}
-
-void GameScene::setupParticles()
-{
-    this->particleExplosion = ParticleSystemQuad::create("explosion.plist");
-    Size size = Director::getInstance()->getVisibleSize();
-    particleExplosion->setPosition3D(Vec3(size.width * 0.5f, size.height * 0.45f, 400.f));
-    particleExplosion->setVisible(false);
-    this->addChild(particleExplosion);
 }
 
 void GameScene::sendAirplaneInfoWithSphereInfo(const vector<AchievedSphereInfo>& achievedSphereInfoList)
