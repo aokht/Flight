@@ -70,6 +70,10 @@ private:
     Airplane* airplane;
     cocos2d::Sprite3D* skydome;
     cocos2d::Sprite* header;
+    cocos2d::Sprite* blueCircle;
+    cocos2d::Sprite* yellowCircle;
+    cocos2d::Sprite* redCircle;
+    static const float circleScale;
     cocos2d::Label* blueSphereCount;
     cocos2d::Label* yellowSphereCount;
     cocos2d::Label* redSphereCount;

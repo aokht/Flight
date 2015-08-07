@@ -26,6 +26,8 @@
 using namespace std;
 using namespace cocos2d;
 
+const float GameScene::circleScale = 0.25f;
+
 bool GameScene::init()
 {
     if (! Layer::init()) {
@@ -113,30 +115,27 @@ void GameScene::updateRunningTime(float dt)
 
 void GameScene::updateSphereCount(const std::vector<AchievedSphereInfo>& achievedSphereInfoList)
 {
-    int blueCount = 0, yellowCount = 0, redCount = 0;
+    int countList[] = { 0, 0, 0 };
     for (const AchievedSphereInfo& info : achievedSphereInfoList) {
-        int* count;
-        switch (info.color) {
-            case Sphere::Type::BLUE:
-                count = &blueCount;
-                break;
-            case Sphere::Type::YELLOW:
-                count = &yellowCount;
-                break;
-            case Sphere::Type::RED:
-                count = &redCount;
-                break;
-            default:
-                CCASSERT(false, "invalid color");
-                break;
+        if (Sphere::Type::NONE < info.color && info.color < Sphere::Type::LAST) {
+            countList[info.color - 1]++;
         }
-
-        *count += 1;
     }
 
-    this->blueSphereCount->setString(StringUtils::toString(atoi(this->blueSphereCount->getString().data()) + blueCount));
-    this->yellowSphereCount->setString(StringUtils::toString(atoi(this->yellowSphereCount->getString().data()) + yellowCount));
-    this->redSphereCount->setString(StringUtils::toString(atoi(this->redSphereCount->getString().data()) + redCount));
+    Label* labelList[] = { blueSphereCount, yellowSphereCount, redSphereCount };
+    Sprite* circleList[] = { blueCircle, yellowCircle, redCircle };
+    for (int type = Sphere::Type::NONE + 1; type < Sphere::Type::LAST; ++type) {
+        int i = type - 1;
+        if (countList[i]) {
+            labelList[i]->setString(StringUtils::toString(atoi(labelList[i]->getString().data()) + countList[i]));
+            labelList[i]->stopAllActions();
+            labelList[i]->setScale(1.5f);
+            labelList[i]->runAction(ScaleTo::create(0.1f, 1.f));
+            circleList[i]->stopAllActions();
+            circleList[i]->setScale(circleScale * 1.5f);
+            circleList[i]->runAction(ScaleTo::create(0.1f, circleScale));
+        }
+    }
 }
 
 bool GameScene::checkGameEnds()
@@ -433,31 +432,35 @@ void GameScene::setupUI()
     const static string fontFile = "ChangaOne-Regular.ttf";
     const map<Sphere::Type, int>& sphereCountPerColor = this->field->getSphereCountPerColor();
     for (int i = 0; i < 3; ++i) {
-        Sprite* circle = Sprite::create(fileNameList[i]);
-        circle->setAnchorPoint(Vec2(0.5f, 0.5f));
-        circle->setScale(0.25f);
-        circle->setPosition(Vec2(40.f + countWidth * i, 40.f));
-        header->addChild(circle);
-
+        Sprite** circle;
         Label **label, **totalLabel;
         Sphere::Type sphereColor;
         switch (i) {
             case 0:
+                circle = &blueCircle;
                 label = &blueSphereCount;
                 totalLabel = &blueSphereTotalCount;
                 sphereColor = Sphere::Type::BLUE;
                 break;
             case 1:
+                circle = &yellowCircle;
                 label = &yellowSphereCount;
                 totalLabel = &yellowSphereTotalCount;
                 sphereColor = Sphere::Type::YELLOW;
                 break;
             case 2:
+                circle = &redCircle;
                 label = &redSphereCount;
                 totalLabel = &redSphereTotalCount;
                 sphereColor = Sphere::Type::RED;
                 break;
         }
+
+        (*circle) = Sprite::create(fileNameList[i]);
+        (*circle)->setAnchorPoint(Vec2(0.5f, 0.5f));
+        (*circle)->setScale(circleScale);
+        (*circle)->setPosition(Vec2(40.f + countWidth * i, 40.f));
+        header->addChild(*circle);
 
         (*label) = Label::createWithTTF("0", fontFile, fontSize);
         (*label)->setColor(Color3B::BLACK);
