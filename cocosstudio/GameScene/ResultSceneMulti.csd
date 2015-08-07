@@ -17,10 +17,10 @@
             <FileData Type="Normal" Path="Resources/Backgrounds/main_sky_blur.jpg" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="BackgroundBoxHeader" ActionTag="-914172097" Tag="72" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="603.0005" RightMargin="602.9995" TopMargin="48.5007" BottomMargin="573.4993" ctype="SpriteObjectData">
+          <AbstractNodeData Name="BackgroundBoxHeader" ActionTag="-914172097" Tag="72" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="603.0000" RightMargin="603.0000" TopMargin="48.5000" BottomMargin="573.5000" ctype="SpriteObjectData">
             <Size X="128.0000" Y="128.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="667.0005" Y="637.4993" />
+            <Position X="667.0000" Y="637.5000" />
             <Scale ScaleX="10.4000" ScaleY="1.2000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.5000" Y="0.8500" />
@@ -28,10 +28,10 @@
             <FileData Type="Normal" Path="Resources/Backgrounds/box.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="BackgroundBoxContents" ActionTag="-343284050" Tag="74" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="603.0004" RightMargin="602.9996" TopMargin="392.4003" BottomMargin="229.5997" ctype="SpriteObjectData">
+          <AbstractNodeData Name="BackgroundBoxContents" ActionTag="-343284050" Tag="74" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="603.0000" RightMargin="603.0000" TopMargin="392.4000" BottomMargin="229.6000" ctype="SpriteObjectData">
             <Size X="128.0000" Y="128.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5500" />
-            <Position X="667.0004" Y="299.9997" />
+            <Position X="667.0000" Y="300.0000" />
             <Scale ScaleX="10.4000" ScaleY="4.1752" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.5000" Y="0.4000" />
@@ -51,25 +51,25 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="PlayerScoreTitleLabel" ActionTag="-1276979036" Tag="34" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="71.9000" RightMargin="1139.1000" TopMargin="593.2500" BottomMargin="105.7500" FontSize="48" LabelText="Score" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+          <AbstractNodeData Name="PlayerScoreTitleLabel" ActionTag="-1276979036" Tag="34" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="71.9000" RightMargin="1139.1000" TopMargin="612.0000" BottomMargin="87.0000" FontSize="48" LabelText="Score" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
             <Size X="123.0000" Y="51.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="133.4000" Y="131.2500" />
+            <Position X="133.4000" Y="112.5000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.1000" Y="0.1750" />
+            <PrePosition X="0.1000" Y="0.1500" />
             <PreSize X="0.1634" Y="0.0720" />
             <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="PlayerScoreLabel" ActionTag="-318970795" Tag="36" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="371.2000" RightMargin="933.8000" TopMargin="593.2500" BottomMargin="105.7500" FontSize="48" LabelText="0" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+          <AbstractNodeData Name="PlayerScoreLabel" ActionTag="-318970795" Tag="36" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="417.8900" RightMargin="887.1100" TopMargin="612.0000" BottomMargin="87.0000" FontSize="48" LabelText="0" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
             <Size X="29.0000" Y="51.0000" />
             <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-            <Position X="400.2000" Y="131.2500" />
+            <Position X="446.8900" Y="112.5000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.3000" Y="0.1750" />
+            <PrePosition X="0.3350" Y="0.1500" />
             <PreSize X="0.1634" Y="0.0720" />
             <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
@@ -133,25 +133,25 @@
             <PrePosition X="0.8000" Y="0.4500" />
             <PreSize />
           </AbstractNodeData>
-          <AbstractNodeData Name="OtherScoreTitleLabel" ActionTag="-952510704" Tag="29" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="872.3000" RightMargin="338.7000" TopMargin="593.2500" BottomMargin="105.7500" FontSize="48" LabelText="Score" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+          <AbstractNodeData Name="OtherScoreTitleLabel" ActionTag="-952510704" Tag="29" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="872.3000" RightMargin="338.7000" TopMargin="612.0000" BottomMargin="87.0000" FontSize="48" LabelText="Score" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
             <Size X="123.0000" Y="51.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="933.8000" Y="131.2500" />
+            <Position X="933.8000" Y="112.5000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.7000" Y="0.1750" />
+            <PrePosition X="0.7000" Y="0.1500" />
             <PreSize X="0.1634" Y="0.0720" />
             <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="OtherScoreLabel" ActionTag="842357961" Tag="30" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1171.6000" RightMargin="133.4000" TopMargin="593.2500" BottomMargin="105.7500" FontSize="48" LabelText="0" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+          <AbstractNodeData Name="OtherScoreLabel" ActionTag="842357961" Tag="30" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1218.2900" RightMargin="86.7100" TopMargin="612.0000" BottomMargin="87.0000" FontSize="48" LabelText="0" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
             <Size X="29.0000" Y="51.0000" />
             <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-            <Position X="1200.6000" Y="131.2500" />
+            <Position X="1247.2900" Y="112.5000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.9000" Y="0.1750" />
+            <PrePosition X="0.9350" Y="0.1500" />
             <PreSize X="0.1634" Y="0.0720" />
             <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
@@ -165,6 +165,144 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.5000" Y="0.4500" />
             <PreSize />
+          </AbstractNodeData>
+          <AbstractNodeData Name="PlayerYellowScore" ActionTag="-1717282250" Tag="66" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="247.4900" RightMargin="1020.5100" TopMargin="562.0000" BottomMargin="150.0000" FontSize="36" LabelText="000" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="66.0000" Y="38.0000" />
+            <AnchorPoint ScaleX="1.0000" />
+            <Position X="313.4900" Y="150.0000" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.2350" Y="0.2000" />
+            <PreSize X="0.1634" Y="0.0720" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="CircleRedPlayer" ActionTag="1273997406" Tag="67" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="296.1800" RightMargin="909.8201" TopMargin="472.0000" BottomMargin="150.0000" ctype="SpriteObjectData">
+            <Size X="128.0000" Y="128.0000" />
+            <AnchorPoint ScaleX="0.5000" />
+            <Position X="360.1800" Y="150.0000" />
+            <Scale ScaleX="0.2500" ScaleY="0.2500" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.2700" Y="0.2000" />
+            <PreSize X="0.0960" Y="0.1707" />
+            <FileData Type="Normal" Path="Resources/ui/circleRed.png" Plist="" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="PlayerRedScore" ActionTag="-1716732547" Tag="71" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="380.8900" RightMargin="887.1100" TopMargin="562.0000" BottomMargin="150.0000" FontSize="36" LabelText="000" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="66.0000" Y="38.0000" />
+            <AnchorPoint ScaleX="1.0000" />
+            <Position X="446.8900" Y="150.0000" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.3350" Y="0.2000" />
+            <PreSize X="0.1634" Y="0.0720" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="CircleYellowPlayer" ActionTag="-122258108" Tag="72" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="162.7800" RightMargin="1043.2200" TopMargin="472.0000" BottomMargin="150.0000" ctype="SpriteObjectData">
+            <Size X="128.0000" Y="128.0000" />
+            <AnchorPoint ScaleX="0.5000" />
+            <Position X="226.7800" Y="150.0000" />
+            <Scale ScaleX="0.2500" ScaleY="0.2500" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.1700" Y="0.2000" />
+            <PreSize X="0.0960" Y="0.1707" />
+            <FileData Type="Normal" Path="Resources/ui/circleYellow.png" Plist="" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="PlayerBlueScore" ActionTag="-1526631086" Tag="73" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="114.0900" RightMargin="1153.9100" TopMargin="562.0000" BottomMargin="150.0000" FontSize="36" LabelText="000" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="66.0000" Y="38.0000" />
+            <AnchorPoint ScaleX="1.0000" />
+            <Position X="180.0900" Y="150.0000" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.1350" Y="0.2000" />
+            <PreSize X="0.1634" Y="0.0720" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="CircleBluePlayer" ActionTag="1058335139" Tag="74" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="29.3800" RightMargin="1176.6200" TopMargin="472.0000" BottomMargin="150.0000" ctype="SpriteObjectData">
+            <Size X="128.0000" Y="128.0000" />
+            <AnchorPoint ScaleX="0.5000" />
+            <Position X="93.3800" Y="150.0000" />
+            <Scale ScaleX="0.2500" ScaleY="0.2500" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.0700" Y="0.2000" />
+            <PreSize X="0.0960" Y="0.1707" />
+            <FileData Type="Normal" Path="Resources/ui/circleBlue.png" Plist="" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="OtherYellowScore" ActionTag="1129715839" Tag="81" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1047.8900" RightMargin="220.1100" TopMargin="562.0000" BottomMargin="150.0000" FontSize="36" LabelText="000" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="66.0000" Y="38.0000" />
+            <AnchorPoint ScaleX="1.0000" />
+            <Position X="1113.8900" Y="150.0000" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.8350" Y="0.2000" />
+            <PreSize X="0.1634" Y="0.0720" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="CircleRedOther" ActionTag="924900309" Tag="82" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1096.5800" RightMargin="109.4200" TopMargin="472.0000" BottomMargin="150.0000" ctype="SpriteObjectData">
+            <Size X="128.0000" Y="128.0000" />
+            <AnchorPoint ScaleX="0.5000" />
+            <Position X="1160.5800" Y="150.0000" />
+            <Scale ScaleX="0.2500" ScaleY="0.2500" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.8700" Y="0.2000" />
+            <PreSize X="0.0960" Y="0.1707" />
+            <FileData Type="Normal" Path="Resources/ui/circleRed.png" Plist="" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="OtherRedScore" ActionTag="1221413377" Tag="83" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1181.2900" RightMargin="86.7100" TopMargin="562.0000" BottomMargin="150.0000" FontSize="36" LabelText="000" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="66.0000" Y="38.0000" />
+            <AnchorPoint ScaleX="1.0000" />
+            <Position X="1247.2900" Y="150.0000" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.9350" Y="0.2000" />
+            <PreSize X="0.1634" Y="0.0720" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="CircleYellowOther" ActionTag="-117330378" Tag="84" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="963.1799" RightMargin="242.8201" TopMargin="472.0000" BottomMargin="150.0000" ctype="SpriteObjectData">
+            <Size X="128.0000" Y="128.0000" />
+            <AnchorPoint ScaleX="0.5000" />
+            <Position X="1027.1799" Y="150.0000" />
+            <Scale ScaleX="0.2500" ScaleY="0.2500" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.7700" Y="0.2000" />
+            <PreSize X="0.0960" Y="0.1707" />
+            <FileData Type="Normal" Path="Resources/ui/circleYellow.png" Plist="" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="OtherBlueScore" ActionTag="41694727" Tag="85" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="914.4899" RightMargin="353.5101" TopMargin="562.0000" BottomMargin="150.0000" FontSize="36" LabelText="000" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="66.0000" Y="38.0000" />
+            <AnchorPoint ScaleX="1.0000" />
+            <Position X="980.4899" Y="150.0000" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.7350" Y="0.2000" />
+            <PreSize X="0.1634" Y="0.0720" />
+            <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="CircleBlueOther" ActionTag="-950660713" Tag="86" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="829.7800" RightMargin="376.2200" TopMargin="472.0000" BottomMargin="150.0000" ctype="SpriteObjectData">
+            <Size X="128.0000" Y="128.0000" />
+            <AnchorPoint ScaleX="0.5000" />
+            <Position X="893.7800" Y="150.0000" />
+            <Scale ScaleX="0.2500" ScaleY="0.2500" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.6700" Y="0.2000" />
+            <PreSize X="0.0960" Y="0.1707" />
+            <FileData Type="Normal" Path="Resources/ui/circleBlue.png" Plist="" />
+            <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
         </Children>
       </ObjectData>

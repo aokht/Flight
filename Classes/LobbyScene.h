@@ -36,6 +36,7 @@ private:
 
     bool init();
     void onEnter() override;
+    void onExit() override;
     void grabElements();
     void setupUI();
     void setup3DModels();

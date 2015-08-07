@@ -29,6 +29,9 @@ public:
     void receivedData(const AirplaneInfoNetworkPacket& data);
     void receivedData(const GameScoreNetworkPacket& data);
 
+    const cocos2d::Vec3 getCameraPosition() const;
+    const cocos2d::Vec3 getCameraEye() const;
+
     struct GameScore {
         bool isTimeUp;
         bool isCollided;
@@ -36,7 +39,8 @@ public:
         float elapsedTime;
         std::vector<AchievedSphereInfo> sphereList;
 
-        int otherAirplaneScore;
+        int otherAirplaneTotalScore;
+        std::map<Sphere::Type, int> otherAirplaneScoreMap;
         bool isOtherAirplaneCollided;
         bool isOtherAirplaneCompleted;
 
@@ -52,7 +56,8 @@ public:
             isCompleted(isCompleted),
             elapsedTime(elapsedTime),
             sphereList(sphereList),
-            otherAirplaneScore(-1),
+            otherAirplaneTotalScore(-1),
+            otherAirplaneScoreMap(),
             isOtherAirplaneCollided(false),
             isOtherAirplaneCompleted(false)
         {
@@ -65,7 +70,12 @@ private:
     Airplane* airplane;
     cocos2d::Sprite3D* skydome;
     cocos2d::Sprite* header;
-    cocos2d::Label* labelCoins;
+    cocos2d::Label* blueSphereCount;
+    cocos2d::Label* yellowSphereCount;
+    cocos2d::Label* redSphereCount;
+    cocos2d::Label* blueSphereTotalCount;
+    cocos2d::Label* yellowSphereTotalCount;
+    cocos2d::Label* redSphereTotalCount;
     cocos2d::Label* labelTime;
     cocos2d::ui::Button* startButton;
     cocos2d::Label* labelPosition;
@@ -97,7 +107,7 @@ private:
     void setupParticles();
 
     void updateRunningTime(float dt);
-    void incrementCoinCount(int count);
+    void updateSphereCount(const std::vector<AchievedSphereInfo>& achievedSphereInfoList);
     bool checkGameEnds();
     void endGame();
     bool isGameEnded() const;

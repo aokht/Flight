@@ -20,6 +20,8 @@
 #include "FieldDataSource.h"
 #include "Sprite3DBatchNode.h"
 #include "SceneManager.h"
+#include "ExSprite3D.h"
+#include "Action3D.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -95,7 +97,7 @@ void GameScene::update(float dt)
 
         vector<AchievedSphereInfo> achivedSphereInfoList;
         this->field->checkSphereCollision(&achivedSphereInfoList);
-        this->incrementCoinCount((int)achivedSphereInfoList.size());
+        this->updateSphereCount(achivedSphereInfoList);
 
         if (! GameSceneManager::getInstance()->isSinglePlay()) {
             this->sendAirplaneInfoWithSphereInfo(achivedSphereInfoList);
@@ -138,10 +140,32 @@ void GameScene::updateRunningTime(float dt)
     this->labelTime->setString(StringUtils::format("%.2f", PLAY_SECONDS - this->runningTime));
 }
 
-void GameScene::incrementCoinCount(int count)
+void GameScene::updateSphereCount(const std::vector<AchievedSphereInfo>& achievedSphereInfoList)
 {
-    this->coinCount += count;
-    this->labelCoins->setString(StringUtils::toString(this->coinCount));
+    int blueCount = 0, yellowCount = 0, redCount = 0;
+    for (const AchievedSphereInfo& info : achievedSphereInfoList) {
+        int* count;
+        switch (info.color) {
+            case Sphere::Type::BLUE:
+                count = &blueCount;
+                break;
+            case Sphere::Type::YELLOW:
+                count = &yellowCount;
+                break;
+            case Sphere::Type::RED:
+                count = &redCount;
+                break;
+            default:
+                CCASSERT(false, "invalid color");
+                break;
+        }
+
+        *count += 1;
+    }
+
+    this->blueSphereCount->setString(StringUtils::toString(atoi(this->blueSphereCount->getString().data()) + blueCount));
+    this->yellowSphereCount->setString(StringUtils::toString(atoi(this->yellowSphereCount->getString().data()) + yellowCount));
+    this->redSphereCount->setString(StringUtils::toString(atoi(this->redSphereCount->getString().data()) + redCount));
 }
 
 bool GameScene::checkGameEnds()
@@ -186,6 +210,8 @@ void GameScene::stopGame(bool strict)
 
 void GameScene::endGame()
 {
+    this->stopGame();
+
     GameScore score({
         this->isTimeUp,
         this->isCollided,
@@ -203,8 +229,9 @@ void GameScene::endGame()
         this->sendGameScore(score);
 
         // 相手が既に終わっていた場合は結果を表示
-        if (this->score.otherAirplaneScore != -1) {
-            score.otherAirplaneScore = this->score.otherAirplaneScore;
+        if (this->score.otherAirplaneTotalScore != -1) {
+            score.otherAirplaneTotalScore = this->score.otherAirplaneTotalScore;
+            score.otherAirplaneScoreMap = this->score.otherAirplaneScoreMap;
             score.isOtherAirplaneCollided = this->score.isOtherAirplaneCollided;
             score.isOtherAirplaneCompleted = this->score.isOtherAirplaneCompleted;
 
@@ -308,29 +335,78 @@ void GameScene::setupUI()
     header->setOpacity(100);
     this->addChild(header);
 
-    Label* labelCoinsName = Label::createWithTTF("Coins: ", "fonts/arial.ttf", 50.f);
-    labelCoinsName->setColor(Color3B::BLACK);
-    labelCoinsName->setAnchorPoint(Vec2(0.f, 0.f));
-    labelCoinsName->setPosition(Vec2(0.f, 0.f));
-    header->addChild(labelCoinsName);
+    const static string fileNameList[] = {
+        "ui/circleBlue.png",
+        "ui/circleYellow.png",
+        "ui/circleRed.png"
+    };
+    const static float fontSize = 40.f;
+    const static float countLabelWidth = 65.f;  // 数字ラベルの幅
+    const static float countWidth = 230.f;      // 1色あたりの合計幅
+    const static string fontFile = "ChangaOne-Regular.ttf";
+    const map<Sphere::Type, int>& sphereCountPerColor = this->field->getSphereCountPerColor();
+    for (int i = 0; i < 3; ++i) {
+        Sprite* circle = Sprite::create(fileNameList[i]);
+        circle->setAnchorPoint(Vec2(0.5f, 0.5f));
+        circle->setScale(0.25f);
+        circle->setPosition(Vec2(40.f + countWidth * i, 40.f));
+        header->addChild(circle);
 
-    Label* labelCoinsValue = Label::createWithTTF("0", "fonts/arial.ttf", 50);
-    labelCoinsValue->setColor(Color3B::BLACK);
-    labelCoinsValue->setAnchorPoint(Vec2(0.f, 0.f));
-    labelCoinsValue->setPosition(Vec2(labelCoinsName->getContentSize().width + 10, 0.f));
-    header->addChild(labelCoinsValue);
-    this->labelCoins = labelCoinsValue;
+        Label **label, **totalLabel;
+        Sphere::Type sphereColor;
+        switch (i) {
+            case 0:
+                label = &blueSphereCount;
+                totalLabel = &blueSphereTotalCount;
+                sphereColor = Sphere::Type::BLUE;
+                break;
+            case 1:
+                label = &yellowSphereCount;
+                totalLabel = &yellowSphereTotalCount;
+                sphereColor = Sphere::Type::YELLOW;
+                break;
+            case 2:
+                label = &redSphereCount;
+                totalLabel = &redSphereTotalCount;
+                sphereColor = Sphere::Type::RED;
+                break;
+        }
 
-    Label* labelTimeName = Label::createWithTTF("Time: ", "fonts/arial.ttf", 50.f);
+        (*label) = Label::createWithTTF("0", fontFile, fontSize);
+        (*label)->setColor(Color3B::BLACK);
+        (*label)->setAnchorPoint(Vec2(0.f, 0.5f));
+        (*label)->setWidth(countLabelWidth);
+        (*label)->setAlignment(TextHAlignment::RIGHT);
+        (*label)->setPosition(Vec2(60.f + countWidth * i, 40.f));
+
+        Label* perLabel = Label::createWithTTF("/", fontFile, fontSize);
+        perLabel->setColor(Color3B::BLACK);
+        perLabel->setAnchorPoint(Vec2(0.f, 0.5f));
+        perLabel->setPosition(Vec2(130.f + countWidth * i, 40.f));
+
+        (*totalLabel) = Label::createWithTTF("0", fontFile, fontSize);
+        (*totalLabel)->setColor(Color3B::BLACK);
+        (*totalLabel)->setAnchorPoint(Vec2(0.f, 0.5f));
+        (*totalLabel)->setWidth(countLabelWidth);
+        (*totalLabel)->setAlignment(TextHAlignment::RIGHT);
+        (*totalLabel)->setPosition(Vec2(155.f + countWidth * i, 40.f));
+        (*totalLabel)->setString(StringUtils::toString(sphereCountPerColor.at(sphereColor)));
+
+        header->addChild(*label);
+        header->addChild(perLabel);
+        header->addChild(*totalLabel);
+    }
+
+    Label* labelTimeName = Label::createWithTTF("Time: ", "ChangaOne-Regular.ttf", fontSize);
     labelTimeName->setColor(Color3B::BLACK);
-    labelTimeName->setAnchorPoint(Vec2(0.f, 0.f));
-    labelTimeName->setPosition(Vec2(header->getContentSize().width * 0.35f, 0.f));
+    labelTimeName->setAnchorPoint(Vec2(0.5f, 0.5f));
+    labelTimeName->setPosition(Vec2(header->getContentSize().width * 0.6f, fontSize));
     header->addChild(labelTimeName);
 
-    Label* labelTimeNum = Label::createWithTTF("00.00", "fonts/arial.ttf", 50);
+    Label* labelTimeNum = Label::createWithTTF("00.00", "ChangaOne-Regular.ttf", fontSize);
     labelTimeNum->setColor(Color3B::BLACK);
-    labelTimeNum->setAnchorPoint(Vec2(0.f, 0.f));
-    labelTimeNum->setPosition(Vec2(labelTimeName->getPosition().x + labelTimeName->getContentSize().width + 10, 0.f));
+    labelTimeNum->setAnchorPoint(Vec2(0.f, 0.5f));
+    labelTimeNum->setPosition(Vec2(labelTimeName->getPosition().x + 70.f, 40.f));
     header->addChild(labelTimeNum);
     this->labelTime = labelTimeNum;
 
@@ -553,8 +629,13 @@ void GameScene::sendAirplaneInfoWithSphereInfo(const vector<AchievedSphereInfo>&
 
 void GameScene::sendGameScore(const GameScene::GameScore& score)
 {
+    map<Sphere::Type, int> scoreMap = GameSceneManager::calculateScore(score.sphereList);
+
     GameScoreNetworkPacket packet({
         (int)score.sphereList.size(),
+        scoreMap[Sphere::Type::BLUE],
+        scoreMap[Sphere::Type::YELLOW],
+        scoreMap[Sphere::Type::RED],
         score.isTimeUp,
         score.isCollided,
         score.isCompleted
@@ -576,7 +657,10 @@ void GameScene::receivedData(const GameScoreNetworkPacket& data)
 {
     int peerId = data.peerId;  // TODO: 使っていない
 
-    this->score.otherAirplaneScore = data.score;
+    this->score.otherAirplaneTotalScore = data.score;
+    this->score.otherAirplaneScoreMap[Sphere::Type::BLUE] = data.blueCount;
+    this->score.otherAirplaneScoreMap[Sphere::Type::YELLOW] = data.yellowCount;
+    this->score.otherAirplaneScoreMap[Sphere::Type::RED] = data.redCount;
     this->score.isOtherAirplaneCollided = data.isCollided;
     this->score.isOtherAirplaneCompleted = data.isCompleted;
 
@@ -595,6 +679,16 @@ void GameScene::receivedData(const GameScoreNetworkPacket& data)
     else {
         GameSceneManager::getInstance()->showResultScene(score);
     }
+}
+
+const Vec3 GameScene::getCameraPosition() const
+{
+    return this->field->getAirplanePosition() + this->camera->getPosition3D();
+}
+
+const Vec3 GameScene::getCameraEye() const
+{
+    return this->field->getAirplanePosition();
 }
 
 void GameScene::updateDebugInfo()

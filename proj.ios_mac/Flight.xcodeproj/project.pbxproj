@@ -48,10 +48,6 @@
 		5B4B040F1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert in Resources */ = {isa = PBXBuildFile; fileRef = 5B4B040D1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert */; };
 		5B4C54491B7006400031B121 /* ResultSceneMulti.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4C54471B7006400031B121 /* ResultSceneMulti.cpp */; };
 		5B4C544A1B7006400031B121 /* ResultSceneMulti.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4C54471B7006400031B121 /* ResultSceneMulti.cpp */; };
-		5B4C544F1B70A19F0031B121 /* SphereShader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 5B4C544D1B70A19F0031B121 /* SphereShader.frag */; };
-		5B4C54501B70A19F0031B121 /* SphereShader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 5B4C544D1B70A19F0031B121 /* SphereShader.frag */; };
-		5B4C54511B70A19F0031B121 /* SphereShader.vert in Resources */ = {isa = PBXBuildFile; fileRef = 5B4C544E1B70A19F0031B121 /* SphereShader.vert */; };
-		5B4C54521B70A19F0031B121 /* SphereShader.vert in Resources */ = {isa = PBXBuildFile; fileRef = 5B4C544E1B70A19F0031B121 /* SphereShader.vert */; };
 		5B4C545A1B7151A40031B121 /* Action3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4C54581B7151A40031B121 /* Action3D.cpp */; };
 		5B4C545B1B7151A40031B121 /* Action3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4C54581B7151A40031B121 /* Action3D.cpp */; };
 		5B4CB9131B5EF1F90084916C /* plists in Resources */ = {isa = PBXBuildFile; fileRef = 5B4CB9121B5EF1F90084916C /* plists */; };
@@ -104,6 +100,10 @@
 		5B94B0771B5A2C3C0094340C /* ExSprite3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */; };
 		5B9AB0821B730C0900DA29D4 /* LoadingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B9AB0801B730C0900DA29D4 /* LoadingScene.cpp */; };
 		5B9AB0831B730C0900DA29D4 /* LoadingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B9AB0801B730C0900DA29D4 /* LoadingScene.cpp */; };
+		5BB38EDC1B7351FA000BC42D /* SphereShader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 5BB38EDA1B7351FA000BC42D /* SphereShader.frag */; };
+		5BB38EDD1B7351FA000BC42D /* SphereShader.vert in Resources */ = {isa = PBXBuildFile; fileRef = 5BB38EDB1B7351FA000BC42D /* SphereShader.vert */; };
+		5BB38EE01B7351FE000BC42D /* SphereShader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 5BB38EDA1B7351FA000BC42D /* SphereShader.frag */; };
+		5BB38EE11B7351FE000BC42D /* SphereShader.vert in Resources */ = {isa = PBXBuildFile; fileRef = 5BB38EDB1B7351FA000BC42D /* SphereShader.vert */; };
 		5BB38EE51B735245000BC42D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BB38EE41B735244000BC42D /* Images.xcassets */; };
 		5BB38EF21B7361CC000BC42D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB38EE71B7361CC000BC42D /* Default-568h@2x.png */; };
 		5BB38EF31B7361CC000BC42D /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB38EE81B7361CC000BC42D /* Default-667h@2x.png */; };
@@ -183,8 +183,6 @@
 		5B4B040D1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Sprite3DBatchNodeShader.vert; path = Shaders/Sprite3DBatchNodeShader.vert; sourceTree = "<group>"; };
 		5B4C54471B7006400031B121 /* ResultSceneMulti.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResultSceneMulti.cpp; sourceTree = "<group>"; };
 		5B4C54481B7006400031B121 /* ResultSceneMulti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultSceneMulti.h; sourceTree = "<group>"; };
-		5B4C544D1B70A19F0031B121 /* SphereShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SphereShader.frag; path = Shaders/SphereShader.frag; sourceTree = "<group>"; };
-		5B4C544E1B70A19F0031B121 /* SphereShader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SphereShader.vert; path = Shaders/SphereShader.vert; sourceTree = "<group>"; };
 		5B4C54581B7151A40031B121 /* Action3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Action3D.cpp; sourceTree = "<group>"; };
 		5B4C54591B7151A40031B121 /* Action3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action3D.h; sourceTree = "<group>"; };
 		5B4CB9121B5EF1F90084916C /* plists */ = {isa = PBXFileReference; lastKnownFileType = folder; path = plists; sourceTree = "<group>"; };
@@ -233,6 +231,8 @@
 		5B94B07D1B5A2C900094340C /* ExVertexIndexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExVertexIndexBuffer.h; sourceTree = "<group>"; };
 		5B9AB0801B730C0900DA29D4 /* LoadingScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadingScene.cpp; sourceTree = "<group>"; };
 		5B9AB0811B730C0900DA29D4 /* LoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingScene.h; sourceTree = "<group>"; };
+		5BB38EDA1B7351FA000BC42D /* SphereShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SphereShader.frag; path = Shaders/SphereShader.frag; sourceTree = "<group>"; };
+		5BB38EDB1B7351FA000BC42D /* SphereShader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SphereShader.vert; path = Shaders/SphereShader.vert; sourceTree = "<group>"; };
 		5BB38EE41B735244000BC42D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Flight iOS/Images.xcassets"; sourceTree = SOURCE_ROOT; };
 		5BB38EE71B7361CC000BC42D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		5BB38EE81B7361CC000BC42D /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
@@ -441,6 +441,8 @@
 		5B4CB8ED1B5DF2F70084916C /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				5BB38EDA1B7351FA000BC42D /* SphereShader.frag */,
+				5BB38EDB1B7351FA000BC42D /* SphereShader.vert */,
 				5B0D34AD1B718A26007BA862 /* SphereShaderForTitleScreen.frag */,
 				5B0D34AE1B718A26007BA862 /* SphereShaderForTitleScreen.vert */,
 				5B50886C1B6E8D0D00087706 /* DuplicateFieldShader.frag */,
@@ -690,6 +692,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B5088701B6E8D0D00087706 /* DuplicateFieldShader.vert in Resources */,
+				5BB38EDC1B7351FA000BC42D /* SphereShader.frag in Resources */,
 				5B58B5F71B669B6400539BEA /* networkingDiagram.png in Resources */,
 				5BB38EFA1B7361CC000BC42D /* Default-Portrait@2x.png in Resources */,
 				5BB38EFC1B7361CC000BC42D /* Default@2x.png in Resources */,
@@ -706,6 +709,7 @@
 				5B50886E1B6E8D0D00087706 /* DuplicateFieldShader.frag in Resources */,
 				5B0D34B11B718A26007BA862 /* SphereShaderForTitleScreen.vert in Resources */,
 				5B4B040B1B6D8890008B6C09 /* Sprite3DBatchNodeShader.frag in Resources */,
+				5BB38EDD1B7351FA000BC42D /* SphereShader.vert in Resources */,
 				5BB38EF31B7361CC000BC42D /* Default-667h@2x.png in Resources */,
 				5BB38EFB1B7361CC000BC42D /* Default.png in Resources */,
 				5B58B6011B6A865D00539BEA /* FieldShader.old.vert in Resources */,
@@ -729,6 +733,8 @@
 				5B58B5F81B669B6400539BEA /* networkingDiagram.png in Resources */,
 				7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */,
 				5B50886F1B6E8D0D00087706 /* DuplicateFieldShader.frag in Resources */,
+				5BB38EE11B7351FE000BC42D /* SphereShader.vert in Resources */,
+				5BB38EE01B7351FE000BC42D /* SphereShader.frag in Resources */,
 				5B0D34B01B718A26007BA862 /* SphereShaderForTitleScreen.frag in Resources */,
 				5B4B040F1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert in Resources */,
 				5B5088711B6E8D0D00087706 /* DuplicateFieldShader.vert in Resources */,

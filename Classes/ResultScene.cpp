@@ -73,8 +73,14 @@ void ResultScene::grabElements()
     this->lobbyButton = this->rootNode->getChildByName<ui::Button*>("LobbyButton");
     CCASSERT(lobbyButton, "LobbyButton in ResultScene is not found");
 
-    this->coinCountLabel = this->rootNode->getChildByName<ui::Text*>("CoinsValueLabel");
-    CCASSERT(coinCountLabel, "CoinsValueLabel in ResultScene is not found");
+    this->blueCountLabel = this->rootNode->getChildByName<ui::Text*>("BlueCoinsLabel");
+    CCASSERT(blueCountLabel, "BlueCoinsLabel in ResultScene is not found");
+
+    this->yellowCountLabel = this->rootNode->getChildByName<ui::Text*>("YellowCoinsLabel");
+    CCASSERT(yellowCountLabel, "YellowCoinsLabel in ResultScene is not found");
+
+    this->redCountLabel = this->rootNode->getChildByName<ui::Text*>("RedCoinsLabel");
+    CCASSERT(redCountLabel, "RedCoinsLabel in ResultScene is not found");
 
     this->timeCountLabel = this->rootNode->getChildByName<ui::Text*>("TimeValueLabel");
     CCASSERT(timeCountLabel, "TimeValueLabel in ResultScene is not found");
@@ -112,6 +118,27 @@ void ResultScene::setupUI()
 
 void ResultScene::setupScores()
 {
-    this->coinCountLabel->setString(StringUtils::toString(score.sphereList.size()));
-    this->timeCountLabel->setString(StringUtils::format("%.2f", PLAY_SECONDS - score.elapsedTime));
+    map<Sphere::Type, int> sphereCount = GameSceneManager::calculateScore(score.sphereList);
+
+    this->blueCountLabel->setString(StringUtils::toString(sphereCount[Sphere::Type::BLUE]));
+    this->yellowCountLabel->setString(StringUtils::toString(sphereCount[Sphere::Type::YELLOW]));
+    this->redCountLabel->setString(StringUtils::toString(sphereCount[Sphere::Type::RED]));
+
+    int timeBonus;
+
+    if (score.isCollided) {
+        // 衝突したら時間ボーナスは無し(Sphere は獲得できる)
+        timeBonus = 0;
+        this->timeCountLabel->setString("-");
+    } else {
+        timeBonus = (int)((PLAY_SECONDS - score.elapsedTime) * 10.f);
+        this->timeCountLabel->setString(StringUtils::toString(timeBonus));
+    }
+
+    int totalScore =
+        sphereCount[Sphere::Type::BLUE] +
+        sphereCount[Sphere::Type::YELLOW] +
+        sphereCount[Sphere::Type::RED] +
+        timeBonus;
+    this->totalScoreLabel->setString(StringUtils::toString(totalScore));
 }

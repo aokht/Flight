@@ -149,6 +149,11 @@ void SceneManager::startAdvertisingAvailability()
     networkingWrapper->startAdvertisingAvailability();
 }
 
+void SceneManager::stopAdvertisingAvailability()
+{
+    networkingWrapper->stopAdvertisingAvailability();
+}
+
 void SceneManager::receivedData(const void* data, unsigned long length)
 {
     const NetworkPacket* packet = static_cast<const NetworkPacket*>(data);
@@ -191,9 +196,9 @@ void SceneManager::receivedData(const void* data, unsigned long length)
     }
 }
 
-void SceneManager::sendData(const void *data, int length)
+void SceneManager::sendData(const void *data, int length, SendDataMode mode)
 {
-    networkingWrapper->sendData(data, length);
+    networkingWrapper->sendData(data, length, mode);
 }
 
 void SceneManager::stateChanged(ConnectionState state)
@@ -261,7 +266,7 @@ void SceneManager::sendSelectSceneDataToPeer()
 
 void SceneManager::sendGameSceneAirplaneInfoToPeer(const AirplaneInfoNetworkPacket& packet)
 {
-    this->sendData(&packet, sizeof(AirplaneInfoNetworkPacket));
+    this->sendData(&packet, sizeof(AirplaneInfoNetworkPacket), SendDataMode::Unreliable);
 }
 
 void SceneManager::sendGameSceneScoreToPeer(const GameScoreNetworkPacket& packet)

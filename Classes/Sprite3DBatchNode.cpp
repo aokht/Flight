@@ -27,17 +27,18 @@ Sprite3DBatchNode* Sprite3DBatchNode::create(const string& modelPath, const stri
     return nullptr;
 }
 
-Sprite3DBatchNode* Sprite3DBatchNode::createShared(const Sprite3DBatchNode& src)
+Sprite3DBatchNode* Sprite3DBatchNode::create(const Sprite3DBatchNode& src)
 {
-    Sprite3DBatchNode* sprite3DBatchNode = Sprite3DBatchNode::create(src.modelPath, src.shaderPathVert, src.shaderPathFrag);
-    sprite3DBatchNode->nodeCount = src.nodeCount;
-    sprite3DBatchNode->positionOffsetList = src.positionOffsetList;
-    sprite3DBatchNode->visibleList = src.visibleList;
-    sprite3DBatchNode->statusList = src.statusList;
+    return create(src.modelPath, src.shaderPathVert, src.shaderPathVert);
+}
 
-    sprite3DBatchNode->isShared = true;
-
-    return sprite3DBatchNode;
+void Sprite3DBatchNode::makeBatchNodeShared(const Sprite3DBatchNode& src, Sprite3DBatchNode* dst)
+{
+    dst->nodeCount = src.nodeCount;
+    dst->positionOffsetList = src.positionOffsetList;
+    dst->visibleList = src.visibleList;
+    dst->statusList = src.statusList;
+    dst->isShared = true;
 }
 
 Sprite3DBatchNode::Sprite3DBatchNode() :

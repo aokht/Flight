@@ -71,11 +71,29 @@ void ResultSceneMulti::grabElements()
     this->lobbyButton = this->rootNode->getChildByName<ui::Button*>("LobbyButton");
     CCASSERT(lobbyButton, "LobbyButton in ResultSceneMulti is not found");
 
-    this->playerScoreLabel = this->rootNode->getChildByName<ui::Text*>("PlayerScoreLabel");
-    CCASSERT(playerScoreLabel, "PlayerScoreLabel in ResultSceneMulti is not found");
+    this->playerTotalScoreLabel = this->rootNode->getChildByName<ui::Text*>("PlayerScoreLabel");
+    CCASSERT(playerTotalScoreLabel, "PlayerScoreLabel in ResultSceneMulti is not found");
 
-    this->otherScoreLabel = this->rootNode->getChildByName<ui::Text*>("OtherScoreLabel");
-    CCASSERT(otherScoreLabel, "OtherScoreLabel in ResultSceneMulti is not found");
+    this->playerBlueScoreLabel = this->rootNode->getChildByName<ui::Text*>("PlayerBlueScore");
+    CCASSERT(playerBlueScoreLabel, "PlayerBlueScore in ResultSceneMulti is not found");
+
+    this->playerYellowScoreLabel = this->rootNode->getChildByName<ui::Text*>("PlayerYellowScore");
+    CCASSERT(playerYellowScoreLabel, "PlayerYellowScore in ResultSceneMulti is not found");
+
+    this->playerRedScoreLabel = this->rootNode->getChildByName<ui::Text*>("PlayerRedScore");
+    CCASSERT(playerRedScoreLabel, "PlayerRedScore in ResultSceneMulti is not found");
+
+    this->otherTotalScoreLabel = this->rootNode->getChildByName<ui::Text*>("OtherScoreLabel");
+    CCASSERT(otherTotalScoreLabel, "OtherScoreLabel in ResultSceneMulti is not found");
+
+    this->otherBlueScoreLabel = this->rootNode->getChildByName<ui::Text*>("OtherBlueScore");
+    CCASSERT(otherBlueScoreLabel, "OtherBlueScore in ResultSceneMulti is not found");
+
+    this->otherYellowScoreLabel = this->rootNode->getChildByName<ui::Text*>("OtherYellowScore");
+    CCASSERT(otherYellowScoreLabel, "OtherYellowScore in ResultSceneMulti is not found");
+
+    this->otherRedScoreLabel = this->rootNode->getChildByName<ui::Text*>("OtherRedScore");
+    CCASSERT(otherRedScoreLabel, "OtherRedScore in ResultSceneMulti is not found");
 
     this->fieldNode = this->rootNode->getChildByName<Node*>("FieldNode");
     CCASSERT(fieldNode, "FieldNode in ResultSceneMulti is not found");
@@ -123,6 +141,33 @@ void ResultSceneMulti::setupUI()
 
 void ResultSceneMulti::setupScores()
 {
-    this->playerScoreLabel->setString(StringUtils::toString(score.sphereList.size()));
-    this->otherScoreLabel->setString(StringUtils::toString(score.otherAirplaneScore));
+    map<Sphere::Type, int> playerScoreMap = GameSceneManager::calculateScore(score.sphereList);
+
+    // 衝突したら無効
+
+    if (score.isCollided) {
+        this->playerBlueScoreLabel->setString("-");
+        this->playerYellowScoreLabel->setString("-");
+        this->playerRedScoreLabel->setString("-");
+        this->playerTotalScoreLabel->setString("0");
+    } else {
+        this->playerBlueScoreLabel->setString(StringUtils::toString(playerScoreMap[Sphere::Type::BLUE]));
+        this->playerYellowScoreLabel->setString(StringUtils::toString(playerScoreMap[Sphere::Type::YELLOW]));
+        this->playerRedScoreLabel->setString(StringUtils::toString(playerScoreMap[Sphere::Type::RED]));
+        int totalScore = playerScoreMap[Sphere::Type::BLUE] + playerScoreMap[Sphere::Type::YELLOW] + playerScoreMap[Sphere::Type::RED];
+        this->playerTotalScoreLabel->setString(StringUtils::toString(totalScore));
+    }
+
+    if (score.isOtherAirplaneCollided) {
+        this->otherBlueScoreLabel->setString("-");
+        this->otherYellowScoreLabel->setString("-");
+        this->otherRedScoreLabel->setString("-");
+        this->otherTotalScoreLabel->setString("0");
+    } else {
+        this->otherBlueScoreLabel->setString(StringUtils::toString(score.otherAirplaneScoreMap.at(Sphere::Type::BLUE)));
+        this->otherYellowScoreLabel->setString(StringUtils::toString(score.otherAirplaneScoreMap.at(Sphere::Type::YELLOW)));
+        this->otherRedScoreLabel->setString(StringUtils::toString(score.otherAirplaneScoreMap.at(Sphere::Type::RED)));
+        int totalScore = score.otherAirplaneScoreMap.at(Sphere::Type::BLUE) + score.otherAirplaneScoreMap.at(Sphere::Type::YELLOW) + score.otherAirplaneScoreMap.at(Sphere::Type::RED);
+        this->otherTotalScoreLabel->setString(StringUtils::toString(totalScore));
+    }
 }

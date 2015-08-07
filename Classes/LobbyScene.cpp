@@ -57,6 +57,13 @@ void LobbyScene::onEnter()
     SceneManager::getInstance()->startAdvertisingAvailability();
 }
 
+void LobbyScene::onExit()
+{
+    Layer::onExit();
+
+    SceneManager::getInstance()->stopAdvertisingAvailability();
+}
+
 void LobbyScene::grabElements()
 {
     this->titleSprite = this->rootNode->getChildByName<Sprite*>("TitleSprite");
@@ -112,6 +119,9 @@ void LobbyScene::setup3DModels()
     sphere1->setRotation3D(Vec3(0.f,   0.f, 0.f));
     sphere2->setRotation3D(Vec3(0.f,  57.f, 0.f));
     sphere3->setRotation3D(Vec3(0.f, 123.f, 0.f));
+    sphere1->setScale(2.f);
+    sphere2->setScale(2.f);
+    sphere3->setScale(2.f);
     this->addChild(sphere1);
     this->addChild(sphere2);
     this->addChild(sphere3);

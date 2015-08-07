@@ -17,7 +17,8 @@ class Sprite3DBatchNode : public ExSprite3D
 public:
     static Sprite3DBatchNode* create(const std::string& modelPath);
     static Sprite3DBatchNode* create(const std::string& modelPath, const std::string& vertShader, const std::string& fragShader);
-    static Sprite3DBatchNode* createShared(const Sprite3DBatchNode& src);
+    static Sprite3DBatchNode* create(const Sprite3DBatchNode& src);
+    static void makeBatchNodeShared(const Sprite3DBatchNode& src, Sprite3DBatchNode* dst);
 
     void add(cocos2d::Vec3 position);
     int getNodeCount() const;

@@ -10,11 +10,42 @@
 #define __Flight__Sphere__
 
 #include "cocos2d.h"
+#include "Sprite3DBatchNode.h"
 
-class Sphere : public cocos2d::Sprite3D
+class Sphere : public Sprite3DBatchNode
 {
 public:
-    static std::vector<std::vector<cocos2d::Vec3>> getSphereGroupPositionList(const std::string& path);
+    enum Type {
+        NONE = 0, // DO NOT USE
+        BLUE = 1,
+        YELLOW = 2,
+        RED = 3,
+        LAST      // DO NOT USE
+    };
+
+    static Sphere* createWithType(Type type);
+    static Sphere* createOne(Type type);
+    static Sphere* create(const Sphere& src);
+    Sphere(Type type);
+    ~Sphere();
+
+    Type getType() const
+    {
+        return type;
+    }
+
+    struct SphereGroupInfo {
+        Type type;
+        cocos2d::Vec3 position;
+    };
+    static std::vector<std::vector<SphereGroupInfo>> getSphereGroupInfoList(const std::string& path);
+
+protected:
+    const Type type;
+
+    bool init();
+    bool initOne();
+    void setupShaders();
 
 };
 

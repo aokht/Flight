@@ -154,8 +154,8 @@ void SelectScene::setupUI()
         }
     });
 
-    this->airplaneNameLabel->setText("");
-    this->stageNameLabel->setText("");
+    this->airplaneNameLabel->setString("");
+    this->stageNameLabel->setString("");
 
     this->stageNode->setPosition3D(this->stageNode->getPosition3D() + Vec3(-125.f, 0.f, 250.f));
     this->airplaneNode->setPosition3D(this->airplaneNode->getPosition3D() + Vec3(125.f, 0.f, 250.f));

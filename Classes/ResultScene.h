@@ -23,7 +23,9 @@ private:
     cocos2d::Node* rootNode;
     cocos2d::ui::Button* nextButton;
     cocos2d::ui::Button* lobbyButton;
-    cocos2d::ui::Text* coinCountLabel;
+    cocos2d::ui::Text* blueCountLabel;
+    cocos2d::ui::Text* yellowCountLabel;
+    cocos2d::ui::Text* redCountLabel;
     cocos2d::ui::Text* timeCountLabel;
     cocos2d::ui::Text* totalScoreLabel;
     cocos2d::Node* courseMapNode;

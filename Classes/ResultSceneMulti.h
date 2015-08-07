@@ -21,8 +21,14 @@ public:
 private:
     cocos2d::Node* rootNode;
     cocos2d::ui::Button* lobbyButton;
-    cocos2d::ui::Text* playerScoreLabel;
-    cocos2d::ui::Text* otherScoreLabel;
+    cocos2d::ui::Text* playerTotalScoreLabel;
+    cocos2d::ui::Text* playerBlueScoreLabel;
+    cocos2d::ui::Text* playerYellowScoreLabel;
+    cocos2d::ui::Text* playerRedScoreLabel;
+    cocos2d::ui::Text* otherTotalScoreLabel;
+    cocos2d::ui::Text* otherBlueScoreLabel;
+    cocos2d::ui::Text* otherYellowScoreLabel;
+    cocos2d::ui::Text* otherRedScoreLabel;
     cocos2d::Node* fieldNode;
     cocos2d::Node* playerAirplaneNode;
     cocos2d::Node* otherAirplaneNode;

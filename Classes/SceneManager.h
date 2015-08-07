@@ -26,6 +26,7 @@ public:
     void showSelectScene();
     void showGameScene();
     void showLoadingScene(const std::function<void()>& callback, const std::string& label);
+    bool isInGameScene() const;
 
     void initSceneData();
     void setSceneData(SceneData sceneData);
@@ -41,6 +42,7 @@ public:
     // NetworkingDelegate
     void showPeerList();
     void startAdvertisingAvailability();
+    void stopAdvertisingAvailability();
     void receivedData(const void* data, unsigned long length) override;
     void stateChanged(ConnectionState state) override;
     void setPeerState();
@@ -56,7 +58,6 @@ protected:
     ~SceneManager();
 
     void stopGameScene();
-    bool isInGameScene() const;
 
     GameSceneManager* gameSceneManager;
     SceneData sceneData;
@@ -65,7 +66,7 @@ protected:
 
     bool networking;
     void setNetworking(bool networking);
-    void sendData(const void* data, int length);
+    void sendData(const void* data, int length, SendDataMode mode = SendDataMode::Reliable);
     void receivedData(const SelectSceneNetworkPacket& data);
     void receivedData(const AirplaneInfoNetworkPacket& data);
     void receivedData(const GameScoreNetworkPacket& data);

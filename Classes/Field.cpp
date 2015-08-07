@@ -173,32 +173,40 @@ void Field::setupShaders(const FieldData& data)
 void Field::setupSpheres()
 {
     FieldData data = FieldDataSource::findById(this->getFieldId());
-    vector<vector<Vec3>> sphereGroupList = Sphere::getSphereGroupPositionList(data.filenameSphereLine);
+    vector<vector<Sphere::SphereGroupInfo>> sphereGroupList = Sphere::getSphereGroupInfoList(data.filenameSphereLine);
     static const int sphereDivisor = 10.f;      // TODO: スフィア配置の分割数
     static const int sphereDistribution = 100;  // TODO: スフィア配置の分散値
 
-    for (const vector<Vec3>& sphereGroup : sphereGroupList) {
-        Sprite3DBatchNode* sprite3DBatchNode = Sprite3DBatchNode::create("objects/diamond.obj");
+    for (const vector<Sphere::SphereGroupInfo>& sphereGroup : sphereGroupList) {
+        if (sphereGroup.empty()) {
+            continue;
+        }
+        Sphere* sphere = Sphere::createWithType(sphereGroup[0].type);
         for (int i = 0, last = (int)sphereGroup.size() - 1; i < last; ++i) {
-            const Vec3& p0 = sphereGroup[i];
-            const Vec3& p1 = sphereGroup[i + 1];
+            const Vec3& p0 = sphereGroup[i].position;
+            const Vec3& p1 = sphereGroup[i + 1].position;
             Vec3 distanceUnit = (p1 - p0) / (float)sphereDivisor;
 
             for (int j = 0; j < sphereDivisor; ++j) {
-                for (int k = 0; k < 9; ++k) {
+                for (int k = 0; k < 12; ++k) {
                     Vec3 dist(
                         rand() % sphereDistribution - sphereDistribution * 0.5,
                         rand() % sphereDistribution - sphereDistribution * 0.5,
                         rand() % sphereDistribution - sphereDistribution * 0.5
                     );
                     Vec3 position = p0 + distanceUnit * j + dist;
-                    sprite3DBatchNode->add(position);
+                    sphere->add(position);
                 }
             }
         }
 
-        this->addChild(sprite3DBatchNode);
-        sphereBatchList.push_back(sprite3DBatchNode);
+        this->addChild(sphere);
+        sphereBatchList.push_back(sphere);
+
+        if (sphereCountPerColor.find(sphere->getType()) == sphereCountPerColor.end()) {
+            sphereCountPerColor[sphere->getType()] = 0;
+        }
+        sphereCountPerColor[sphere->getType()] += sphere->getNodeCount();
     }
 
     // sphereの状態を共有する FIXME: 絶対危険
@@ -207,10 +215,11 @@ void Field::setupSpheres()
     }
 }
 
-void Field::shareSphereList(std::vector<Sprite3DBatchNode*> sphereBatchList)
+void Field::shareSphereList(std::vector<Sphere*> sphereBatchList)
 {
-    for (Sprite3DBatchNode* src : sphereBatchList) {
-        Sprite3DBatchNode* dst = Sprite3DBatchNode::createShared(*src);
+    for (Sphere* src : sphereBatchList) {
+        Sphere* dst = Sphere::create(*src);
+        Sphere::makeBatchNodeShared(*src, dst);
         this->addChild(dst);
         this->sphereBatchList.push_back(dst);
     }
@@ -278,6 +287,7 @@ void Field::checkSphereCollision(vector<AchievedSphereInfo>* achievedSphereInfoL
                 AchievedSphereInfo achievedSphereInfo({
                     (int)std::distance(sphereBatchList.begin(), batchNode),
                     (int)std::distance(sphereList.begin(), s),
+                    (*batchNode)->getType(),
                     1  // TODO: peerId とか
                 });
                 achievedSphereList.push_back(achievedSphereInfo);
@@ -310,6 +320,11 @@ int Field::getRemainingSphereCount() const
     }
 
     return count;
+}
+
+const map<Sphere::Type, int>& Field::getSphereCountPerColor() const
+{
+    return sphereCountPerColor;
 }
 
 Vec3 Field::getAirplanePosition() const

@@ -104,3 +104,38 @@ void GameSceneManager::receivedData(const GameScoreNetworkPacket& data)
         gameScene->receivedData(data);
     }
 }
+
+map<Sphere::Type, int> GameSceneManager::calculateScore(const vector<AchievedSphereInfo>& achievedSphereInfoList)
+{
+    static const float rateMap[] = {
+        1.00f,  // BLUE
+        1.25f,  // YELLOW
+        1.50f   // RED
+    };
+
+    map<Sphere::Type, int> sphereCount;
+    sphereCount[Sphere::Type::BLUE] = 0;
+    sphereCount[Sphere::Type::YELLOW] = 0;
+    sphereCount[Sphere::Type::RED] = 0;
+    for (const AchievedSphereInfo& info : achievedSphereInfoList) {
+        sphereCount[info.color]++;
+    }
+
+    sphereCount[Sphere::Type::BLUE]   *= rateMap[Sphere::Type::BLUE   - 1];
+    sphereCount[Sphere::Type::YELLOW] *= rateMap[Sphere::Type::YELLOW - 1];
+    sphereCount[Sphere::Type::RED]    *= rateMap[Sphere::Type::RED    - 1];
+
+    return sphereCount;
+}
+
+const Vec3 GameSceneManager::getCameraPosition() const
+{
+    CCASSERT(gameScene != nullptr, "gameScene is not set");
+    return this->gameScene->getCameraPosition();
+}
+
+const Vec3 GameSceneManager::getCameraEye() const
+{
+    CCASSERT(gameScene != nullptr, "gameScene is not set");
+    return this->gameScene->getCameraEye();
+}

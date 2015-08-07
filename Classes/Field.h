@@ -12,8 +12,8 @@
 #include "cocos2d.h"
 #include "ExSprite3D.h"
 #include "FieldDataSource.h"
-#include "Sprite3DBatchNode.h"
 #include "SceneData.h"
+#include "Sphere.h"
 
 class Airplane;
 
@@ -34,9 +34,10 @@ public:
     void step(float dt);
 
     void setupSpheres();
-    void shareSphereList(std::vector<Sprite3DBatchNode*> sphereBatchList);
+    void shareSphereList(std::vector<Sphere*> sphereBatchList);
     void checkSphereCollision(std::vector<AchievedSphereInfo>* achievedSphereInfoListPerFrame);
     int getSphereCount() const;
+    const std::map<Sphere::Type, int>& getSphereCountPerColor() const;
     const std::vector<AchievedSphereInfo>& getAchievedSphereInfoList() const;
     int getRemainingSphereCount() const;
 
@@ -59,7 +60,8 @@ protected:
     void setupSubFields();
 
     std::vector<Field*> subFieldList;
-    std::vector<Sprite3DBatchNode*> sphereBatchList;
+    std::vector<Sphere*> sphereBatchList;
+    std::map<Sphere::Type, int> sphereCountPerColor;
     std::vector<AchievedSphereInfo> achievedSphereList;
     std::map<int, std::vector<AchievedSphereInfo>> otherAirplaneAchievedSphereList;
 

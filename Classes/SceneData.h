@@ -10,6 +10,7 @@
 #define Flight_SceneData_h
 
 #include <iostream>
+#include "Sphere.h"
 
 class SceneData
 {
@@ -39,6 +40,7 @@ public:
 struct AchievedSphereInfo {
     int batchId;
     int sphereId;
+    Sphere::Type color;  // 冗長だけどよく使うので速度重視
     int achiever;
 };
 
@@ -110,13 +112,27 @@ struct AirplaneInfoNetworkPacket : public NetworkPacket
 struct GameScoreNetworkPacket : public NetworkPacket
 {
     int score;
+    int blueCount;
+    int yellowCount;
+    int redCount;
     bool isTimeUp;
     bool isCollided;
     bool isCompleted;
 
-    GameScoreNetworkPacket(int score, bool isTimeUp, bool isCollided, bool isCompleted) :
+    GameScoreNetworkPacket(
+        int score,
+        int blueCount,
+        int yellowCount,
+        int redCount,
+        bool isTimeUp,
+        bool isCollided,
+        bool isCompleted
+    ) :
         NetworkPacket(Type::GAME_SCORE),
         score(score),
+        blueCount(blueCount),
+        yellowCount(yellowCount),
+        redCount(redCount),
         isTimeUp(isTimeUp),
         isCollided(isCollided),
         isCompleted(isCompleted)

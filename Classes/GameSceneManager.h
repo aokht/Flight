@@ -28,8 +28,14 @@ public:
     SceneData getSceneData() const;
     void clearSceneData();
 
+    static std::map<Sphere::Type, int> calculateScore(const std::vector<AchievedSphereInfo>& achievedSphereInfoList);
+
+
     void receivedData(const AirplaneInfoNetworkPacket& data);
     void receivedData(const GameScoreNetworkPacket& data);
+
+    const cocos2d::Vec3 getCameraPosition() const;
+    const cocos2d::Vec3 getCameraEye() const;
 
     bool isSinglePlay() const {
         return sceneData.mode == SceneData::Mode::SINGLE;
