@@ -26,6 +26,7 @@ public:
     void showSelectScene();
     void showGameScene();
     void showLoadingScene(const std::function<void()>& callback, const std::string& label);
+    void showCreditsScene();
     bool isInGameScene() const;
 
     void initSceneData();

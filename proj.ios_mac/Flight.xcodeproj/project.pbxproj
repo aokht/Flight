@@ -116,6 +116,8 @@
 		5BB38EFA1B7361CC000BC42D /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB38EEF1B7361CC000BC42D /* Default-Portrait@2x.png */; };
 		5BB38EFB1B7361CC000BC42D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB38EF01B7361CC000BC42D /* Default.png */; };
 		5BB38EFC1B7361CC000BC42D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB38EF11B7361CC000BC42D /* Default@2x.png */; };
+		5BB38EFF1B74BC74000BC42D /* CreditsScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB38EFD1B74BC73000BC42D /* CreditsScene.cpp */; };
+		5BB38F001B74BC74000BC42D /* CreditsScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB38EFD1B74BC73000BC42D /* CreditsScene.cpp */; };
 		7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */ = {isa = PBXBuildFile; fileRef = FA144D09A52357282113E0F8 /* res */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -245,6 +247,8 @@
 		5BB38EEF1B7361CC000BC42D /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		5BB38EF01B7361CC000BC42D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		5BB38EF11B7361CC000BC42D /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		5BB38EFD1B74BC73000BC42D /* CreditsScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CreditsScene.cpp; sourceTree = "<group>"; };
+		5BB38EFE1B74BC73000BC42D /* CreditsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsScene.h; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -557,6 +561,8 @@
 				5B58B5AF1B649A3500539BEA /* SelectScene.h */,
 				5B9AB0801B730C0900DA29D4 /* LoadingScene.cpp */,
 				5B9AB0811B730C0900DA29D4 /* LoadingScene.h */,
+				5BB38EFD1B74BC73000BC42D /* CreditsScene.cpp */,
+				5BB38EFE1B74BC73000BC42D /* CreditsScene.h */,
 				5B88F6091B564B8E00375BB2 /* GameScenes */,
 			);
 			name = Scenes;
@@ -774,6 +780,7 @@
 				5B4C545A1B7151A40031B121 /* Action3D.cpp in Sources */,
 				5B4C54491B7006400031B121 /* ResultSceneMulti.cpp in Sources */,
 				5B4CB9181B5EF3120084916C /* AirplaneDataSource.cpp in Sources */,
+				5BB38EFF1B74BC74000BC42D /* CreditsScene.cpp in Sources */,
 				5B88F6011B564B7D00375BB2 /* Airplane.cpp in Sources */,
 				5B58B5F51B669B6400539BEA /* NetworkManager.mm in Sources */,
 			);
@@ -806,6 +813,7 @@
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				5B94B0771B5A2C3C0094340C /* ExSprite3D.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
+				5BB38F001B74BC74000BC42D /* CreditsScene.cpp in Sources */,
 				5B58B5B11B649A3500539BEA /* SelectScene.cpp in Sources */,
 				5B89C9D81B5FF38E0092C926 /* SceneManager.cpp in Sources */,
 			);

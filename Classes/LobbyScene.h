@@ -29,6 +29,8 @@ private:
     cocos2d::Sprite* backgroundSprite;
     cocos2d::Sprite* backgroundSpriteBlur;
     cocos2d::Sprite* backgroundBox;
+    cocos2d::Sprite* creditsButtonBackground;
+    cocos2d::ui::Button* creditsButton;
     Airplane* airplane;
     ExSprite3D* sphere1;
     ExSprite3D* sphere2;

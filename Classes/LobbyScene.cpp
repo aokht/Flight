@@ -83,6 +83,11 @@ void LobbyScene::grabElements()
 
     this->backgroundBox = this->rootNode->getChildByName<Sprite*>("BackgroundBox");
     CCASSERT(backgroundBox, "BackgroundBox in LobbyScene is not found");
+
+    this->creditsButtonBackground = this->rootNode->getChildByName<Sprite*>("InfoButtonBackground");
+    CCASSERT(creditsButtonBackground, "InfoButtonBackground in LobbyScene is not found");
+    this->creditsButton = creditsButtonBackground->getChildByName<ui::Button*>("InfoButton");
+    CCASSERT(creditsButton, "InfoButton in LobbyScene is not found");
 }
 
 void LobbyScene::setupUI()
@@ -98,6 +103,12 @@ void LobbyScene::setupUI()
     this->multiplayerButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             SceneManager::getInstance()->showPeerList();
+        }
+    });
+
+    this->creditsButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
+        if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SceneManager::getInstance()->showCreditsScene();
         }
     });
 }
@@ -186,8 +197,10 @@ void LobbyScene::setupOpeningAnimations()
     // ボタン類
     this->singlePlayerButton->setVisible(false);
     this->multiplayerButton->setVisible(false);
+    this->creditsButtonBackground->setVisible(false);
     this->singlePlayerButton->setOpacity(0.f);
     this->multiplayerButton->setOpacity(0.f);
+    this->creditsButtonBackground->setOpacity(0.f);
     // 背景
     this->backgroundSpriteBlur->setVisible(false);
     this->backgroundBox->setVisible(false);
@@ -247,6 +260,9 @@ void LobbyScene::setupOpeningAnimations()
 
                     this->multiplayerButton->setVisible(true);
                     this->multiplayerButton->runAction(FadeIn::create(1.f));
+
+                    this->creditsButtonBackground->setVisible(true);
+                    this->creditsButtonBackground->runAction(FadeIn::create(1.f));
 
                     this->sphere1->setVisible(true);
                     this->sphere2->setVisible(true);

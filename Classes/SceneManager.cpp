@@ -11,6 +11,7 @@
 #include "LobbyScene.h"
 #include "SelectScene.h"
 #include "LoadingScene.h"
+#include "CreditsScene.h"
 #include "GameSceneManager.h"
 #include "Global.h"
 
@@ -75,6 +76,12 @@ void SceneManager::showLoadingScene(const std::function<void ()>& callback, cons
 {
     Scene* loadingScene = LoadingScene::createScene(callback, label);
     Director::getInstance()->pushScene(loadingScene);
+}
+
+void SceneManager::showCreditsScene()
+{
+    Scene* creditsScene = CreditsScene::createScene();
+    Director::getInstance()->pushScene(creditsScene);
 }
 
 bool SceneManager::isInGameScene() const
