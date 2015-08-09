@@ -404,7 +404,7 @@ void GameScene::setupAirplane()
 void GameScene::setupCamera()
 {
     Size visibleSize = Director::getInstance()->getVisibleSize();
-    Camera* camera = Camera::createPerspective(60, visibleSize.width / visibleSize.height, 1, 80000);  // TODO: n/f 調整
+    Camera* camera = Camera::createPerspective(60.f, visibleSize.width / visibleSize.height, 0.1f, 20000.f);
     this->camera = camera;
 
     this->airplane->setCameraToAirplane(camera);
