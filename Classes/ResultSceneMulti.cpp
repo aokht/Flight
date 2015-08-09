@@ -6,7 +6,6 @@
 //
 //
 
-#include "cocostudio/CocoStudio.h"
 #include "ResultSceneMulti.h"
 #include "GameSceneManager.h"
 #include "Global.h"
@@ -51,7 +50,7 @@ bool ResultSceneMulti::init()
         return false;
     }
 
-    this->rootNode = CSLoader::createNode("GameScene/ResultSceneMulti.csb");
+    this->rootNode = SceneManager::createCSNode("GameScene/ResultSceneMulti.csb");
     this->addChild(rootNode);
 
     return true;

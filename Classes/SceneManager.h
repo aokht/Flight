@@ -22,6 +22,8 @@ public:
 
     static SceneManager* getInstance();
 
+    static cocos2d::Node* createCSNode(const std::string& path);
+
     void showLobbyScene();
     void showSelectScene();
     void showGameScene();

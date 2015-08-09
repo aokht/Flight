@@ -6,8 +6,8 @@
 //
 //
 
-#include "cocostudio/CocoStudio.h"
 #include "LoadingScene.h"
+#include "SceneManager.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -41,7 +41,7 @@ bool LoadingScene::init(const function<void()>& callback, const string& label)
         return false;
     }
 
-    Node* rootNode = CSLoader::createNode("LoadingScene.csb");
+    Node* rootNode = SceneManager::createCSNode("LoadingScene.csb");
     this->addChild(rootNode);
 
     this->textLabel = rootNode->getChildByName<ui::Text*>("LoadingLabel");

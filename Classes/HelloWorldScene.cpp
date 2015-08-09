@@ -30,7 +30,7 @@ bool HelloWorld::init()
         return false;
     }
 
-    Node* rootNode = CSLoader::createNode("HelloWorldScene.csb");
+    Node* rootNode = SceneManager::createCSNode("HelloWorldScene.csb");
     this->addChild(rootNode);
 
     return true;

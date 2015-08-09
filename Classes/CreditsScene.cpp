@@ -6,7 +6,6 @@
 //
 //
 
-#include "cocostudio/CocoStudio.h"
 #include "cocosGUI.h"
 #include "CreditsScene.h"
 #include "SceneManager.h"
@@ -30,7 +29,7 @@ bool CreditsScene::init()
         return false;
     }
 
-    Node* rootNode = CSLoader::createNode("CreditsScene.csb");
+    Node* rootNode = SceneManager::createCSNode("CreditsScene.csb");
     this->addChild(rootNode);
 
     rootNode->getChildByName<ui::Button*>("BackButton")->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {

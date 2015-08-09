@@ -1,4 +1,4 @@
-<UserData>
+<UserData Version="2.3.1.2">
   <Properties>
     <Item Key="PackageParamsKey">
       <Value ctype="PackageParams">
@@ -11,6 +11,7 @@
         <iOS_Target Value="Flight iOS" />
         <iOS_BundleID Value="Developer ID Application: Akihito Okuhata (3ZY9JA3R28)" />
         <Platform Value="None" />
+        <RunPlatform Value="None" />
         <FrameworkVersion Value="cocos2d-x-3.6" />
         <IsDebugKeystore Value="True" />
         <KeystorePassword Value="" />

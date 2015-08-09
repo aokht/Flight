@@ -7,7 +7,6 @@
 //
 
 #include <iostream>
-#include "cocostudio/CocoStudio.h"
 #include "SelectScene.h"
 #include "SceneManager.h"
 
@@ -30,7 +29,7 @@ bool SelectScene::init()
         return false;
     }
 
-    this->rootNode = CSLoader::createNode("SelectScene.csb");
+    this->rootNode = SceneManager::createCSNode("SelectScene.csb");
     this->addChild(rootNode);
 
     this->fieldLoading = false;

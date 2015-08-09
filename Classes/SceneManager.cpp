@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include "cocostudio/CocoStudio.h"
 #include "SceneManager.h"
 #include "LobbyScene.h"
 #include "SelectScene.h"
@@ -40,6 +41,16 @@ SceneManager::SceneManager() :
 
 SceneManager::~SceneManager()
 {
+}
+
+Node* SceneManager::createCSNode(const string& path)
+{
+    Node* rootNode = CSLoader::createNode(path);
+
+    rootNode->setContentSize(Director::getInstance()->getVisibleSize());
+    ui::Helper::doLayout(rootNode);
+
+    return rootNode;
 }
 
 void SceneManager::showLobbyScene()

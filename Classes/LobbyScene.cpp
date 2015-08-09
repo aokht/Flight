@@ -7,7 +7,6 @@
 //
 
 #include <iostream>
-#include "cocostudio/CocoStudio.h"
 #include "LobbyScene.h"
 #include "Global.h"
 #include "SceneManager.h"
@@ -35,7 +34,7 @@ bool LobbyScene::init()
         return false;
     }
 
-    this->rootNode = CSLoader::createNode("LobbyScene.csb");
+    this->rootNode = SceneManager::createCSNode("LobbyScene.csb");
     this->addChild(rootNode);
 
     SceneManager::getInstance()->initSceneData();

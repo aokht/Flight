@@ -10,7 +10,6 @@
 #include <sstream>
 #include <iostream>
 
-#include "cocostudio/CocoStudio.h"
 #include "GameScene.h"
 #include "Global.h"
 #include "Airplane.h"
@@ -35,7 +34,7 @@ bool GameScene::init()
         return false;
     }
 
-    this->rootNode = CSLoader::createNode("GameScene/GameScene.csb");
+    this->rootNode = SceneManager::createCSNode("GameScene/GameScene.csb");
     this->addChild(rootNode);
 
     Director::getInstance()->setDepthTest(true);

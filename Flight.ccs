@@ -1,5 +1,5 @@
 <Solution>
-  <PropertyGroup Name="Flight" Version="2.3.0.1" Type="CocosStudio" />
+  <PropertyGroup Name="Flight" Version="2.3.1.2" Type="CocosStudio" />
   <SolutionFolder>
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">
@@ -7,10 +7,15 @@
           <Project Name="ParameterScene.csd" Type="Scene" />
           <Project Name="ResultScene.csd" Type="Scene" />
           <Project Name="ResultSceneMulti.csd" Type="Scene" />
+          <Project Name="GameScene.csd" Type="Scene" />
         </Folder>
         <TTF Name="arial.ttf" />
         <Project Name="LobbyScene.csd" Type="Scene" />
         <Project Name="SelectScene.csd" Type="Scene" />
+        <Project Name="HelloWorldScene.csd" Type="Scene" />
+        <Project Name="LoadingScene.csd" Type="Scene" />
+        <Project Name="CreditsScene.csd" Type="Scene" />
+        <Project Name="HighScoreScene.csd" Type="Scene" />
       </RootFolder>
     </Group>
   </SolutionFolder>
