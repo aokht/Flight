@@ -136,3 +136,8 @@ ostream& operator<<(ostream& stream, const AirplaneInfoNetworkPacket& packet)
     stream << " }";
     return stream;
 }
+
+float sign(float num)
+{
+    return num < 0.f ? -1.f : 1.f;
+}

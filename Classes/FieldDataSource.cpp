@@ -27,7 +27,27 @@ vector<FieldData> FieldDataSource::findAll()
             d.at("filename_terrain").asString(),
             d.at("filename_texture_normal").asString(),
             d.at("filename_sky").asString(),
-            d.at("filename_sphere_line").asString()
+            d.at("filename_sphere_line").asString(),
+            Vec3(
+                d.at("airplane_position_x").asFloat(),
+                d.at("airplane_position_y").asFloat(),
+                d.at("airplane_position_z").asFloat()
+            ),
+            Vec3(
+                d.at("airplane_rotation_x").asFloat(),
+                d.at("airplane_rotation_y").asFloat(),
+                d.at("airplane_rotation_z").asFloat()
+            ),
+            Vec3(
+                d.at("other_airplane_position_x").asFloat(),
+                d.at("other_airplane_position_y").asFloat(),
+                d.at("other_airplane_position_z").asFloat()
+            ),
+            Vec3(
+                d.at("other_airplane_rotation_x").asFloat(),
+                d.at("other_airplane_rotation_y").asFloat(),
+                d.at("other_airplane_rotation_z").asFloat()
+            )
         });
     }
 

@@ -51,6 +51,10 @@ public:
     // パラメータ
     int getFieldId() const;
     const std::string& getFieldName() const;
+    const cocos2d::Vec3& getAirplaneStartPosition() const;
+    const cocos2d::Vec3& getAirplaneStartRotation() const;
+    const cocos2d::Vec3& getOtherAirplaneStartPosition() const;
+    const cocos2d::Vec3& getOtherAirplaneStartRotation() const;
 
 protected:
     Airplane* airplane;
@@ -68,6 +72,10 @@ protected:
     // パラメータ
     int fieldId;
     std::string fieldName;
+    cocos2d::Vec3 airplaneStartPosition;
+    cocos2d::Vec3 airplaneStartRotation;
+    cocos2d::Vec3 otherAirplaneStartPosition;
+    cocos2d::Vec3 otherAirplaneStartRotation;
 };
 
 #endif /* defined(__Flight__Field__) */

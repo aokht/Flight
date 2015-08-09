@@ -37,6 +37,9 @@ public:
     // パラメータ
     int getAirplaneId() const;
     const std::string& getAirplaneName() const;
+    float getSpeed() const;
+    const cocos2d::Vec3& getRotationSpeed() const;
+    const cocos2d::Vec3& getRotationMax() const;
 
     // デバッグ用
     cocos2d::Vec3 getSpriteRotation() const;
@@ -50,18 +53,17 @@ protected:
 
     cocos2d::Sprite3D* spriteAirplane;
 
-    // 機体の回転量
-    cocos2d::Vec3 rotationStep;
-
-    // 姿勢制御時の始点
-    // 機体の回転量
+    // 機体の目標回転量
+    cocos2d::Vec3 rotationTarget;
+    // 入力開始時の目標回転量
     cocos2d::Vec3 rotationStart;
-    // 飛行機スプライトの回転量
-    cocos2d::Vec3 spriteRotationStart;
 
     // パラメータ
     int airplaneId;
     std::string airplaneName;
+    float speed;
+    cocos2d::Vec3 rotationMax;
+    cocos2d::Vec3 rotationSpeed;
 
 };
 

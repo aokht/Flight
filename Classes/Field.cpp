@@ -78,6 +78,10 @@ Field* Field::createWithData(const FieldData& data, bool collisionMesh, bool sub
 
     field->fieldId = data.id;
     field->fieldName = data.name;
+    field->airplaneStartPosition = data.airplanePosition;
+    field->airplaneStartRotation = data.airplaneRotation;
+    field->otherAirplaneStartPosition = data.otherAirplanePosition;
+    field->otherAirplaneStartRotation = data.otherAirplaneRotation;
 
     field->setupShaders(data);
 
@@ -93,6 +97,10 @@ void Field::createWithDataAsync(const FieldData& data, const function<void(Field
     Field::createWithModelPathAsync(data.filenameTerrain, [data, subField, callback](Field* field, void* param){
         field->fieldId = data.id;
         field->fieldName = data.name;
+        field->airplaneStartPosition = data.airplanePosition;
+        field->airplaneStartRotation = data.airplaneRotation;
+        field->otherAirplaneStartPosition = data.otherAirplanePosition;
+        field->otherAirplaneStartRotation = data.otherAirplaneRotation;
 
         field->setupShaders(data);
 
@@ -236,8 +244,8 @@ void Field::setAirplaneToField(Airplane *airplane)
 
 void Field::step(float dt)
 {
-    // TODO: 単位時間あたりの前進距離パラメータ
-    float distance_per_dt = 400.f;
+    // 単位時間あたりの前進距離パラメータ
+    float distance_per_dt = this->airplane->getSpeed();
     float distance = distance_per_dt * dt;
 
     const Vec3& rotation = this->airplane->getRotation3D();
@@ -245,9 +253,9 @@ void Field::step(float dt)
     float diff_rad_y = CC_DEGREES_TO_RADIANS(rotation.y);
 
     Vec3 pos = this->getPosition3D();
-    // Y軸回転を左右の進行距離に変換
-    pos.x -= distance * sin(diff_rad_y);
-    pos.z -= distance * cos(diff_rad_y);
+    // XY軸回転を左右の進行距離に変換
+    pos.x -= distance * sin(diff_rad_y) * cos(diff_rad_x);
+    pos.z -= distance * cos(diff_rad_y) * cos(diff_rad_x);
     // X軸回転を上下の進行距離に変換
     pos.y -= distance * sin(-diff_rad_x);
 
@@ -401,4 +409,24 @@ int Field::getFieldId() const
 const string& Field::getFieldName() const
 {
     return fieldName;
+}
+
+const Vec3& Field::getAirplaneStartPosition() const
+{
+    return airplaneStartPosition;
+}
+
+const Vec3& Field::getAirplaneStartRotation() const
+{
+    return airplaneStartRotation;
+}
+
+const Vec3& Field::getOtherAirplaneStartPosition() const
+{
+    return otherAirplaneStartPosition;
+}
+
+const Vec3& Field::getOtherAirplaneStartRotation() const
+{
+    return otherAirplaneStartRotation;
 }

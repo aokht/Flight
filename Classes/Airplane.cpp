@@ -41,6 +41,9 @@ Airplane* Airplane::createByData(const AirplaneData &airplaneData)
 
     airplane->airplaneId = airplaneData.id;
     airplane->airplaneName = airplaneData.name;
+    airplane->speed = airplaneData.speed;
+    airplane->rotationMax = airplaneData.rotationMax;
+    airplane->rotationSpeed = airplaneData.rotationSpeed;
 
     return airplane;
 }
@@ -50,6 +53,9 @@ void Airplane::createByDataAsync(const AirplaneData &airplaneData, const functio
     Airplane::createWithFilenameAsync(airplaneData.filename, [callback, airplaneData](Airplane* airplane, void* param){
         airplane->airplaneId = airplaneData.id;
         airplane->airplaneName = airplaneData.name;
+        airplane->speed = airplaneData.speed;
+        airplane->rotationMax = airplaneData.rotationMax;
+        airplane->rotationSpeed = airplaneData.rotationSpeed;
         callback(airplane, param);
     }, callbackparam);
 }
@@ -98,7 +104,7 @@ bool Airplane::initWithFilename(const string& filename)
     this->setCascadeOpacityEnabled(true);
     spriteAirplane->setCascadeOpacityEnabled(true);
 
-    this->rotationStep = Vec3(0, 0, 0);
+    this->rotationTarget = Vec3(0, 0, 0);
 
     return true;
 }
@@ -115,7 +121,7 @@ void Airplane::initWithFilenameAsync(const string& filename, const function<void
         callback(this, param);
     }, callbackparam);
 
-    this->rotationStep = Vec3(0, 0, 0);
+    this->rotationTarget = Vec3(0, 0, 0);
 }
 
 void Airplane::setCameraToAirplane(Camera* camera)
@@ -144,29 +150,30 @@ void Airplane::rotate(float dt)
 
     // 機体を傾ける (Sprite に対する操作)
 
-    // TODO: 単位時間あたりの回転可能量パラメータ
-    float param_rotation_diff = dt * 70.f;
-
+    // 最大回転可能量
+    const Vec3& rotationMax = this->getRotationMax();
+    // 単位時間あたりの回転可能量
+    const Vec3& rotationSpeed = this->getRotationSpeed();
+    // 現在の回転量
     Vec3 currentRotation = this->spriteAirplane->getRotation3D();
 
-    // 必要回転量に合わせて回転速度にバイアスをかける
-    float bias_x = 0.10 * (abs((rotationStep - currentRotation).x) / (2 * param_rotation_diff));
-    float bias_z = 0.10 * (abs((rotationStep - currentRotation).z) / (2 * param_rotation_diff));
+    // 必要回転量に合わせて回転速度にバイアスをかける(必要回転量が少ないほど遅くなる)
+    float bias_x = min(abs(rotationTarget.x - currentRotation.x), rotationMax.x * 2.f) / rotationMax.x * 2.f;
+    float bias_z = min(abs(rotationTarget.z - currentRotation.z), rotationMax.z * 2.f) / rotationMax.z * 2.f;
 
-    float rotation_diff_x = param_rotation_diff * bias_x;
-    float rotation_diff_z = param_rotation_diff * bias_z;
+    Vec3 rotationDiff = rotationSpeed * dt;
+    rotationDiff.x *= bias_x;
+    rotationDiff.z *= bias_z;
 
-    float param_max_z = 40.f;  // TODO: 最大回転可能量(Z軸)
-    float param_max_x = 15.f;  // TODO: 最大回転可能量(X軸)
     // X軸(上下)回転
-    float diff_x = min(rotation_diff_x, abs(currentRotation.x - rotationStep.x)) * (rotationStep.x > currentRotation.x ? 1.f : -1.f);
-    if (abs(currentRotation.x + diff_x) > param_max_x) {
-        diff_x = (param_max_x - abs(currentRotation.x)) * (diff_x < 0.f ? -1.f : 1.f);
+    float diff_x = min(rotationDiff.x, abs(rotationTarget.x - currentRotation.x)) * sign(rotationTarget.x - currentRotation.x);
+    if (abs(currentRotation.x + diff_x) > rotationMax.x) {
+        diff_x = (rotationMax.x - abs(currentRotation.x)) * sign(diff_x);
     }
     // Z軸(左右)回転
-    float diff_z = min(rotation_diff_z, abs(currentRotation.z - rotationStep.z)) * (rotationStep.z > currentRotation.z ? 1.f : -1.f);
-    if (abs(currentRotation.z + diff_z) > param_max_z) {
-        diff_z = (param_max_z - abs(currentRotation.z)) * (diff_z < 0.f ? -1.f : 1.f);
+    float diff_z = min(rotationDiff.z, abs(rotationTarget.z - currentRotation.z)) * sign(rotationTarget.z - currentRotation.z);
+    if (abs(currentRotation.z + diff_z) > rotationMax.z) {
+        diff_z = (rotationMax.z - abs(currentRotation.z)) * sign(diff_z);
     }
 
     this->spriteAirplane->setRotation3D(currentRotation + Vec3(diff_x, 0.f, diff_z));
@@ -174,30 +181,32 @@ void Airplane::rotate(float dt)
 
     // 進行方向を変える (Node に対する操作)
 
-    // TODO: 単位時間あたりの回転量パラメータ
-    float param_direction_diff_x = dt * 1.0f;
-    float param_direction_diff_z = dt * 1.0f;
-
     // 機体の傾きに応じて進行方向を変える
-    Vec3 spriteRotation = this->spriteAirplane->getRotation3D();
+    const Vec3& spriteRotation = this->spriteAirplane->getRotation3D();
     // Z軸の傾きを Y軸の進行方向として扱う
-    Vec3 direction(spriteRotation.x * param_direction_diff_x, spriteRotation.z * param_direction_diff_z, 0.f);
+    Vec3 direction(spriteRotation.x * dt, spriteRotation.z * dt, 0.f);
     this->setRotation3D(this->getRotation3D() + direction);
 }
 
 void Airplane::setRotationToDefault(float dt)
 {
-    // Z軸(左右)のスプライトの回転量を 0 に向かわせる
-    // X軸(上下)は機体自体の回転量を 0 に近づける
-    float rotation_x = -this->getRotation3D().x;
-    if (abs(rotation_x) > 180.f) {
-        rotation_x = (360.f - abs(rotation_x)) * (rotation_x < 0.f ? 1.f : -1.f);
+    // Z軸(左右)は、スプライトの回転量を 0 に向かわせる
+    float rotationZ = 0.f;
+
+    // X軸(上下)は、機体自体の回転量を 0 に向かわせる
+    float currentRotationX = this->getRotation3D().x;
+    float rotationX = -currentRotationX;  // スプライトの目標回転量を機体回転量の反対側にする
+    if (abs(rotationX) > 180.f) {  // 反転していたときの対応
+        rotationX = (360.f - abs(rotationX)) * sign(-rotationX);
+    }
+    rotationX = min(abs(rotationX), rotationMax.x) * sign(rotationX);
+
+    // 完全に反対側を目標にすると 0度付近で上下の揺れが起きるので、近づいたら目標回転量を半分にする
+    if (abs(currentRotationX) < rotationMax.x * 2.f) {
+        rotationX *= 0.5f;
     }
 
-    this->rotationStep = Vec3(rotation_x * 0.5, 0, 0);
-    if (abs(this->getRotation3D().x) < 0.1f) {
-        this->rotationStep.x = 0.f;
-    }
+    this->rotationTarget = Vec3(rotationX, 0, rotationZ);
 }
 
 Vec3 Airplane::getRotation3D() const
@@ -226,32 +235,36 @@ Vec3 Airplane::getDirection() const
 
 void Airplane::onInputBegan()
 {
-    this->rotationStart = this->rotationStep;
-    this->spriteRotationStart = spriteAirplane->getRotation3D();
+    // 入力開始時の目標回転量
+    this->rotationStart = this->rotationTarget;
 }
 
 void Airplane::onInputMoved(const cocos2d::Vec2& diff)
 {
-    float ux_px_to_theta_x = 0.5f; // TODO: 1px のドラッグに対して何度傾けるか(X)
-    float ux_px_to_theta_y = 0.2f; // TODO: 1px のドラッグに対して何度傾けるか(Y)
-    float diff_x = diff.x * ux_px_to_theta_x;
-    float diff_y = diff.y * ux_px_to_theta_y;
+    const Vec3& rotationMax = this->getRotationMax();
 
-    // 入力開始時の回転量に差分を加算
+    // XY平面(画面上)の Y軸(縦)方向移動量 → XYZ空間のX軸(上下)回転量に変換
+    //     　〃　      X軸(横)方向移動量 →    〃　　Z軸(左右)回転量に変換
+    float rotationDiffX = diff.y * rotationMax.x * 2.f; // 最大回転量の2倍の範囲
+    float rotationDiffZ = diff.x * rotationMax.z * 2.f; // 最大回転量の2倍の範囲
 
-    // XY平面の Y軸(縦)方向 → XYZ空間のX軸(上下)回転に変換
-    //   　〃　 X軸(横)方向 →    〃　　Z軸(左右)逆回転に変換
-    float param_max_y = 40.f;  // TODO: 最大回転可能量(Y軸)
-    float param_max_x = 15.f;  // TODO: 最大回転可能量(X軸)
-    this->rotationStep.x = min(abs(this->rotationStart.x + diff_y), param_max_x) * (this->rotationStart.x + diff_y < 0.f ? -1.f : 1.f);
-    this->rotationStep.z = min(abs(this->rotationStart.z - diff_x), param_max_y) * (this->rotationStart.z - diff_x < 0.f ? -1.f : 1.f);
+    // 入力開始時の目標回転量に差分を加算
+    this->rotationTarget.x = this->rotationStart.x + rotationDiffX;
+    this->rotationTarget.z = this->rotationStart.z - rotationDiffZ;
+
+    // 最大回転量を超えないようにする
+    if (abs(rotationTarget.x) > rotationMax.x) {
+        this->rotationTarget.x = rotationMax.x * sign(rotationTarget.x);
+    }
+    if (abs(rotationTarget.z) > rotationMax.z) {
+        this->rotationTarget.z = rotationMax.z * sign(rotationTarget.z);
+    }
 }
 
 void Airplane::onInputEnded(const cocos2d::Vec2& diff)
 {
-    // 開始ベクトルと開始回転量をリセット
+    // 入力開始時の目標回転量をリセット
     this->rotationStart.setZero();
-    this->spriteRotationStart.setZero();
 }
 
 #pragma mark -
@@ -277,5 +290,20 @@ Vec3 Airplane::getSpriteRotation() const
 
 Vec3 Airplane::getRotationTarget() const
 {
-    return this->rotationStep;
+    return this->rotationTarget;
+}
+
+float Airplane::getSpeed() const
+{
+    return speed;
+}
+
+const Vec3& Airplane::getRotationSpeed() const
+{
+    return rotationSpeed;
+}
+
+const Vec3& Airplane::getRotationMax() const
+{
+    return rotationMax;
 }

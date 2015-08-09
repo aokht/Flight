@@ -28,13 +28,15 @@ std::ostream& operator<<(std::ostream& stream, const SelectSceneNetworkPacket& p
 std::ostream& operator<<(std::ostream& stream, const AirplaneInfoNetworkPacket& packet);
 std::ostream& operator<<(std::ostream& stream, const AchievedSphereInfo& sphereInfo);
 
+float sign(float num);  // 符号を返す
 
 const float EPSILON = 0.00000011920928955078125f; //floatの限界精度(1/2^23)
 
 #define FIELD_LENGTH 10000.f  // フィールドの1辺の長さ
 #define FIELD_HEIGHT  2500.f  // フィールド高さ
 
-#define PLAY_SECONDS 120.f  // 1プレイの長さ
+#define PLAY_SECONDS 120.f       // 1プレイの長さ
+#define PLAY_SECONDS_MULTI 60.f  // 1プレイの長さ(マルチ用)
 
 #define DUMMY_PEER_ID 1  // 複数人対戦したいけど無理なのでとりあえず
 

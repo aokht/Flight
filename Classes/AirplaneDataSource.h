@@ -9,11 +9,16 @@
 #ifndef __Flight__AirplaneDataSource__
 #define __Flight__AirplaneDataSource__
 
+#include "cocos2d.h"
+
 struct AirplaneData
 {
     int id;
     std::string name;
     std::string filename;
+    float speed;
+    cocos2d::Vec3 rotationMax;
+    cocos2d::Vec3 rotationSpeed;
 
     static const int NOT_FOUND = -1;
 };

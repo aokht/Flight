@@ -110,6 +110,7 @@ private:
     void setupUI();
     void setupEventListeners();
 
+    float getGameTime() const;
     void updateRunningTime(float dt);
     void updateSphereCount(const std::vector<AchievedSphereInfo>& achievedSphereInfoList);
     bool checkGameEnds();

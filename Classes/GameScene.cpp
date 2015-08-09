@@ -108,10 +108,15 @@ void GameScene::update(float dt)
     }
 }
 
+float GameScene::getGameTime() const
+{
+    return GameSceneManager::getInstance()->isSinglePlay() ? PLAY_SECONDS : PLAY_SECONDS_MULTI;
+}
+
 void GameScene::updateRunningTime(float dt)
 {
     this->runningTime += dt;
-    float remainingTime = PLAY_SECONDS - this->runningTime;
+    float remainingTime = this->getGameTime() - this->runningTime;
     if (remainingTime < EPSILON) {
         remainingTime = 0.f;
     }
@@ -166,8 +171,8 @@ bool GameScene::checkGameEnds()
         }
     }
 
-    if (this->runningTime > PLAY_SECONDS) {
-        this->runningTime = PLAY_SECONDS;
+    if (this->runningTime > this->getGameTime()) {
+        this->runningTime = this->getGameTime();
         this->isTimeUp = true;
         return true;
     }
@@ -191,9 +196,9 @@ void GameScene::startGame()
     count2Sprite->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
     count1Sprite->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
     startSprite->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
-    count3Sprite->setRotation3D(Vec3(0.f, 90.f, 0.f));
-    count2Sprite->setRotation3D(Vec3(0.f, 90.f, 0.f));
-    count1Sprite->setRotation3D(Vec3(0.f, 90.f, 0.f));
+    count3Sprite->setRotation3D(Vec3(0.f, -90.f, 0.f));
+    count2Sprite->setRotation3D(Vec3(0.f, -90.f, 0.f));
+    count1Sprite->setRotation3D(Vec3(0.f, -90.f, 0.f));
     count3Sprite->setVisible(false);
     count2Sprite->setVisible(false);
     count1Sprite->setVisible(false);
@@ -205,17 +210,17 @@ void GameScene::startGame()
 
     count3Sprite->setVisible(true);
     count3Sprite->runAction(Sequence::create(
-        RotateBy3D::create(1.f, Vec3(0.f, -180.f, 0.f)),
+        RotateBy3D::create(1.f, Vec3(0.f, 180.f, 0.f)),
         CallFunc::create([=](){
             count3Sprite->setVisible(false);
             count2Sprite->setVisible(true);
             count2Sprite->runAction(Sequence::create(
-                RotateBy3D::create(1.f, Vec3(0.f, -180.f, 0.f)),
+                RotateBy3D::create(1.f, Vec3(0.f, 180.f, 0.f)),
                 CallFunc::create([=](){
                     count2Sprite->setVisible(false);
                     count1Sprite->setVisible(true);
                     count1Sprite->runAction(Sequence::create(
-                        RotateBy3D::create(1.f, Vec3(0.f, -180.f, 0.f)),
+                        RotateBy3D::create(1.f, Vec3(0.f, 180.f, 0.f)),
                         CallFunc::create([=](){
                             count1Sprite->setVisible(false);
                             startSprite->setVisible(true);
@@ -358,7 +363,7 @@ void GameScene::setupSkyDome()
     FieldData data = FieldDataSource::findById(this->field->getFieldId());
 
     this->skydome = Sprite3D::create(data.filenameSky);
-    skydome->setPosition3D(Vec3(0, -2000, 0));
+    skydome->setPosition3D(Vec3(0, -FIELD_HEIGHT, 0));
     this->addChild(skydome);
 }
 
@@ -371,8 +376,8 @@ void GameScene::setupAirplane()
     this->airplane = Airplane::createById(airplaneId);
     this->addChild(airplane);
 
-    airplane->setRotation3D(Vec3(0, -180, 0));          // TODO
-    airplane->setPosition3D(Vec3(4500, 400, 4500));  // TODO
+    airplane->setPosition3D(this->field->getAirplaneStartPosition());
+    airplane->setRotation3D(this->field->getAirplaneStartRotation());
 
     if (! gameSceneManager->isSinglePlay()) {
         // TODO: peerID で複数人対応
@@ -382,13 +387,14 @@ void GameScene::setupAirplane()
         targetAirplane->setScale(25);
 
         if (gameSceneManager->isMultiplayMaster()) {
-            // TODO
-            targetAirplane->setPosition3D(Vec3(-4500, 400, -4500));
+            targetAirplane->setPosition3D(this->field->getOtherAirplaneStartPosition());
+            targetAirplane->setRotation3D(this->field->getOtherAirplaneStartRotation());
         }
         else {
-            // TODO
-            targetAirplane->setPosition3D(Vec3(4500, 400, 4500));
-            airplane->setPosition3D(Vec3(-4500, 400, -4500));
+            targetAirplane->setPosition3D(this->field->getAirplaneStartPosition());
+            targetAirplane->setRotation3D(this->field->getAirplaneStartRotation());
+            airplane->setPosition3D(this->field->getOtherAirplaneStartPosition());
+            airplane->setRotation3D(this->field->getOtherAirplaneStartRotation());
         }
         this->field->setOtherAirplane(peerId, targetAirplane);
     }
@@ -532,7 +538,7 @@ void GameScene::setupEventListeners()
     auto touchEventListener = EventListenerTouchOneByOne::create();
 
     static Vec2 touchStart;
-    static float ux_max_drag_px = 200.f;  // TODO: ドラッグ可能量
+    static float ux_max_drag_px = 300.f;  // ドラッグ可能量
 
     touchEventListener->onTouchBegan = [this](Touch* touch, Event* event)
     {
@@ -550,16 +556,16 @@ void GameScene::setupEventListeners()
 
         // ドラッグ可能量を超えていた時に、超えた分だけ始点をずらす(反対側にドラッグした時にすぐ反応するために)
         if (abs(diff.x) > ux_max_drag_px) {
-            touchStart.x += (abs(diff.x) - ux_max_drag_px) * (diff.x < 0.f ? -1.f : 1.f);
-            diff.x = ux_max_drag_px * (diff.x < 0.f ? -1.f : 1.f);
+            touchStart.x += (abs(diff.x) - ux_max_drag_px) * sign(diff.x);
+            diff.x = ux_max_drag_px * sign(diff.x);
         }
         if (abs(diff.y) > ux_max_drag_px) {
-            touchStart.y += (abs(diff.y) - ux_max_drag_px) * (diff.y < 0.f ? -1.f : 1.f);
-            diff.y = ux_max_drag_px * (diff.y < 0.f ? -1.f : 1.f);
+            touchStart.y += (abs(diff.y) - ux_max_drag_px) * sign(diff.y);
+            diff.y = ux_max_drag_px * sign(diff.y);
         }
 
         // % に変換
-        diff = diff * (100.f / ux_max_drag_px);
+        diff = diff / ux_max_drag_px;
         this->airplane->onInputMoved(diff);
     };
     touchEventListener->onTouchEnded = [this](Touch* touch, Event* event)

@@ -24,7 +24,18 @@ vector<AirplaneData> AirplaneDataSource::findAll()
         ret.push_back({
             d.at("id").asInt(),
             d.at("name").asString(),
-            d.at("filename").asString()
+            d.at("filename").asString(),
+            d.at("speed").asFloat(),
+            Vec3(
+                 d.at("rotation_max_x").asFloat(),
+                 0.f,
+                 d.at("rotation_max_z").asFloat()
+            ),
+            Vec3(
+                 d.at("rotation_speed_x").asFloat(),
+                 0.f,
+                 d.at("rotation_speed_z").asFloat()
+            )
         });
     }
 
