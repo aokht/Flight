@@ -17,8 +17,8 @@
             <FileData Type="Normal" Path="Resources/Backgrounds/main_sky_blur.jpg" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="LoadingLabel" ActionTag="568625655" Tag="86" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="402.5000" RightMargin="402.5000" TopMargin="332.5000" BottomMargin="332.5000" FontSize="80" LabelText="Now Loading..." ctype="TextObjectData">
-            <Size X="529.0000" Y="85.0000" />
+          <AbstractNodeData Name="LoadingLabel" ActionTag="568625655" Tag="86" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="402.5000" RightMargin="402.5000" TopMargin="332.5000" BottomMargin="332.5000" FontSize="80" LabelText="Now Loading..." OutlineEnabled="True" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
+            <Size X="557.0000" Y="87.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="667.0000" Y="375.0000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
@@ -26,7 +26,7 @@
             <PrePosition X="0.5000" Y="0.5000" />
             <PreSize X="0.5000" Y="0.1507" />
             <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
-            <OutlineColor A="255" R="255" G="0" B="0" />
+            <OutlineColor A="255" R="170" G="170" B="170" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
         </Children>
