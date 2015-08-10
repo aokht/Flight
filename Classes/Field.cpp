@@ -82,6 +82,7 @@ Field* Field::createWithData(const FieldData& data, bool collisionMesh, bool sub
     field->airplaneStartRotation = data.airplaneRotation;
     field->otherAirplaneStartPosition = data.otherAirplanePosition;
     field->otherAirplaneStartRotation = data.otherAirplaneRotation;
+    field->leaderboardHighScoreKey = data.leaderboardHighScoreKey;
 
     field->setupShaders(data);
 
@@ -101,6 +102,7 @@ void Field::createWithDataAsync(const FieldData& data, const function<void(Field
         field->airplaneStartRotation = data.airplaneRotation;
         field->otherAirplaneStartPosition = data.otherAirplanePosition;
         field->otherAirplaneStartRotation = data.otherAirplaneRotation;
+        field->leaderboardHighScoreKey = data.leaderboardHighScoreKey;
 
         field->setupShaders(data);
 
@@ -429,4 +431,9 @@ const Vec3& Field::getOtherAirplaneStartPosition() const
 const Vec3& Field::getOtherAirplaneStartRotation() const
 {
     return otherAirplaneStartRotation;
+}
+
+const string& Field::getLeaderboardHighScoreKey() const
+{
+    return leaderboardHighScoreKey;
 }

@@ -87,7 +87,7 @@
             <PrePosition X="0.7300" Y="0.4500" />
             <PreSize X="0.0000" Y="0.0000" />
           </AbstractNodeData>
-          <AbstractNodeData Name="AirplaneNameLabel" ActionTag="-1006734623" Tag="33" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="199.6800" RightMargin="813.3199" TopMargin="586.5000" BottomMargin="112.5000" FontSize="48" LabelText="Airplane Name" OutlineEnabled="True" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+          <AbstractNodeData Name="AirplaneNameLabel" ActionTag="-1006734623" Tag="33" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="199.6800" RightMargin="813.3199" TopMargin="584.5000" BottomMargin="112.5000" FontSize="48" LabelText="Airplane Name" OutlineEnabled="True" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
             <Size X="321.0000" Y="53.0000" />
             <AnchorPoint ScaleX="0.5000" />
             <Position X="360.1800" Y="112.5000" />
@@ -188,19 +188,19 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="StageNameLabel" ActionTag="-1072385338" Tag="40" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="838.1500" RightMargin="237.8500" TopMargin="586.5000" BottomMargin="112.5000" FontSize="48" LabelText="Stage Name" OutlineEnabled="True" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+          <AbstractNodeData Name="StageNameLabel" ActionTag="-1072385338" Tag="40" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="767.0500" RightMargin="308.9500" TopMargin="584.5000" BottomMargin="112.5000" FontSize="48" LabelText="Stage Name" OutlineEnabled="True" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
             <Size X="258.0000" Y="53.0000" />
-            <AnchorPoint ScaleX="0.5000" />
-            <Position X="967.1500" Y="112.5000" />
+            <AnchorPoint />
+            <Position X="767.0500" Y="112.5000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.7250" Y="0.1500" />
+            <PrePosition X="0.5750" Y="0.1500" />
             <PreSize X="0.1934" Y="0.0680" />
             <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="170" G="170" B="170" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="AirplaneLoadingLabel" ActionTag="2135868951" Tag="77" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="280.6800" RightMargin="894.3199" TopMargin="393.5000" BottomMargin="318.5000" FontSize="36" LabelText="Loading..." OutlineEnabled="True" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+          <AbstractNodeData Name="AirplaneLoadingLabel" ActionTag="2135868951" Tag="77" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="280.6800" RightMargin="894.3199" TopMargin="392.5000" BottomMargin="317.5000" FontSize="36" LabelText="Loading..." OutlineEnabled="True" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
             <Size X="159.0000" Y="40.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="360.1800" Y="337.5000" />
@@ -212,7 +212,7 @@
             <OutlineColor A="255" R="170" G="170" B="170" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="StageLoadingLabel" ActionTag="267195598" Tag="78" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="887.6500" RightMargin="287.3500" TopMargin="393.5000" BottomMargin="318.5000" FontSize="36" LabelText="Loading..." OutlineEnabled="True" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+          <AbstractNodeData Name="StageLoadingLabel" ActionTag="267195598" Tag="78" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="887.6500" RightMargin="287.3500" TopMargin="392.5000" BottomMargin="317.5000" FontSize="36" LabelText="Loading..." OutlineEnabled="True" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
             <Size X="159.0000" Y="40.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="967.1500" Y="337.5000" />
@@ -222,6 +222,32 @@
             <PreSize X="0.1529" Y="0.1080" />
             <FontResource Type="Normal" Path="Resources/fonts/ChangaOne-Regular.ttf" Plist="" />
             <OutlineColor A="255" R="170" G="170" B="170" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="BackgroundBoxHighScore" ActionTag="-577970307" Tag="92" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1103.2484" RightMargin="102.7516" TopMargin="509.5000" BottomMargin="112.5000" ctype="SpriteObjectData">
+            <Size X="128.0000" Y="128.0000" />
+            <AnchorPoint ScaleX="0.5000" />
+            <Position X="1167.2484" Y="112.5000" />
+            <Scale ScaleX="0.7000" ScaleY="0.5500" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.8750" Y="0.1500" />
+            <PreSize X="0.0960" Y="0.1707" />
+            <FileData Type="Normal" Path="Resources/Backgrounds/box.png" Plist="" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="HighScoreButton" ActionTag="1687450905" Tag="94" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1103.2500" RightMargin="102.7500" TopMargin="509.5000" BottomMargin="112.5000" TouchEnable="True" FontSize="14" ButtonText="Button" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="98" Scale9Height="106" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+            <Size X="128.0000" Y="128.0000" />
+            <AnchorPoint ScaleX="0.5000" />
+            <Position X="1167.2500" Y="112.5000" />
+            <Scale ScaleX="0.5000" ScaleY="0.5000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.8750" Y="0.1500" />
+            <PreSize X="0.0960" Y="0.1707" />
+            <TextColor A="255" R="65" G="65" B="70" />
+            <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
+            <PressedFileData Type="Normal" Path="Resources/ui/1439181981_rankings-pressed.png" Plist="" />
+            <NormalFileData Type="Normal" Path="Resources/ui/1439181981_rankings.png" Plist="" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
         </Children>

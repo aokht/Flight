@@ -13,6 +13,7 @@
 #include "SelectScene.h"
 #include "LoadingScene.h"
 #include "CreditsScene.h"
+#include "HighScoreScene.h"
 #include "GameSceneManager.h"
 #include "Global.h"
 
@@ -33,7 +34,8 @@ SceneManager* SceneManager::getInstance()
 SceneManager::SceneManager() :
     networkingWrapper(new NetworkingWrapper()),
     gameSceneManager(nullptr),
-    networking(false)
+    networking(false),
+    sceneCount(0)
 {
     networkingWrapper->setServiceName("Flight");
     networkingWrapper->setDelegate(this);
@@ -57,8 +59,10 @@ void SceneManager::showLobbyScene()
 {
     stopGameScene();
     networkingWrapper->disconnect();
+    resetScene();
     Scene* lobbyScene = LobbyScene::createScene();
     Director::getInstance()->pushScene(lobbyScene);
+    this->sceneCount++;
 }
 
 void SceneManager::showSelectScene()
@@ -66,6 +70,7 @@ void SceneManager::showSelectScene()
     stopGameScene();
     Scene* selectScene = SelectScene::createScene();
     Director::getInstance()->pushScene(selectScene);
+    this->sceneCount++;
 }
 
 void SceneManager::showGameScene()
@@ -73,6 +78,7 @@ void SceneManager::showGameScene()
     gameSceneManager = GameSceneManager::getInstance();
     gameSceneManager->setSceneData(sceneData);
     gameSceneManager->showGameScene();
+    this->sceneCount++;
 }
 
 void SceneManager::stopGameScene()
@@ -87,12 +93,34 @@ void SceneManager::showLoadingScene(const std::function<void ()>& callback, cons
 {
     Scene* loadingScene = LoadingScene::createScene(callback, label);
     Director::getInstance()->pushScene(loadingScene);
+    this->sceneCount++;
 }
 
 void SceneManager::showCreditsScene()
 {
     Scene* creditsScene = CreditsScene::createScene();
     Director::getInstance()->pushScene(creditsScene);
+    this->sceneCount++;
+}
+
+void SceneManager::showHighScoreScene(int stageId)
+{
+    Scene* highScoreScene = HighScoreScene::createSceneWithStageId(stageId);
+    Director::getInstance()->pushScene(highScoreScene);
+    this->sceneCount++;
+}
+
+void SceneManager::backScene()
+{
+    Director::getInstance()->popScene();
+    this->sceneCount--;
+}
+
+void SceneManager::resetScene()
+{
+    while (this->sceneCount--) {
+        Director::getInstance()->popScene();
+    }
 }
 
 bool SceneManager::isInGameScene() const

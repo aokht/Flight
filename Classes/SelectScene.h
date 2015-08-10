@@ -35,6 +35,9 @@ private:
     cocos2d::ui::Text* stageLoadingIndicator;
     cocos2d::ui::Text* airplaneLoadingIndicator;
     cocos2d::ui::Text* nextButtonLoadingIndicator;
+    cocos2d::ui::Button* highScoreButton;
+
+    bool isPrepared;
 
     bool fieldLoading;
     std::vector<int> fieldIdList;

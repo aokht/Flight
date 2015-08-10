@@ -9,6 +9,8 @@
 #include <iostream>
 #include "SelectScene.h"
 #include "SceneManager.h"
+#include "Global.h"
+#include "HighScoreDataSource.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -32,6 +34,8 @@ bool SelectScene::init()
     this->rootNode = SceneManager::createCSNode("SelectScene.csb");
     this->addChild(rootNode);
 
+    this->isPrepared = false;
+
     this->fieldLoading = false;
     this->airplaneLoading = false;
 
@@ -42,15 +46,19 @@ void SelectScene::onEnter()
 {
     Layer::onEnter();
 
-    this->grabElements();
-    this->setupUI();
+    if (! this->isPrepared) {
+        this->isPrepared = true;
 
-    this->loadStages();
-    this->loadAirplanes();
+        this->grabElements();
+        this->setupUI();
 
-    // TODO: 前回のステージとか
-    this->showStage(0);
-    this->showAirplane(0);
+        this->loadStages();
+        this->loadAirplanes();
+
+        // TODO: 前回のステージとか
+        this->showStage(0);
+        this->showAirplane(0);
+    }
 }
 
 void SelectScene::grabElements()
@@ -90,6 +98,9 @@ void SelectScene::grabElements()
 
     this->stageLoadingIndicator = this->rootNode->getChildByName<ui::Text*>("StageLoadingLabel");
     CCASSERT(stageLoadingIndicator, "StageLoadingLabel in SelectScene is not found");
+
+    this->highScoreButton = this->rootNode->getChildByName<ui::Button*>("HighScoreButton");
+    CCASSERT(highScoreButton, "HighScoreButton in SelectScene is not found");
 
     if (! canSelectStage()) {
         this->stageLeftButton->setVisible(false);
@@ -163,6 +174,12 @@ void SelectScene::setupUI()
 
     this->stageLoadingIndicator->setVisible(false);
     this->airplaneLoadingIndicator->setVisible(false);
+
+    this->highScoreButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
+        if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SceneManager::getInstance()->showHighScoreScene(this->fieldIdList[this->currentField]);
+        }
+    });
 }
 
 void SelectScene::loadStages()
@@ -251,7 +268,7 @@ void SelectScene::showAirplane(int index)
     }
     else {
         this->airplaneNameLabel->setString(airplane->getAirplaneName());
-        airplane->setVisible(true);;
+        airplane->setVisible(true);
     }
 
     this->currentAirplane = index;

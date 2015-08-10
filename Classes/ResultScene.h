@@ -29,6 +29,9 @@ private:
     cocos2d::ui::Text* timeCountLabel;
     cocos2d::ui::Text* totalScoreLabel;
     cocos2d::Node* courseMapNode;
+    cocos2d::ui::Button* highScoreButton;
+
+    bool isPrepared;
 
     bool init();
     void onEnter() override;

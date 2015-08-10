@@ -22,6 +22,7 @@
 #include "SceneManager.h"
 #include "ExSprite3D.h"
 #include "Action3D.h"
+#include "HighScoreDataSource.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -279,6 +280,17 @@ void GameScene::endGame()
         
         // シングルプレイ
         if (GameSceneManager::getInstance()->isSinglePlay()) {
+            int stageId = GameSceneManager::getInstance()->getSceneData().stageId;
+            // TODO: 得点計算をまとめる
+            int sphereScore = GameSceneManager::calculateTotalSphereScore(score.sphereList);
+            int timeBonus = 0;
+            if (! score.isCollided) {
+                timeBonus = GameSceneManager::calculateTimeBonus(score.elapsedTime);
+            }
+            int totalScore = sphereScore + timeBonus;
+            HighScoreDataSource::setGlobalHighScore(stageId, totalScore);
+            HighScoreDataSource::setLocalHighScoreIfBigger(stageId, totalScore);
+
             GameSceneManager::getInstance()->showResultScene(score);
         }
         // マルチプレイ

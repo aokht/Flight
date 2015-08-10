@@ -29,6 +29,8 @@ public:
     void showGameScene();
     void showLoadingScene(const std::function<void()>& callback, const std::string& label);
     void showCreditsScene();
+    void showHighScoreScene(int stageId);
+    void backScene();
     bool isInGameScene() const;
 
     void initSceneData();
@@ -61,12 +63,14 @@ protected:
     ~SceneManager();
 
     void stopGameScene();
+    void resetScene();
 
     GameSceneManager* gameSceneManager;
     SceneData sceneData;
 
     NetworkingWrapper* networkingWrapper;
 
+    int sceneCount;
     bool networking;
     void setNetworking(bool networking);
     void sendData(const void* data, int length, SendDataMode mode = SendDataMode::Reliable);

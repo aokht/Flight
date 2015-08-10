@@ -13,6 +13,7 @@
 #include "ResultSceneMulti.h"
 #include "SceneManager.h"
 #include "LoadingScene.h"
+#include "Global.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -126,6 +127,22 @@ map<Sphere::Type, int> GameSceneManager::calculateScore(const vector<AchievedSph
     sphereCount[Sphere::Type::RED]    *= rateMap[Sphere::Type::RED    - 1];
 
     return sphereCount;
+}
+
+int GameSceneManager::calculateTotalSphereScore(const std::vector<AchievedSphereInfo>& achievedSphereInfoList)
+{
+    int totalScore = 0;
+
+    for (auto sphereCount : calculateScore(achievedSphereInfoList)) {
+        totalScore += sphereCount.second;
+    }
+
+    return totalScore;
+}
+
+int GameSceneManager::calculateTimeBonus(float elapsedTime)
+{
+    return (int)((PLAY_SECONDS - elapsedTime) * 10.f);
 }
 
 const Vec3 GameSceneManager::getCameraPosition() const

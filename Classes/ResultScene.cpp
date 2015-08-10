@@ -52,6 +52,8 @@ bool ResultScene::init()
     this->rootNode = SceneManager::createCSNode("GameScene/ResultScene.csb");
     this->addChild(rootNode);
 
+    this->isPrepared = false;
+
     return true;
 }
 
@@ -59,9 +61,13 @@ void ResultScene::onEnter()
 {
     Layer::onEnter();
 
-    this->grabElements();
-    this->setupUI();
-    this->setupScores();
+    if (! isPrepared) {
+        this->isPrepared = true;
+
+        this->grabElements();
+        this->setupUI();
+        this->setupScores();
+    }
 }
 
 void ResultScene::grabElements()
@@ -89,6 +95,9 @@ void ResultScene::grabElements()
 
     this->courseMapNode = this->rootNode->getChildByName<Node*>("CourseMap");
     CCASSERT(courseMapNode, "CourseMap in ResultScene is not found");
+
+    this->highScoreButton = this->rootNode->getChildByName<ui::Button*>("HighScoreButton");
+    CCASSERT(highScoreButton, "HighScoreButton in ResultScene is not found");
 }
 
 void ResultScene::setupUI()
@@ -102,6 +111,13 @@ void ResultScene::setupUI()
     this->lobbyButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             SceneManager::getInstance()->showLobbyScene();
+        }
+    });
+
+    this->highScoreButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
+        if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            int stageId = GameSceneManager::getInstance()->getSceneData().stageId;
+            SceneManager::getInstance()->showHighScoreScene(stageId);
         }
     });
 
@@ -130,7 +146,7 @@ void ResultScene::setupScores()
         timeBonus = 0;
         this->timeCountLabel->setString("-");
     } else {
-        timeBonus = (int)((PLAY_SECONDS - score.elapsedTime) * 10.f);
+        timeBonus = GameSceneManager::calculateTimeBonus(score.elapsedTime);
         this->timeCountLabel->setString(StringUtils::toString(timeBonus));
     }
 

@@ -14,6 +14,7 @@
 #include "Airplane.h"
 #include "Action3D.h"
 #include "ExSprite3D.h"
+#include "GameCenterWrapper.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -54,6 +55,7 @@ void LobbyScene::onEnter()
     this->setupOpeningAnimations();
 
     SceneManager::getInstance()->startAdvertisingAvailability();
+    GameCenterWrapper::getInstance()->loginGameCenter();
 }
 
 void LobbyScene::onExit()

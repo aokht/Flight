@@ -29,6 +29,8 @@ public:
     void clearSceneData();
 
     static std::map<Sphere::Type, int> calculateScore(const std::vector<AchievedSphereInfo>& achievedSphereInfoList);
+    static int calculateTotalSphereScore(const std::vector<AchievedSphereInfo>& achievedSphereInfoList);
+    static int calculateTimeBonus(float elapsedTime);
 
 
     void receivedData(const AirplaneInfoNetworkPacket& data);
