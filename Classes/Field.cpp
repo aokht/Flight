@@ -13,6 +13,7 @@
 #include "Airplane.h"
 #include "Global.h"
 #include "Sphere.h"
+#include "MiniMap.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -180,6 +181,9 @@ void Field::setupShaders(const FieldData& data)
     }
 }
 
+// 1座標の周りに生成するスフィアの数
+const int Field::sphereCountPerPoint = 12;
+
 void Field::setupSpheres()
 {
     FieldData data = FieldDataSource::findById(this->getFieldId());
@@ -198,7 +202,7 @@ void Field::setupSpheres()
             Vec3 distanceUnit = (p1 - p0) / (float)sphereDivisor;
 
             for (int j = 0; j < sphereDivisor; ++j) {
-                for (int k = 0; k < 12; ++k) {
+                for (int k = 0; k < sphereCountPerPoint; ++k) {
                     Vec3 dist(
                         rand() % sphereDistribution - sphereDistribution * 0.5,
                         rand() % sphereDistribution - sphereDistribution * 0.5,
@@ -235,13 +239,24 @@ void Field::shareSphereList(std::vector<Sphere*> sphereBatchList)
     }
 }
 
-void Field::setAirplaneToField(Airplane *airplane)
+void Field::setAirplane(Airplane *airplane)
 {
     this->airplane = airplane;
 
     // フィールドを動かす
     this->setPosition3D(-airplane->getPosition3D());
     airplane->setPosition3D(Vec3::ZERO);
+}
+
+void Field::setMiniMap(MiniMap *miniMap)
+{
+    this->miniMap = miniMap;
+    this->miniMap->setDivisor(sphereCountPerPoint);
+
+    for (Sphere* sphereBatch : sphereBatchList) {
+        this->miniMap->addSphereBatch(sphereBatch);
+    }
+    this->miniMap->step(0.f, this->getAirplanePosition(), this->airplane->getRotation3D());
 }
 
 void Field::step(float dt)
@@ -278,6 +293,8 @@ void Field::step(float dt)
     pos.y = max(pos.y, (float)-FIELD_HEIGHT);
 
     this->setPosition3D(pos);
+
+    this->miniMap->step(dt, this->getAirplanePosition(), this->airplane->getRotation3D());
 }
 
 void Field::checkSphereCollision(vector<AchievedSphereInfo>* achievedSphereInfoListPerFrame)

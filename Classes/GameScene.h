@@ -16,6 +16,7 @@
 class Field;
 class Airplane;
 class Sphere;
+class MiniMap;
 
 class GameScene : public cocos2d::Layer
 {
@@ -90,6 +91,7 @@ private:
     cocos2d::Label* labelRotationTarget;
     cocos2d::Label* labelTargetPosition;
     cocos2d::Label* labelTargetRotation;
+    MiniMap* miniMap;
 
     bool running;
     float runningTime;
@@ -109,6 +111,7 @@ private:
     void setupCamera();
     void setupUI();
     void setupEventListeners();
+    void setupMiniMap();
 
     float getGameTime() const;
     void updateRunningTime(float dt);

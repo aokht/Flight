@@ -20,10 +20,10 @@
                 <FileData Type="Normal" Path="Resources/ui/circleBlue.png" Plist="" />
                 <BlendFunc Src="1" Dst="771" />
               </AbstractNodeData>
-              <AbstractNodeData Name="BlueSphereCount" ActionTag="-1278412107" Tag="95" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="64.0680" RightMargin="1197.9320" TopMargin="18.9999" BottomMargin="19.0001" FontSize="40" LabelText="000" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="BlueSphereCount" ActionTag="-1278412107" Tag="95" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="64.0680" RightMargin="1197.9320" TopMargin="19.0000" BottomMargin="19.0000" FontSize="40" LabelText="000" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                 <Size X="72.0000" Y="42.0000" />
                 <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-                <Position X="136.0680" Y="40.0001" />
+                <Position X="136.0680" Y="40.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="0" G="0" B="0" />
                 <PrePosition X="0.1020" Y="0.5000" />
@@ -114,10 +114,10 @@
                 <FileData Type="Normal" Path="Resources/ui/circleRed.png" Plist="" />
                 <BlendFunc Src="1" Dst="771" />
               </AbstractNodeData>
-              <AbstractNodeData Name="RedSphereCount" ActionTag="1293107924" Tag="101" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="570.9880" RightMargin="691.0120" TopMargin="15.9519" BottomMargin="22.0481" FontSize="40" LabelText="000" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="RedSphereCount" ActionTag="1293107924" Tag="101" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="570.9880" RightMargin="691.0120" TopMargin="15.9520" BottomMargin="22.0480" FontSize="40" LabelText="000" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                 <Size X="72.0000" Y="42.0000" />
                 <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-                <Position X="642.9880" Y="43.0481" />
+                <Position X="642.9880" Y="43.0480" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="0" G="0" B="0" />
                 <PrePosition X="0.4820" Y="0.5381" />
@@ -173,10 +173,10 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="StartButton" ActionTag="24783848" Tag="107" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1160.6599" RightMargin="13.3401" TopMargin="10.0000" BottomMargin="10.0000" TouchEnable="True" FontSize="50" ButtonText="Stop" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="StartButton" ActionTag="24783848" Tag="107" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1160.6600" RightMargin="13.3400" TopMargin="10.0000" BottomMargin="10.0000" TouchEnable="True" FontSize="50" ButtonText="Stop" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="160.0000" Y="60.0000" />
                 <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-                <Position X="1320.6599" Y="40.0000" />
+                <Position X="1320.6600" Y="40.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.9900" Y="0.5000" />
@@ -189,10 +189,10 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="QuitButton" ActionTag="1954149269" Tag="108" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="973.8999" RightMargin="200.1001" TopMargin="10.0000" BottomMargin="10.0000" TouchEnable="True" FontSize="50" ButtonText="Quit" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="QuitButton" ActionTag="1954149269" Tag="108" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="973.9000" RightMargin="200.1000" TopMargin="10.0000" BottomMargin="10.0000" TouchEnable="True" FontSize="50" ButtonText="Quit" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="160.0000" Y="60.0000" />
                 <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-                <Position X="1133.8999" Y="40.0000" />
+                <Position X="1133.9000" Y="40.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.8500" Y="0.5000" />
@@ -214,6 +214,16 @@
             <PreSize X="1.0000" Y="0.1067" />
             <FileData Type="Normal" Path="Resources/ui/header.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="MiniMapNode" ActionTag="1680845709" Tag="153" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="166.7500" RightMargin="1167.2500" TopMargin="225.0000" BottomMargin="525.0000" InnerActionSpeed="1.0000" ctype="ProjectNodeObjectData">
+            <Size X="0.0000" Y="0.0000" />
+            <AnchorPoint />
+            <Position X="166.7500" Y="525.0000" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.1250" Y="0.7000" />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="Normal" Path="GameScene/MiniMapNode.csd" Plist="" />
           </AbstractNodeData>
         </Children>
       </ObjectData>

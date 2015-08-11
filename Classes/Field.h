@@ -16,6 +16,7 @@
 #include "Sphere.h"
 
 class Airplane;
+class MiniMap;
 
 class Field : public ExSprite3D
 {
@@ -28,8 +29,10 @@ public:
     static void createWithModelPathAsync(const std::string& modelPath, const std::function<void(Field*, void*)>& callback, void* callbackparam, bool collisionMesh = false);
     static void createWithDataAsync(const FieldData& data, const std::function<void(Field*, void*)>& callback, void* callbackparam, bool collisionMesh = false, bool subField = false);
 
-    void setAirplaneToField(Airplane* airplane);
+    void setAirplane(Airplane* airplane);
     cocos2d::Vec3 getAirplanePosition() const;
+
+    void setMiniMap(MiniMap* miniMap);
 
     void step(float dt);
 
@@ -61,9 +64,12 @@ protected:
     Airplane* airplane;
     std::map<int, Airplane*> otherAirplaneList;
 
+    MiniMap* miniMap;
+
     void setupShaders(const FieldData& data);
     void setupSubFields();
 
+    const static int sphereCountPerPoint;
     std::vector<Field*> subFieldList;
     std::vector<Sphere*> sphereBatchList;
     std::map<Sphere::Type, int> sphereCountPerColor;

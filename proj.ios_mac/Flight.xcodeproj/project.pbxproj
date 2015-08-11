@@ -127,6 +127,8 @@
 		5BB5572E1B78147B00F88F94 /* HighScoreDataSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5572B1B78147B00F88F94 /* HighScoreDataSource.cpp */; };
 		5BB557311B78162A00F88F94 /* HighScoreScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5572F1B78162A00F88F94 /* HighScoreScene.cpp */; };
 		5BB557321B78162A00F88F94 /* HighScoreScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5572F1B78162A00F88F94 /* HighScoreScene.cpp */; };
+		5BB557351B7903A300F88F94 /* MiniMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB557331B7903A300F88F94 /* MiniMap.cpp */; };
+		5BB557361B7903A300F88F94 /* MiniMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB557331B7903A300F88F94 /* MiniMap.cpp */; };
 		7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */ = {isa = PBXBuildFile; fileRef = FA144D09A52357282113E0F8 /* res */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -267,6 +269,8 @@
 		5BB5572C1B78147B00F88F94 /* HighScoreDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreDataSource.h; sourceTree = "<group>"; };
 		5BB5572F1B78162A00F88F94 /* HighScoreScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HighScoreScene.cpp; sourceTree = "<group>"; };
 		5BB557301B78162A00F88F94 /* HighScoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreScene.h; sourceTree = "<group>"; };
+		5BB557331B7903A300F88F94 /* MiniMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MiniMap.cpp; sourceTree = "<group>"; };
+		5BB557341B7903A300F88F94 /* MiniMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniMap.h; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -566,6 +570,8 @@
 				5B419ED71B598B650056C69E /* Field.h */,
 				5B88F5FF1B564B7D00375BB2 /* Sphere.cpp */,
 				5B88F6001B564B7D00375BB2 /* Sphere.h */,
+				5BB557331B7903A300F88F94 /* MiniMap.cpp */,
+				5BB557341B7903A300F88F94 /* MiniMap.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -814,6 +820,7 @@
 				5BB5572D1B78147B00F88F94 /* HighScoreDataSource.cpp in Sources */,
 				5B58B5F91B669B6400539BEA /* README.md in Sources */,
 				5BB557261B77F13E00F88F94 /* GameCenterWrapper.mm in Sources */,
+				5BB557351B7903A300F88F94 /* MiniMap.cpp in Sources */,
 				5B89C9C21B5F74900092C926 /* FieldDataSource.cpp in Sources */,
 				5B88F6051B564B7D00375BB2 /* Global.cpp in Sources */,
 				5B88F6181B56BF5600375BB2 /* GameSceneManager.cpp in Sources */,
@@ -839,6 +846,7 @@
 				5B58B5F41B669B6400539BEA /* NetworkingWrapper.mm in Sources */,
 				5B4C545B1B7151A40031B121 /* Action3D.cpp in Sources */,
 				5B88F6041B564B7D00375BB2 /* GameScene.cpp in Sources */,
+				5BB557361B7903A300F88F94 /* MiniMap.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				5BB557321B78162A00F88F94 /* HighScoreScene.cpp in Sources */,
 				5B58B5F61B669B6400539BEA /* NetworkManager.mm in Sources */,

@@ -10,6 +10,7 @@
 #include <sstream>
 #include <iostream>
 
+#include "cocostudio/CocoStudio.h"
 #include "GameScene.h"
 #include "Global.h"
 #include "Airplane.h"
@@ -23,6 +24,7 @@
 #include "ExSprite3D.h"
 #include "Action3D.h"
 #include "HighScoreDataSource.h"
+#include "MiniMap.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -34,6 +36,9 @@ bool GameScene::init()
     if (! Layer::init()) {
         return false;
     }
+
+    CSLoader* csLoader = CSLoader::getInstance();
+    csLoader->registReaderObject("MiniMapReader", (ObjectFactory::Instance)MiniMapReader::getInstance);
 
     this->rootNode = SceneManager::createCSNode("GameScene/GameScene.csb");
     this->addChild(rootNode);
@@ -61,6 +66,7 @@ void GameScene::onEnter()
     this->setupSpheres();
     this->setupAirplane();
     this->setupSkyDome();
+    this->setupMiniMap();
     this->setupUI();
     this->setupCamera();
     this->setupEventListeners();
@@ -410,7 +416,12 @@ void GameScene::setupAirplane()
         this->field->setOtherAirplane(peerId, targetAirplane);
     }
 
-    this->field->setAirplaneToField(airplane);
+    this->field->setAirplane(airplane);
+}
+
+void GameScene::setupMiniMap()
+{
+    this->field->setMiniMap(miniMap);
 }
 
 void GameScene::setupCamera()
@@ -464,6 +475,9 @@ void GameScene::grabElemets()
     this->quitButton = this->header->getChildByName<ui::Button*>("QuitButton");
     CCASSERT(startButton, "StartButton in GameScene is not found");
     CCASSERT(quitButton, "QuitButton in GameScene is not found");
+
+    this->miniMap = this->rootNode->getChildByName<MiniMap*>("MiniMapNode");
+    CCASSERT(miniMap, "MiniMapNode in GameScene is not found");
 }
 
 void GameScene::setupUI()
