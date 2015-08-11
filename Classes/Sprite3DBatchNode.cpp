@@ -7,6 +7,7 @@
 //
 
 #include "Sprite3DBatchNode.h"
+#include "ExMesh.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -134,20 +135,45 @@ void Sprite3DBatchNode::build()
         program->setUniformLocationWith1fv(uniform->location, visibleList->data(), nodeCount);
     });
 
+    AABB aabb;
+    for (const NodeStatus& node : *statusList) {
+        aabb._min.x = min(aabb._min.x, node.position.x);
+        aabb._min.y = min(aabb._min.y, node.position.y);
+        aabb._min.z = min(aabb._min.z, node.position.z);
+        aabb._max.x = max(aabb._max.x, node.position.x);
+        aabb._max.y = max(aabb._max.y, node.position.y);
+        aabb._max.z = max(aabb._max.z, node.position.z);
+    }
+    ((ExMesh*)this->getMesh())->setAABB(aabb);
+    this->_aabbDirty = true;
+
     this->isBuilt = true;
 }
 
 void Sprite3DBatchNode::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t flags)
 {
+    // 初回描画時に各種 uniform 変数と、AABBの設定を行う
     if (! isBuilt) {
         this->build();
+    }
+    // 初めて描くときの処理が重くて一瞬止まるので、初回描画時は全部描き、以降はクリッピング判定を行う
+    else if (! Camera::getVisitingCamera()->isVisibleInFrustum(&this->getAABB())) {
+        return;
     }
 
     command.init(_globalZOrder, transform, flags);
     command.func = [&](){
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
-        glEnable(GL_DEPTH_TEST);
+        if (! glIsEnabled(GL_CULL_FACE)) {
+            glEnable(GL_CULL_FACE);
+        }
+        GLint cullFace;
+        glGetIntegerv(GL_CULL_FACE_MODE, &cullFace);
+        if (cullFace != GL_BACK) {
+            glCullFace(GL_BACK);
+        }
+        if (! glIsEnabled(GL_DEPTH_TEST)) {
+            glEnable(GL_DEPTH_TEST);
+        }
 
         Mesh* mesh = this->getMesh();
         MeshIndexData* meshIndexData = mesh->getMeshIndexData();

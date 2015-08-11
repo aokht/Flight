@@ -242,6 +242,7 @@
 		5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExSprite3D.cpp; sourceTree = "<group>"; };
 		5B94B0751B5A2C3C0094340C /* ExSprite3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExSprite3D.h; sourceTree = "<group>"; };
 		5B94B07D1B5A2C900094340C /* ExVertexIndexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExVertexIndexBuffer.h; sourceTree = "<group>"; };
+		5B99DBD91B79451100015FDA /* ExMesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExMesh.h; sourceTree = "<group>"; };
 		5B9AB0801B730C0900DA29D4 /* LoadingScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadingScene.cpp; sourceTree = "<group>"; };
 		5B9AB0811B730C0900DA29D4 /* LoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingScene.h; sourceTree = "<group>"; };
 		5BB38EDA1B7351FA000BC42D /* SphereShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SphereShader.frag; path = Shaders/SphereShader.frag; sourceTree = "<group>"; };
@@ -605,6 +606,7 @@
 				5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */,
 				5B94B0751B5A2C3C0094340C /* ExSprite3D.h */,
 				5B94B07D1B5A2C900094340C /* ExVertexIndexBuffer.h */,
+				5B99DBD91B79451100015FDA /* ExMesh.h */,
 			);
 			name = "cocos2d-Ex";
 			sourceTree = "<group>";

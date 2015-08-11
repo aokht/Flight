@@ -25,9 +25,7 @@ public:
     static bool isGameCenterLoggedIn();
 
     // debug
-#if COCOS2D_DEBUG
     static void resetLocalHighScore();
-#endif
 
 protected:
     static const int localHighScoreMaxCount;
