@@ -15,9 +15,11 @@
 #include "Action3D.h"
 #include "ExSprite3D.h"
 #include "GameCenterWrapper.h"
+#include "SimpleAudioEngine.h"
 
 using namespace std;
 using namespace cocos2d;
+using namespace CocosDenshion;
 
 Scene* LobbyScene::createScene()
 {
@@ -42,6 +44,8 @@ bool LobbyScene::init()
 
     Director::getInstance()->setDepthTest(true);
 
+    this->isPrepared = false;
+
     return true;
 }
 
@@ -49,13 +53,17 @@ void LobbyScene::onEnter()
 {
     Layer::onEnter();
 
-    this->grabElements();
-    this->setupUI();
-    this->setup3DModels();
-    this->setupOpeningAnimations();
+    if (! this->isPrepared) {
+        this->grabElements();
+        this->setupUI();
+        this->setup3DModels();
+        this->setupOpeningAnimations();
 
-    SceneManager::getInstance()->startAdvertisingAvailability();
-    GameCenterWrapper::getInstance()->loginGameCenter();
+        SceneManager::getInstance()->startAdvertisingAvailability();
+        GameCenterWrapper::getInstance()->loginGameCenter();
+
+        this->isPrepared = true;
+    }
 }
 
 void LobbyScene::onExit()
@@ -95,6 +103,7 @@ void LobbyScene::setupUI()
 {
     this->singlePlayerButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
             SceneManager* sceneManager = SceneManager::getInstance();
             sceneManager->setSceneData({ SceneData::Mode::SINGLE });
             sceneManager->showSelectScene();
@@ -103,12 +112,14 @@ void LobbyScene::setupUI()
 
     this->multiplayerButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
             SceneManager::getInstance()->showPeerList();
         }
     });
 
     this->creditsButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
             SceneManager::getInstance()->showCreditsScene();
         }
     });
@@ -230,6 +241,7 @@ void LobbyScene::setupOpeningAnimations()
             this->titleSprite->runAction(
                 EaseIn::create(MoveTo::create(0.75f, Vec2(visibleSize.width * 0.5f, titleSprite->getPosition().y)), rate)
             );
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TITLE_FLYBY]);
         }),
         DelayTime::create(0.75f),
         // 画面を揺らす
@@ -289,4 +301,7 @@ void LobbyScene::setupOpeningAnimations()
         }),
         nullptr
     ));
+
+    // BGM再生
+    SimpleAudioEngine::getInstance()->playBackgroundMusic(BGM_LIST[BGM_MAINTITLE], true);
 }

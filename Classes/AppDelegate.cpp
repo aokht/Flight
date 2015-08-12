@@ -1,8 +1,11 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 #include "GameScene.h"
+#include "SimpleAudioEngine.h"
+#include "Global.h"
 
 USING_NS_CC;
+using namespace CocosDenshion;
 
 AppDelegate::AppDelegate() {
 
@@ -55,6 +58,16 @@ bool AppDelegate::applicationDidFinishLaunching() {
     FileUtils::getInstance()->addSearchPath("plists");
     FileUtils::getInstance()->addSearchPath("scenes");
     FileUtils::getInstance()->addSearchPath("fonts");
+    FileUtils::getInstance()->addSearchPath("BGM");
+    FileUtils::getInstance()->addSearchPath("SE");
+
+    SimpleAudioEngine* audio = SimpleAudioEngine::getInstance();
+    for (int i = 0; i < BGM_LAST; ++i) {
+        audio->preloadBackgroundMusic(BGM_LIST[i]);
+    }
+    for (int i = 0; i < SE_LAST; ++i) {
+        audio->preloadEffect(SE_LIST[i]);
+    }
 
     // create a scene. it's an autorelease object
     auto scene = HelloWorld::createScene();

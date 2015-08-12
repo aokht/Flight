@@ -14,9 +14,11 @@
 #include "SceneManager.h"
 #include "LoadingScene.h"
 #include "Global.h"
+#include "SimpleAudioEngine.h"
 
 using namespace std;
 using namespace cocos2d;
+using namespace CocosDenshion;
 
 GameSceneManager* GameSceneManager::getInstance()
 {
@@ -42,6 +44,7 @@ GameSceneManager::~GameSceneManager()
 void GameSceneManager::showGameScene()
 {
     this->resetScene();
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 
     Director::getInstance()->pushScene(LoadingScene::createScene(
         [this](){

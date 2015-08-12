@@ -299,9 +299,8 @@ void Field::step(float dt)
 
 void Field::checkSphereCollision(vector<AchievedSphereInfo>* achievedSphereInfoListPerFrame)
 {
-    int coinCount = 0;
     const Vec3& airplanePosition = this->getAirplanePosition();
-    float distance = 200.f;  // TODO: 当たり判定距離
+    float distance = 150.f;  // TODO: 当たり判定距離
 
     for (auto batchNode = sphereBatchList.begin(), lastBatchNode = sphereBatchList.end(); batchNode != lastBatchNode; ++batchNode) {
         const vector<Sprite3DBatchNode::NodeStatus>& sphereList = (*batchNode)->getNodeStatusList();
@@ -309,7 +308,6 @@ void Field::checkSphereCollision(vector<AchievedSphereInfo>* achievedSphereInfoL
             const Vec3 diff = s->position -  airplanePosition;
             if (abs(diff.x) < distance && abs(diff.y) < distance && abs(diff.z) < distance &&  s->isVisible) {
                 (*batchNode)->setNodeVisible((int)std::distance(sphereList.begin(), s), false);
-                coinCount++;  // TODO sphere の種類に応じたスコア
 
                 AchievedSphereInfo achievedSphereInfo({
                     (int)std::distance(sphereBatchList.begin(), batchNode),

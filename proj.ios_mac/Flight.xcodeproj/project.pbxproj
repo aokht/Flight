@@ -96,6 +96,10 @@
 		5B89C9CC1B5F8CF70092C926 /* LobbyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B89C9C91B5F8CF70092C926 /* LobbyScene.cpp */; };
 		5B89C9D71B5FF38E0092C926 /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B89C9D51B5FF38E0092C926 /* SceneManager.cpp */; };
 		5B89C9D81B5FF38E0092C926 /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B89C9D51B5FF38E0092C926 /* SceneManager.cpp */; };
+		5B8FAA231B7A694F001BE2BB /* BGM in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA221B7A694F001BE2BB /* BGM */; };
+		5B8FAA241B7A694F001BE2BB /* BGM in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA221B7A694F001BE2BB /* BGM */; };
+		5B8FAA281B7B0DAE001BE2BB /* SE in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA271B7B0DAE001BE2BB /* SE */; };
+		5B8FAA291B7B0DAE001BE2BB /* SE in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA271B7B0DAE001BE2BB /* SE */; };
 		5B94B0761B5A2C3C0094340C /* ExSprite3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */; };
 		5B94B0771B5A2C3C0094340C /* ExSprite3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */; };
 		5B9AB0821B730C0900DA29D4 /* LoadingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B9AB0801B730C0900DA29D4 /* LoadingScene.cpp */; };
@@ -239,6 +243,8 @@
 		5B89C9CA1B5F8CF70092C926 /* LobbyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LobbyScene.h; sourceTree = "<group>"; };
 		5B89C9D51B5FF38E0092C926 /* SceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneManager.cpp; sourceTree = "<group>"; };
 		5B89C9D61B5FF38E0092C926 /* SceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneManager.h; sourceTree = "<group>"; };
+		5B8FAA221B7A694F001BE2BB /* BGM */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BGM; sourceTree = "<group>"; };
+		5B8FAA271B7B0DAE001BE2BB /* SE */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SE; sourceTree = "<group>"; };
 		5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExSprite3D.cpp; sourceTree = "<group>"; };
 		5B94B0751B5A2C3C0094340C /* ExSprite3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExSprite3D.h; sourceTree = "<group>"; };
 		5B94B07D1B5A2C900094340C /* ExVertexIndexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExVertexIndexBuffer.h; sourceTree = "<group>"; };
@@ -398,6 +404,8 @@
 			children = (
 				FA144D09A52357282113E0F8 /* res */,
 				5B4CB9121B5EF1F90084916C /* plists */,
+				5B8FAA221B7A694F001BE2BB /* BGM */,
+				5B8FAA271B7B0DAE001BE2BB /* SE */,
 				5B58B5B81B652CF100539BEA /* scenes */,
 				5B88F60A1B564C8200375BB2 /* fonts */,
 				5BB38EE61B7361CC000BC42D /* launchimage */,
@@ -746,6 +754,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B8FAA231B7A694F001BE2BB /* BGM in Resources */,
 				5B5088701B6E8D0D00087706 /* DuplicateFieldShader.vert in Resources */,
 				5BB38EDC1B7351FA000BC42D /* SphereShader.frag in Resources */,
 				5B58B5F71B669B6400539BEA /* networkingDiagram.png in Resources */,
@@ -755,6 +764,7 @@
 				5B4B040E1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert in Resources */,
 				5B0D34AF1B718A26007BA862 /* SphereShaderForTitleScreen.frag in Resources */,
 				5BB38EF41B7361CC000BC42D /* Default-736h@3x.png in Resources */,
+				5B8FAA281B7B0DAE001BE2BB /* SE in Resources */,
 				5BB38EF91B7361CC000BC42D /* Default-Portrait.png in Resources */,
 				5BB38EE51B735245000BC42D /* Images.xcassets in Resources */,
 				5B4CB9131B5EF1F90084916C /* plists in Resources */,
@@ -780,12 +790,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B58B6021B6A865D00539BEA /* FieldShader.old.vert in Resources */,
+				5B8FAA241B7A694F001BE2BB /* BGM in Resources */,
 				5B4CB9141B5EF1F90084916C /* plists in Resources */,
 				5B88F60C1B564C8200375BB2 /* fonts in Resources */,
 				5B0D34B21B718A26007BA862 /* SphereShaderForTitleScreen.vert in Resources */,
 				5B58B5BA1B652CF100539BEA /* scenes in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				5B58B5F81B669B6400539BEA /* networkingDiagram.png in Resources */,
+				5B8FAA291B7B0DAE001BE2BB /* SE in Resources */,
 				7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */,
 				5B50886F1B6E8D0D00087706 /* DuplicateFieldShader.frag in Resources */,
 				5BB38EE11B7351FE000BC42D /* SphereShader.vert in Resources */,

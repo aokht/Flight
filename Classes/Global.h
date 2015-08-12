@@ -40,4 +40,51 @@ const float EPSILON = 0.00000011920928955078125f; //floatの限界精度(1/2^23)
 
 #define DUMMY_PEER_ID 1  // 複数人対戦したいけど無理なのでとりあえず
 
+
+static const char* BGM_LIST[] = {
+    "edm_01_loop.wav",
+    "edm_02_loop.wav",
+    "shooting_05_loop.wav",
+    "Lazy Day.wav",
+    "Coming Home.wav",
+};
+enum BGM_INDEX {
+    BGM_STAGE1 = 0,
+    BGM_STAGE2 = 1,
+    BGM_STAGE3 = 2,
+    BGM_SUBTITLE = 3,
+    BGM_MAINTITLE = 4,
+    BGM_LAST,
+};
+
+static const char* SE_LIST[] = {
+    "ALARM Submarine Fast (loop stereo).wav",
+    "ALARM Submarine Slow (loop stereo).wav",
+    "EXPLOSION Medium Smooth with Faint Echo Rumble (stereo).wav",
+    "MUSIC EFFECT Dubstep Negative (stereo).wav",
+    "FLYBY Sci-Fi 01 (mono).wav",
+    "PROPELLER ENGINE Loop 01 (loop mono).wav",
+    "PROPELLER ENGINE Loop 02 (loop mono).wav",
+    "THRUSTER Afterburner Power Distorted (loop mono).wav",
+    "UI Click Distinct (mono).wav",
+    "UI SCI-FI Tone Bright Wet 09 (stereo).wav",
+    "UI SCI-FI Confirm Dry (stereo).wav",
+    "FLYBY Sci-Fi 01 (mono)_short.wav"
+};
+enum SE_INDEX {
+    COUNTDOWN_1 = 0,
+    COUNTDOWN_2 = 1,
+    EXPLOSION = 2,
+    MUSIC_NEGATIVE = 3,
+    TITLE_FLYBY = 4,
+    AIRPLANE_1 = 5,
+    AIRPLANE_2 = 6,
+    AIRPLANE_3 = 7,
+    TAP_NORMAL = 8,
+    TAP_IMPORTANT = 9,
+    GET_SPHERE = 10,
+    GAMEEND_FLYBY = 11,
+    SE_LAST,
+};
+
 #endif /* defined(__Flight__Global__) */

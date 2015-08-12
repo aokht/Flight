@@ -113,6 +113,10 @@ private:
     void setupEventListeners();
     void setupMiniMap();
 
+    int sphereEffectId;
+    void playAirplaneSE();
+    void playSphereSE();
+
     float getGameTime() const;
     void updateRunningTime(float dt);
     void updateSphereCount(const std::vector<AchievedSphereInfo>& achievedSphereInfoList);

@@ -11,9 +11,11 @@
 #include "Global.h"
 #include "Field.h"
 #include "SceneManager.h"
+#include "SimpleAudioEngine.h"
 
 using namespace std;
 using namespace cocos2d;
+using namespace CocosDenshion;
 
 Scene* ResultScene::createScene(const GameScene::GameScore& score)
 {
@@ -67,6 +69,8 @@ void ResultScene::onEnter()
         this->grabElements();
         this->setupUI();
         this->setupScores();
+
+        SimpleAudioEngine::getInstance()->playBackgroundMusic(BGM_LIST[BGM_SUBTITLE]);
     }
 }
 
@@ -104,18 +108,21 @@ void ResultScene::setupUI()
 {
     this->nextButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_IMPORTANT]);
             GameSceneManager::getInstance()->showGameScene();
         }
     });
 
     this->lobbyButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
             SceneManager::getInstance()->showLobbyScene();
         }
     });
 
     this->highScoreButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
             int stageId = GameSceneManager::getInstance()->getSceneData().stageId;
             SceneManager::getInstance()->showHighScoreScene(stageId);
         }

@@ -11,9 +11,11 @@
 #include "SceneManager.h"
 #include "Global.h"
 #include "HighScoreDataSource.h"
+#include "SimpleAudioEngine.h"
 
 using namespace std;
 using namespace cocos2d;
+using namespace CocosDenshion;
 
 Scene* SelectScene::createScene()
 {
@@ -58,6 +60,8 @@ void SelectScene::onEnter()
         // TODO: 前回のステージとか
         this->showStage(0);
         this->showAirplane(0);
+
+        SimpleAudioEngine::getInstance()->playBackgroundMusic(BGM_LIST[BGM_SUBTITLE], true);
     }
 }
 
@@ -115,12 +119,15 @@ void SelectScene::setupUI()
 {
     this->backButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
             SceneManager::getInstance()->showLobbyScene();
         }
     });
 
     this->nextButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_IMPORTANT]);
+
             SceneManager* sceneManager = SceneManager::getInstance();
 
             int stageId = fieldList.at(fieldIdList[currentField])->getFieldId();
@@ -142,24 +149,28 @@ void SelectScene::setupUI()
 
     this->stageRightButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
             this->showStage(currentField + 1);
         }
     });
 
     this->stageLeftButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
             this->showStage(currentField - 1);
         }
     });
 
     this->airplaneRightButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
             this->showAirplane(currentAirplane + 1);
         }
     });
 
     this->airplaneLeftButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
             this->showAirplane(currentAirplane - 1);
         }
     });
@@ -177,6 +188,7 @@ void SelectScene::setupUI()
 
     this->highScoreButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
             SceneManager::getInstance()->showHighScoreScene(this->fieldIdList[this->currentField]);
         }
     });
@@ -216,14 +228,16 @@ void SelectScene::showStage(int index)
         this->checkButtonEnable();
         FieldData data = FieldDataSource::findById(fieldId);
         Field::createWithDataAsync(data, [this, fieldId](Field* field, void* param){
-            field->setScale(0.017);
-            this->fieldList.insert(fieldId, field);
-            this->stageNode->addChild(field, 0, "spriteField");
-            this->stageNameLabel->setString(field->getFieldName());
-            field->runAction(RepeatForever::create(Sequence::create(RotateBy::create(20, Vec3(0, -360, 0)), nullptr)));
+            if (field) {
+                field->setScale(0.017);
+                this->fieldList.insert(fieldId, field);
+                this->stageNode->addChild(field, 0, "spriteField");
+                this->stageNameLabel->setString(field->getFieldName());
+                field->runAction(RepeatForever::create(Sequence::create(RotateBy::create(20, Vec3(0, -360, 0)), nullptr)));
 
-            this->fieldLoading = false;
-            this->checkButtonEnable();
+                this->fieldLoading = false;
+                this->checkButtonEnable();
+            }
         }, nullptr);
         CCLOG("Loading stage: %s", data.filenameTerrain.data());
     }
@@ -255,14 +269,16 @@ void SelectScene::showAirplane(int index)
         this->checkButtonEnable();
         AirplaneData data = AirplaneDataSource::findById(airplaneId);
         Airplane::createByDataAsync(data, [this, airplaneId](Airplane* airplane, void* param){
-            airplane->setScale(50);
-            this->airplaneList.insert(airplaneId, airplane);
-            this->airplaneNode->addChild(airplane, 0, "spriteAirplane");
-            this->airplaneNameLabel->setString(airplane->getAirplaneName());
-            airplane->runAction(RepeatForever::create(Sequence::create(RotateBy::create(20, Vec3(0, -360, 0)), nullptr)));
+            if (airplane) {
+                airplane->setScale(50);
+                this->airplaneList.insert(airplaneId, airplane);
+                this->airplaneNode->addChild(airplane, 0, "spriteAirplane");
+                this->airplaneNameLabel->setString(airplane->getAirplaneName());
+                airplane->runAction(RepeatForever::create(Sequence::create(RotateBy::create(20, Vec3(0, -360, 0)), nullptr)));
 
-            this->airplaneLoading = false;
-            this->checkButtonEnable();
+                this->airplaneLoading = false;
+                this->checkButtonEnable();
+            }
         }, nullptr);
         CCLOG("Loading airplane: %s", data.name.data());
     }

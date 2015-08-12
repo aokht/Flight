@@ -25,9 +25,11 @@
 #include "Action3D.h"
 #include "HighScoreDataSource.h"
 #include "MiniMap.h"
+#include "SimpleAudioEngine.h"
 
 using namespace std;
 using namespace cocos2d;
+using namespace CocosDenshion;
 
 const float GameScene::circleScale = 0.25f;
 
@@ -54,6 +56,8 @@ bool GameScene::init()
     this->isCollided = false;
     this->isCompleted = false;
 
+    this->sphereEffectId = -1;
+
     return true;
 }
 
@@ -70,6 +74,8 @@ void GameScene::onEnter()
     this->setupUI();
     this->setupCamera();
     this->setupEventListeners();
+
+    SimpleAudioEngine::getInstance()->playBackgroundMusic(BGM_LIST[BGM_STAGE1], true);
 
     this->startGame();
 }
@@ -131,6 +137,14 @@ void GameScene::updateRunningTime(float dt)
 
 void GameScene::updateSphereCount(const std::vector<AchievedSphereInfo>& achievedSphereInfoList)
 {
+    // スフィア獲得SEは、ループ再生を pause / resume して使いまわす(毎回再生すると飛行機のエンジン音が止まる)
+    if (achievedSphereInfoList.empty()) {
+        if (sphereEffectId > 0) {
+            SimpleAudioEngine::getInstance()->pauseEffect(sphereEffectId);
+        }
+        return;
+    }
+
     int countList[] = { 0, 0, 0 };
     for (const AchievedSphereInfo& info : achievedSphereInfoList) {
         if (Sphere::Type::NONE < info.color && info.color < Sphere::Type::LAST) {
@@ -151,6 +165,12 @@ void GameScene::updateSphereCount(const std::vector<AchievedSphereInfo>& achieve
             circleList[i]->setScale(circleScale * 1.5f);
             circleList[i]->runAction(ScaleTo::create(0.1f, circleScale));
         }
+    }
+
+    if (sphereEffectId < 0) {
+        this->playSphereSE();
+    } else {
+        SimpleAudioEngine::getInstance()->resumeEffect(sphereEffectId);
     }
 }
 
@@ -216,21 +236,28 @@ void GameScene::startGame()
 
     count3Sprite->setVisible(true);
     count3Sprite->runAction(Sequence::create(
+        CallFunc::create([this](){
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[COUNTDOWN_1], false, 1.25f);
+            this->playAirplaneSE();
+        }),
         RotateBy3D::create(1.f, Vec3(0.f, 180.f, 0.f)),
         CallFunc::create([=](){
             count3Sprite->setVisible(false);
             count2Sprite->setVisible(true);
             count2Sprite->runAction(Sequence::create(
+                CallFunc::create([](){ SimpleAudioEngine::getInstance()->playEffect(SE_LIST[COUNTDOWN_1], false, 1.25f); }),
                 RotateBy3D::create(1.f, Vec3(0.f, 180.f, 0.f)),
                 CallFunc::create([=](){
                     count2Sprite->setVisible(false);
                     count1Sprite->setVisible(true);
                     count1Sprite->runAction(Sequence::create(
+                        CallFunc::create([](){ SimpleAudioEngine::getInstance()->playEffect(SE_LIST[COUNTDOWN_1], false, 1.25f); }),
                         RotateBy3D::create(1.f, Vec3(0.f, 180.f, 0.f)),
                         CallFunc::create([=](){
                             count1Sprite->setVisible(false);
                             startSprite->setVisible(true);
                             startSprite->runAction(Sequence::create(
+                                CallFunc::create([](){ SimpleAudioEngine::getInstance()->playEffect(SE_LIST[COUNTDOWN_2], false, 2.5f); }),
                                 FadeOut::create(2.f),
                                 CallFunc::create([=](){
                                     startSprite->setVisible(false);
@@ -255,6 +282,16 @@ void GameScene::startGame()
     ));
 }
 
+void GameScene::playAirplaneSE()
+{
+    SimpleAudioEngine::getInstance()->playEffect(SE_LIST[AIRPLANE_1], true, 1.f, 0.f, 10.f);
+}
+
+void GameScene::playSphereSE()
+{
+    this->sphereEffectId = SimpleAudioEngine::getInstance()->playEffect(SE_LIST[GET_SPHERE], true);
+}
+
 void GameScene::stopGame(bool strict)
 {
     this->running = false;
@@ -266,6 +303,10 @@ void GameScene::stopGame(bool strict)
 void GameScene::endGame()
 {
     this->stopGame();
+
+    SimpleAudioEngine* audio = SimpleAudioEngine::getInstance();
+    audio->stopBackgroundMusic();
+    audio->stopAllEffects();
 
     // エンディング
     Sprite* message = nullptr;
@@ -337,6 +378,8 @@ void GameScene::endGame()
             }),
             nullptr
         ));
+
+        audio->playEffect(SE_LIST[GAMEEND_FLYBY]);
     } else if (isCollided) {
         // 爆発演出
         ParticleSystemQuad* particleExplosion = ParticleSystemQuad::create("explosion.plist");
@@ -352,6 +395,8 @@ void GameScene::endGame()
             }),
             nullptr
         ));
+
+        audio->playEffect(SE_LIST[EXPLOSION]);
     } else {
         // 念のため
         callback();
@@ -494,18 +539,25 @@ void GameScene::setupUI()
 
     this->startButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine* audio = SimpleAudioEngine::getInstance();
+            audio->playEffect(SE_LIST[TAP_NORMAL]);
             if (this->running) {
                 // stop
                 this->startButton->setTitleText("Start");
                 this->quitButton->setVisible(true);
                 this->quitButton->setEnabled(true);
                 this->running = false;
+                audio->pauseBackgroundMusic();
+                audio->stopAllEffects();
             } else {
                 // start
                 this->startButton->setTitleText("Stop");
                 this->quitButton->setVisible(false);
                 this->quitButton->setEnabled(false);
                 this->running = true;
+                audio->resumeBackgroundMusic();
+                this->playAirplaneSE();
+                this->playSphereSE();
             }
         }
     });
@@ -514,6 +566,7 @@ void GameScene::setupUI()
     quitButton->setVisible(false);
     this->quitButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
             this->isCollided = true;
             this->endGame();
         }

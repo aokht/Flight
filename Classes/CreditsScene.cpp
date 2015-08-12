@@ -9,9 +9,12 @@
 #include "cocosGUI.h"
 #include "CreditsScene.h"
 #include "SceneManager.h"
+#include "Global.h"
+#include "SimpleAudioEngine.h"
 
 using namespace std;
 using namespace cocos2d;
+using namespace CocosDenshion;
 
 Scene* CreditsScene::createScene()
 {
@@ -34,7 +37,8 @@ bool CreditsScene::init()
 
     rootNode->getChildByName<ui::Button*>("BackButton")->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            SceneManager::getInstance()->showLobbyScene();
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
+            SceneManager::getInstance()->backScene();
         }
     });
 

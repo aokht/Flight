@@ -35,6 +35,7 @@ private:
     ExSprite3D* sphere1;
     ExSprite3D* sphere2;
     ExSprite3D* sphere3;
+    bool isPrepared;
 
     bool init();
     void onEnter() override;

@@ -10,9 +10,12 @@
 #include "SceneManager.h"
 #include "HighScoreDataSource.h"
 #include "FieldDataSource.h"
+#include "SimpleAudioEngine.h"
+#include "Global.h"
 
 using namespace std;
 using namespace cocos2d;
+using namespace CocosDenshion;
 
 Scene* HighScoreScene::createSceneWithStageId(int stageId)
 {
@@ -99,12 +102,14 @@ void HighScoreScene::setupUI()
     this->gamecenterButton->setEnabled(HighScoreDataSource::isGameCenterLoggedIn());
     this->gamecenterButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
             HighScoreDataSource::showLeaderboard(this->stageId);
         }
     });
 
     this->backButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
             SceneManager::getInstance()->backScene();
         }
     });
