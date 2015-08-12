@@ -12,9 +12,11 @@
 #include "Field.h"
 #include "Airplane.h"
 #include "SceneManager.h"
+#include "SimpleAudioEngine.h"
 
 using namespace std;
 using namespace cocos2d;
+using namespace CocosDenshion;
 
 Scene* ResultSceneMulti::createScene(const GameScene::GameScore& score)
 {
@@ -63,6 +65,8 @@ void ResultSceneMulti::onEnter()
     this->grabElements();
     this->setupUI();
     this->setupScores();
+
+    SimpleAudioEngine::getInstance()->playBackgroundMusic(BGM_LIST[BGM_SUBTITLE]);
 }
 
 void ResultSceneMulti::grabElements()
@@ -108,6 +112,7 @@ void ResultSceneMulti::setupUI()
 {
     this->lobbyButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            SimpleAudioEngine::getInstance()->playEffect(SE_LIST[TAP_NORMAL]);
             SceneManager::getInstance()->showLobbyScene();
         }
     });
