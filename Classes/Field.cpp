@@ -84,6 +84,7 @@ Field* Field::createWithData(const FieldData& data, bool collisionMesh, bool sub
     field->otherAirplaneStartPosition = data.otherAirplanePosition;
     field->otherAirplaneStartRotation = data.otherAirplaneRotation;
     field->leaderboardHighScoreKey = data.leaderboardHighScoreKey;
+    field->bgmIndex = data.bgmIndex;
 
     field->setupShaders(data);
 
@@ -97,18 +98,21 @@ Field* Field::createWithData(const FieldData& data, bool collisionMesh, bool sub
 void Field::createWithDataAsync(const FieldData& data, const function<void(Field*, void*)>& callback, void* callbackparam, bool collisionMesh, bool subField)
 {
     Field::createWithModelPathAsync(data.filenameTerrain, [data, subField, callback](Field* field, void* param){
-        field->fieldId = data.id;
-        field->fieldName = data.name;
-        field->airplaneStartPosition = data.airplanePosition;
-        field->airplaneStartRotation = data.airplaneRotation;
-        field->otherAirplaneStartPosition = data.otherAirplanePosition;
-        field->otherAirplaneStartRotation = data.otherAirplaneRotation;
-        field->leaderboardHighScoreKey = data.leaderboardHighScoreKey;
+        if (field) {
+            field->fieldId = data.id;
+            field->fieldName = data.name;
+            field->airplaneStartPosition = data.airplanePosition;
+            field->airplaneStartRotation = data.airplaneRotation;
+            field->otherAirplaneStartPosition = data.otherAirplanePosition;
+            field->otherAirplaneStartRotation = data.otherAirplaneRotation;
+            field->leaderboardHighScoreKey = data.leaderboardHighScoreKey;
+            field->bgmIndex = data.bgmIndex;
 
-        field->setupShaders(data);
+            field->setupShaders(data);
 
-        if (subField) {
-            field->setupSubFields();
+            if (subField) {
+                field->setupSubFields();
+            }
         }
 
         callback(field, param);
@@ -451,4 +455,9 @@ const Vec3& Field::getOtherAirplaneStartRotation() const
 const string& Field::getLeaderboardHighScoreKey() const
 {
     return leaderboardHighScoreKey;
+}
+
+int Field::getBGMIndex() const
+{
+    return bgmIndex;
 }

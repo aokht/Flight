@@ -34,12 +34,13 @@ public:
     void onInputMoved(const cocos2d::Vec2& diff);
     void onInputEnded(const cocos2d::Vec2& diff);
 
-    // パラメータ
+    // パラメータ(TODO: そろそろなんとかしたほうがいい
     int getAirplaneId() const;
     const std::string& getAirplaneName() const;
     float getSpeed() const;
     const cocos2d::Vec3& getRotationSpeed() const;
     const cocos2d::Vec3& getRotationMax() const;
+    int getThrusterSoundIndex() const;
 
     // デバッグ用
     cocos2d::Vec3 getSpriteRotation() const;
@@ -64,6 +65,7 @@ protected:
     float speed;
     cocos2d::Vec3 rotationMax;
     cocos2d::Vec3 rotationSpeed;
+    int thrusterSoundIndex;
 
 };
 

@@ -75,7 +75,7 @@ void GameScene::onEnter()
     this->setupCamera();
     this->setupEventListeners();
 
-    SimpleAudioEngine::getInstance()->playBackgroundMusic(BGM_LIST[BGM_STAGE1], true);
+    SimpleAudioEngine::getInstance()->playBackgroundMusic(BGM_LIST[this->field->getBGMIndex()], true);
 
     this->startGame();
 }
@@ -284,7 +284,7 @@ void GameScene::startGame()
 
 void GameScene::playAirplaneSE()
 {
-    SimpleAudioEngine::getInstance()->playEffect(SE_LIST[AIRPLANE_1], true, 1.f, 0.f, 10.f);
+    SimpleAudioEngine::getInstance()->playEffect(SE_LIST[this->airplane->getThrusterSoundIndex()], true);
 }
 
 void GameScene::playSphereSE()

@@ -51,7 +51,7 @@ public:
     const std::map<int, std::vector<AchievedSphereInfo>>& getOtherAirplaneAchievedSphereList() const;
 
 
-    // パラメータ
+    // パラメータ(TODO: そろそろなんとかしたほうがいい
     int getFieldId() const;
     const std::string& getFieldName() const;
     const cocos2d::Vec3& getAirplaneStartPosition() const;
@@ -59,6 +59,7 @@ public:
     const cocos2d::Vec3& getOtherAirplaneStartPosition() const;
     const cocos2d::Vec3& getOtherAirplaneStartRotation() const;
     const std::string& getLeaderboardHighScoreKey() const;
+    int getBGMIndex() const;
 
 protected:
     Airplane* airplane;
@@ -84,6 +85,7 @@ protected:
     cocos2d::Vec3 otherAirplaneStartPosition;
     cocos2d::Vec3 otherAirplaneStartRotation;
     std::string leaderboardHighScoreKey;
+    int bgmIndex;
 };
 
 #endif /* defined(__Flight__Field__) */

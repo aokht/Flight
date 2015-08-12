@@ -44,6 +44,7 @@ Airplane* Airplane::createByData(const AirplaneData &airplaneData)
     airplane->speed = airplaneData.speed;
     airplane->rotationMax = airplaneData.rotationMax;
     airplane->rotationSpeed = airplaneData.rotationSpeed;
+    airplane->thrusterSoundIndex = airplaneData.thrusterSoundIndex;
 
     return airplane;
 }
@@ -51,11 +52,15 @@ Airplane* Airplane::createByData(const AirplaneData &airplaneData)
 void Airplane::createByDataAsync(const AirplaneData &airplaneData, const function<void(Airplane*, void*)>& callback, void* callbackparam)
 {
     Airplane::createWithFilenameAsync(airplaneData.filename, [callback, airplaneData](Airplane* airplane, void* param){
-        airplane->airplaneId = airplaneData.id;
-        airplane->airplaneName = airplaneData.name;
-        airplane->speed = airplaneData.speed;
-        airplane->rotationMax = airplaneData.rotationMax;
-        airplane->rotationSpeed = airplaneData.rotationSpeed;
+        if (airplane) {
+            airplane->airplaneId = airplaneData.id;
+            airplane->airplaneName = airplaneData.name;
+            airplane->speed = airplaneData.speed;
+            airplane->rotationMax = airplaneData.rotationMax;
+            airplane->rotationSpeed = airplaneData.rotationSpeed;
+            airplane->thrusterSoundIndex = airplaneData.thrusterSoundIndex;
+        }
+
         callback(airplane, param);
     }, callbackparam);
 }
@@ -306,4 +311,9 @@ const Vec3& Airplane::getRotationSpeed() const
 const Vec3& Airplane::getRotationMax() const
 {
     return rotationMax;
+}
+
+int Airplane::getThrusterSoundIndex() const
+{
+    return thrusterSoundIndex;
 }

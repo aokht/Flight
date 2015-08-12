@@ -35,7 +35,8 @@ vector<AirplaneData> AirplaneDataSource::findAll()
                  d.at("rotation_speed_x").asFloat(),
                  0.f,
                  d.at("rotation_speed_z").asFloat()
-            )
+            ),
+            d.at("thruster_sound_index").asInt()
         });
     }
 

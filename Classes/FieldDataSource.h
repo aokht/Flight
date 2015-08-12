@@ -24,6 +24,7 @@ struct FieldData
     cocos2d::Vec3 otherAirplanePosition;
     cocos2d::Vec3 otherAirplaneRotation;
     std::string leaderboardHighScoreKey;
+    int bgmIndex;
 
     static const int NOT_FOUND = -1;
 };

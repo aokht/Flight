@@ -19,6 +19,7 @@ struct AirplaneData
     float speed;
     cocos2d::Vec3 rotationMax;
     cocos2d::Vec3 rotationSpeed;
+    int thrusterSoundIndex;
 
     static const int NOT_FOUND = -1;
 };

@@ -48,7 +48,8 @@ vector<FieldData> FieldDataSource::findAll()
                 d.at("other_airplane_rotation_y").asFloat(),
                 d.at("other_airplane_rotation_z").asFloat()
             ),
-            d.at("leaderboard_highscore_key").asString()
+            d.at("leaderboard_highscore_key").asString(),
+            d.at("bgm_index").asInt()
         });
     }
 
