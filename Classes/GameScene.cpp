@@ -49,6 +49,7 @@ bool GameScene::init()
 
     this->onTouch = false;
     this->running = true;
+    this->isOpening = true;
     this->runningTime = 0.f;
     this->coinCount = 0;
 
@@ -270,7 +271,7 @@ void GameScene::startGame()
                             ));
 
                             this->running = true;
-                            this->scheduleUpdate();
+                            this->isOpening = false;
                         }),
                         nullptr
                     ));
@@ -280,6 +281,11 @@ void GameScene::startGame()
         }),
         nullptr
     ));
+
+    // 3秒時間を遡らせておく
+    this->field->step(-3.f);
+
+    this->scheduleUpdate();
 }
 
 void GameScene::playAirplaneSE()
@@ -620,6 +626,10 @@ void GameScene::setupEventListeners()
 
     touchEventListener->onTouchBegan = [this](Touch* touch, Event* event)
     {
+        if (!this->running || this->isOpening) {
+            return false;
+        }
+
         this->onTouch = true;
         touchStart = touch->getLocation();
 

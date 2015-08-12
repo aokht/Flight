@@ -93,6 +93,7 @@ private:
     cocos2d::Label* labelTargetRotation;
     MiniMap* miniMap;
 
+    bool isOpening;
     bool running;
     float runningTime;
     bool onTouch;
