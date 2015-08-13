@@ -51,8 +51,8 @@
             <FileData Type="Normal" Path="Resources/Backgrounds/box.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="DirectorDeveloperTitle" ActionTag="359840139" Tag="127" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="140.1800" RightMargin="753.8199" TopMargin="285.0000" BottomMargin="412.0000" FontSize="48" LabelText="Director / Developer" HorizontalAlignmentType="HT_Center" OutlineEnabled="True" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
-            <Size X="440.0000" Y="53.0000" />
+          <AbstractNodeData Name="DirectorDeveloperTitle" ActionTag="359840139" Tag="127" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="140.1800" RightMargin="753.8199" TopMargin="285.0000" BottomMargin="412.0000" FontSize="48" LabelText="Developer" HorizontalAlignmentType="HT_Center" OutlineEnabled="True" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+            <Size X="227.0000" Y="53.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="1.0000" />
             <Position X="360.1800" Y="465.0000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
