@@ -66,8 +66,8 @@ static const char* SE_LIST[] = {
     "PROPELLER ENGINE Loop 02 (loop mono).wav",
     "THRUSTER Afterburner Power Distorted (loop mono).wav",
     "UI Click Distinct (mono).wav",
-    "UI SCI-FI Tone Bright Wet 09 (stereo).wav",
-    "UI SCI-FI Confirm Dry (stereo).wav",
+    "",
+    "8BIT RETRO Coin Collect Two Note Bright Fast (mono).wav",
     "FLYBY Sci-Fi 01 (mono)_short.wav"
 };
 enum SE_INDEX {
@@ -79,7 +79,7 @@ enum SE_INDEX {
     AIRPLANE_2 = 5,
     AIRPLANE_3 = 6,
     TAP_NORMAL = 7,
-    TAP_IMPORTANT = 8,
+    TAP_IMPORTANT = 7,  // 音見つからないので一旦タップ音全部同じにする
     GET_SPHERE = 9,
     GAMEEND_FLYBY = 10,
     SE_LAST,
