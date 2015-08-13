@@ -185,14 +185,14 @@ bool GameScene::checkGameEnds()
 
     // 衝突検知
     if (this->field->collisionDetectionEnabled()) {
-        // 前方 10
-        if (this->field->isIntersect(this->field->getAirplanePosition(), Vec3(0, 0, 10))) {
+        // 前方 20
+        if (this->field->isIntersect(this->field->getAirplanePosition(), Vec3(0, 0, 20))) {
             this->isCollided = true;
             return true;
         }
 
-        // 下方 10
-        if (this->field->isIntersect(this->field->getAirplanePosition(), Vec3(0, -10, 0))) {
+        // 下方 20
+        if (this->field->isIntersect(this->field->getAirplanePosition(), Vec3(0, -20, 0))) {
             this->isCollided = true;
             return true;
         }
