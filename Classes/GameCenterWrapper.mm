@@ -80,7 +80,7 @@ void GameCenterWrapper::receivedLeaderboardInfo(NSArray *scores)
         }
         std::sort(leaderboardDataList.begin(), leaderboardDataList.end(),
             [](const LeaderboardData& a, const LeaderboardData& b){
-                return a.rank > b.rank;
+                return a.rank < b.rank;
             }
         );
 
