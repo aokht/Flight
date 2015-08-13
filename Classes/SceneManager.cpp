@@ -295,7 +295,6 @@ bool SceneManager::isMultiplayReady() const
     CCASSERT(!isSinglePlay(), "Invalid game mode");
 
     SceneData data = getSceneData();
-    cout << data << endl;
     return data.stageId && data.airplaneId && data.targetAirplaneId;
 }
 
@@ -312,6 +311,17 @@ void SceneManager::sendSelectSceneDataToPeer()
 
 void SceneManager::sendGameSceneAirplaneInfoToPeer(const AirplaneInfoNetworkPacket& packet)
 {
+    static chrono::high_resolution_clock::time_point lastSent = chrono::high_resolution_clock::now();
+
+    // スフィアを取っていないなら 100ms に 1回しか送らない  TODO: 敵の動きもシミュレートしないとカクカクする
+    if (
+        packet.achievedSphereInfoCount == 0 &&
+        chrono::duration_cast<chrono::milliseconds>(chrono::high_resolution_clock::now() - lastSent).count() < 100
+    ) {
+        return;
+    }
+    lastSent = chrono::high_resolution_clock::now();
+
     this->sendData(&packet, sizeof(AirplaneInfoNetworkPacket), SendDataMode::Unreliable);
 }
 
