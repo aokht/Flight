@@ -294,14 +294,14 @@ void Field::step(float dt)
 
     // XZ方向は、端まで行ったら逆端に移動
     float adjust = FIELD_LENGTH * 0.5f;
-    pos.x = fmod(pos.x + adjust, adjust * 2.f) - adjust;
+    pos.x = fmod(pos.x + adjust, FIELD_LENGTH) - adjust;
     if (pos.x < -adjust) {
-        pos.x += adjust * 2.f;
+        pos.x += FIELD_LENGTH;
     }
 
-    pos.z = fmod(pos.z + adjust, adjust * 2.f) - adjust;
+    pos.z = fmod(pos.z + adjust, FIELD_LENGTH) - adjust;
     if (pos.z < -adjust) {
-        pos.z += adjust * 2.f;
+        pos.z += FIELD_LENGTH;
     }
 
     // Y方向は最大より上には行けないようにする
@@ -315,7 +315,7 @@ void Field::step(float dt)
 void Field::checkSphereCollision(vector<AchievedSphereInfo>* achievedSphereInfoListPerFrame)
 {
     const Vec3& airplanePosition = this->getAirplanePosition();
-    float distance = 150.f;  // TODO: 当たり判定距離
+    float distance = 125.f;  // TODO: 当たり判定距離
 
     for (auto batchNode = sphereBatchList.begin(), lastBatchNode = sphereBatchList.end(); batchNode != lastBatchNode; ++batchNode) {
         const vector<Sprite3DBatchNode::NodeStatus>& sphereList = (*batchNode)->getNodeStatusList();

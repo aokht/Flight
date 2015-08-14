@@ -70,7 +70,7 @@ void ResultScene::onEnter()
         this->setupUI();
         this->setupScores();
 
-        SimpleAudioEngine::getInstance()->playBackgroundMusic(BGM_LIST[BGM_SUBTITLE]);
+        SimpleAudioEngine::getInstance()->playBackgroundMusic(BGM_LIST[BGM_SUBTITLE], true);
     }
 }
 

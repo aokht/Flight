@@ -42,11 +42,11 @@ const float EPSILON = 0.00000011920928955078125f; //floatの限界精度(1/2^23)
 
 
 static const char* BGM_LIST[] = {
-    "edm_01_loop.wav",
-    "edm_02_loop.wav",
-    "shooting_05_loop.wav",
-    "Lazy Day.wav",
-    "Coming Home.wav",
+    "stage1.dat",
+    "stage2.dat",
+    "stage3.dat",
+    "SubScreen.dat",
+    "MainTitle.dat",
 };
 enum BGM_INDEX {
     BGM_STAGE1 = 0,
@@ -58,17 +58,17 @@ enum BGM_INDEX {
 };
 
 static const char* SE_LIST[] = {
-    "ALARM Submarine Fast (loop stereo).wav",
-    "ALARM Submarine Slow (loop stereo).wav",
-    "EXPLOSION Medium Smooth with Faint Echo Rumble (stereo).wav",
-    "FLYBY Sci-Fi 01 (mono).wav",
-    "PROPELLER ENGINE Loop 01 (loop mono).wav",
-    "PROPELLER ENGINE Loop 02 (loop mono).wav",
-    "THRUSTER Afterburner Power Distorted (loop mono).wav",
-    "UI Click Distinct (mono).wav",
+    "CountDown1.dat",
+    "CountDown2.dat",
+    "Explosion.dat",
+    "FlyBy.dat",
+    "Airplane1.dat",
+    "Airplane2.dat",
+    "Airplane3.dat",
+    "Tap.dat",
     "",
-    "8BIT RETRO Coin Collect Two Note Bright Fast (mono).wav",
-    "FLYBY Sci-Fi 01 (mono)_short.wav"
+    "GetCoins.dat",
+    "FlyBy_short.dat"
 };
 enum SE_INDEX {
     COUNTDOWN_1 = 0,

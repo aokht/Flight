@@ -51,6 +51,7 @@ bool GameScene::init()
     this->onTouch = false;
     this->running = true;
     this->isOpening = true;
+    this->isFirstTick = true;
     this->runningTime = 0.f;
     this->coinCount = 0;
 
@@ -86,9 +87,21 @@ void GameScene::update(float dt)
 {
     Layer::update(dt);
 
+    if (isFirstTick) {
+        // dt が5秒とかで来るので捨てる
+        this->isFirstTick = false;
+        return;
+    }
+
     static float noTouchTime = 0.f;
 
-    if (this->running) {
+    // オープニング演出中
+    if (this->running && this->isOpening) {
+        // フィールドを動かすだけ
+        this->field->step(dt);
+    }
+    // オープニング演出終了後
+    else if (this->running && !this->isOpening) {
         if (! this->onTouch) {
             // タッチ中で無ければ進行方向をデフォルトに戻そうとする
             if (noTouchTime > 0.1f) {  // 適当な待ち時間
@@ -271,7 +284,6 @@ void GameScene::startGame()
                                 nullptr
                             ));
 
-                            this->running = true;
                             this->isOpening = false;
                         }),
                         nullptr
@@ -283,7 +295,7 @@ void GameScene::startGame()
         nullptr
     ));
 
-    // 3秒時間を遡らせておく
+    // カウントダウン(3秒)分時間を遡らせておく
     this->field->step(-3.f);
 
     this->scheduleUpdate();
