@@ -327,6 +327,33 @@ void GameScene::endGame()
     audio->stopBackgroundMusic();
     audio->stopAllEffects();
 
+    this->score.setLocalScore({
+        this->isTimeUp,
+        this->isCollided,
+        this->isCompleted,
+        this->runningTime,
+        this->field->getAchievedSphereInfoList()
+    });
+
+    // シングルプレイ
+    if (GameSceneManager::getInstance()->isSinglePlay()) {
+        // ハイスコア更新
+        int stageId = GameSceneManager::getInstance()->getSceneData().stageId;
+        // TODO: 得点計算をまとめる
+        int sphereScore = GameSceneManager::calculateTotalSphereScore(score.sphereList);
+        int timeBonus = 0;
+        if (! score.isCollided) {
+            timeBonus = GameSceneManager::calculateTimeBonus(score.elapsedTime);
+        }
+        int totalScore = sphereScore + timeBonus;
+        HighScoreDataSource::setGlobalHighScore(stageId, totalScore);
+        HighScoreDataSource::setLocalHighScoreIfBigger(stageId, totalScore);
+    }
+    // マルチプレイ
+    else {
+        this->sendGameScore(score);
+    }
+
     // エンディング
     Sprite* message = nullptr;
     if (isTimeUp) {
@@ -336,45 +363,18 @@ void GameScene::endGame()
     }
 
     function<void()> callback = [this](){
-        GameScore score({
-            this->isTimeUp,
-            this->isCollided,
-            this->isCompleted,
-            this->runningTime,
-            this->field->getAchievedSphereInfoList()
-        });
-        
         // シングルプレイ
         if (GameSceneManager::getInstance()->isSinglePlay()) {
-            int stageId = GameSceneManager::getInstance()->getSceneData().stageId;
-            // TODO: 得点計算をまとめる
-            int sphereScore = GameSceneManager::calculateTotalSphereScore(score.sphereList);
-            int timeBonus = 0;
-            if (! score.isCollided) {
-                timeBonus = GameSceneManager::calculateTimeBonus(score.elapsedTime);
-            }
-            int totalScore = sphereScore + timeBonus;
-            HighScoreDataSource::setGlobalHighScore(stageId, totalScore);
-            HighScoreDataSource::setLocalHighScoreIfBigger(stageId, totalScore);
-
-            GameSceneManager::getInstance()->showResultScene(score);
+            GameSceneManager::getInstance()->showResultScene(this->score);
         }
         // マルチプレイ
         else {
-            this->sendGameScore(score);
-
             // 相手が既に終わっていた場合は結果を表示
             if (this->score.otherAirplaneTotalScore != -1) {
-                score.otherAirplaneTotalScore = this->score.otherAirplaneTotalScore;
-                score.otherAirplaneScoreMap = this->score.otherAirplaneScoreMap;
-                score.isOtherAirplaneCollided = this->score.isOtherAirplaneCollided;
-                score.isOtherAirplaneCompleted = this->score.isOtherAirplaneCompleted;
-
-                GameSceneManager::getInstance()->showResultScene(score);
+                GameSceneManager::getInstance()->showResultScene(this->score);
             }
             // 相手のスコアが来るまで待機
             else {
-                this->score = score;
                 SceneManager::getInstance()->showLoadingScene([](){}, "Waiting...");
             }
         }
@@ -417,8 +417,7 @@ void GameScene::endGame()
 
         audio->playEffect(SE_LIST[EXPLOSION]);
     } else {
-        // 念のため
-        callback();
+        CCASSERT(false, "Invalid game state");
     }
 }
 
@@ -801,12 +800,7 @@ void GameScene::receivedData(const GameScoreNetworkPacket& data)
 {
     int peerId = data.peerId;  // TODO: 使っていない
 
-    this->score.otherAirplaneTotalScore = data.score;
-    this->score.otherAirplaneScoreMap[Sphere::Type::BLUE] = data.blueCount;
-    this->score.otherAirplaneScoreMap[Sphere::Type::YELLOW] = data.yellowCount;
-    this->score.otherAirplaneScoreMap[Sphere::Type::RED] = data.redCount;
-    this->score.isOtherAirplaneCollided = data.isCollided;
-    this->score.isOtherAirplaneCompleted = data.isCompleted;
+    this->score.setOpponentScore(data);
 
     // まだプレイ中の場合
     if (! isGameEnded()) {

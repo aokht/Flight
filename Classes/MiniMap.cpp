@@ -91,19 +91,7 @@ void MiniMap::step(float dt, const Vec3& airplanePosition, const Vec3& airplaneR
             // マップの範囲から外れたスフィアを反対側に移動
             if (j % divisor == 0) {
                 Sprite* sphere = sphereSpriteList[sphereBatchIndex][sphereIndex];
-                Vec2 position = sphere->getPosition() - anchorPointInPoints;
-                bool isMoved = false;
-                if (abs(position.x) > mapSizeHalf) {
-                    position.x += mapSize * sign(-position.x);
-                    isMoved = true;
-                }
-                if (abs(position.y) > mapSizeHalf) {
-                    position.y += mapSize * sign(-position.y);
-                    isMoved = true;
-                }
-                if (isMoved) {
-                    sphere->setPosition(position + anchorPointInPoints);
-                }
+                sphere->setPosition(this->convertCoordinateByCurrentAnchorPoint(sphere->getPosition()));
             }
 
             // divisor個のうち、ひとつでも見えているものがあればスキップ
@@ -123,6 +111,43 @@ void MiniMap::step(float dt, const Vec3& airplanePosition, const Vec3& airplaneR
             }
         }
     }
+}
+
+void MiniMap::setOpponentPlayerStatus(const Vec3& airplanePosition, const Vec3& airplaneRotation)
+{
+    if (! this->opponentPlayerNode) {
+        this->opponentPlayerNode = Sprite::create("ui/miniMapEnemy.png");
+        if (! opponentPlayerNode) {
+            return;
+        }
+        this->backgroundNode->addChild(opponentPlayerNode);
+    }
+
+    Vec2 position = this->convertCoordinateByCurrentAnchorPoint(this->convertCoordinateToMiniMap(airplanePosition));
+    this->opponentPlayerNode->setPosition(position);
+    this->opponentPlayerNode->setRotation(-airplaneRotation.y);
+}
+
+Vec2 MiniMap::convertCoordinateByCurrentAnchorPoint(cocos2d::Vec2 position)
+{
+    // 現在のアンカーポイントに基いて、はみ出ている部分を反対側に移動する変換を行う
+
+    static const float mapSize =this->getContentSize().width; // 正方形想定
+    static const float mapSizeHalf = mapSize * 0.5f;
+    const Vec2& anchorPointInPoints = this->backgroundNode->getAnchorPointInPoints();
+
+    position -= anchorPointInPoints;
+
+    if (abs(position.x) > mapSizeHalf) {
+        position.x += mapSize * sign(-position.x);
+    }
+    if (abs(position.y) > mapSizeHalf) {
+        position.y += mapSize * sign(-position.y);
+    }
+
+    position += anchorPointInPoints;
+
+    return position;
 }
 
 Sprite* MiniMap::createMiniMapSprite(Sphere::Type type)
@@ -163,7 +188,8 @@ Vec2 MiniMap::convertCoordinateToMiniMap(const cocos2d::Vec3& position)
 }
 
 MiniMap::MiniMap() :
-    divisor(1)
+    divisor(1),
+    opponentPlayerNode(nullptr)
 {
 }
 

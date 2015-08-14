@@ -21,9 +21,11 @@ public:
     void setDivisor(int divisor);
     void addSphereBatch(Sphere* sphereBatch);
     void step(float dt, const cocos2d::Vec3& airplanePosition, const cocos2d::Vec3& airplaneRotation);
+    void setOpponentPlayerStatus(const cocos2d::Vec3& airplanePosition, const cocos2d::Vec3& airplaneRotation);
 
 protected:
     cocos2d::Node* backgroundNode;
+    cocos2d::Sprite* opponentPlayerNode;
 
     int divisor;  // マップ上のスフィアと、実際のスフィアの数の比
     std::vector<Sphere*> sphereBatchList;
@@ -34,6 +36,7 @@ protected:
 
     static cocos2d::Sprite* createMiniMapSprite(Sphere::Type type);
     cocos2d::Vec2 convertCoordinateToMiniMap(const cocos2d::Vec3& position);
+    cocos2d::Vec2 convertCoordinateByCurrentAnchorPoint(cocos2d::Vec2 position);
 
 private:
     MiniMap();

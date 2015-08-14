@@ -422,6 +422,10 @@ void Field::setOtherAirplaneInfo(int peerId, const Vec3& position, const Vec3& r
     for (Field* subField: subFieldList) {
         subField->setOtherAirplaneInfo(peerId, position, rotation);
     }
+
+    if (this->miniMap) {
+        this->miniMap->setOpponentPlayerStatus(position, rotation);
+    }
 }
 
 const map<int, Airplane*>& Field::getOtherAirplaneList() const

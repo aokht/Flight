@@ -63,7 +63,26 @@ public:
             isOtherAirplaneCollided(false),
             isOtherAirplaneCompleted(false)
         {
-        }
+        };
+
+        void setLocalScore(const GameScore& score)
+        {
+            this->isTimeUp = score.isTimeUp;
+            this->isCollided = score.isCollided;
+            this->isCompleted = score.isCompleted;
+            this->elapsedTime = score.elapsedTime;
+            this->sphereList = score.sphereList;
+        };
+
+        void setOpponentScore(const GameScoreNetworkPacket& data)
+        {
+            this->otherAirplaneTotalScore = data.score;
+            this->otherAirplaneScoreMap[Sphere::Type::BLUE] = data.blueCount;
+            this->otherAirplaneScoreMap[Sphere::Type::YELLOW] = data.yellowCount;
+            this->otherAirplaneScoreMap[Sphere::Type::RED] = data.redCount;
+            this->isOtherAirplaneCollided = data.isCollided;
+            this->isOtherAirplaneCompleted = data.isCompleted;
+        };
     };
 
 private:
