@@ -17,6 +17,7 @@ class Field;
 class Airplane;
 class Sphere;
 class MiniMap;
+class SkyDome;
 
 class GameScene : public cocos2d::Layer
 {
@@ -70,7 +71,7 @@ private:
     Field* field;
     cocos2d::Camera* camera;
     Airplane* airplane;
-    cocos2d::Sprite3D* skydome;
+    SkyDome* skydome;
     cocos2d::Sprite* header;
     cocos2d::Sprite* blueCircle;
     cocos2d::Sprite* yellowCircle;

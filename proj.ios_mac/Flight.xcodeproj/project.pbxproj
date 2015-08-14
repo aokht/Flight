@@ -100,6 +100,14 @@
 		5B8FAA241B7A694F001BE2BB /* BGM in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA221B7A694F001BE2BB /* BGM */; };
 		5B8FAA281B7B0DAE001BE2BB /* SE in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA271B7B0DAE001BE2BB /* SE */; };
 		5B8FAA291B7B0DAE001BE2BB /* SE in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA271B7B0DAE001BE2BB /* SE */; };
+		5B8FAA361B7DC015001BE2BB /* SkyDome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8FAA341B7DC015001BE2BB /* SkyDome.cpp */; };
+		5B8FAA371B7DC015001BE2BB /* SkyDome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8FAA341B7DC015001BE2BB /* SkyDome.cpp */; };
+		5B8FAA391B7DC0CC001BE2BB /* SkyDomeShader.vert in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA381B7DC0CC001BE2BB /* SkyDomeShader.vert */; };
+		5B8FAA3A1B7DC0CC001BE2BB /* SkyDomeShader.vert in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA381B7DC0CC001BE2BB /* SkyDomeShader.vert */; };
+		5B8FAA3C1B7DC0DD001BE2BB /* SkyDomeShader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA3B1B7DC0DD001BE2BB /* SkyDomeShader.frag */; };
+		5B8FAA3D1B7DC0DD001BE2BB /* SkyDomeShader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA3B1B7DC0DD001BE2BB /* SkyDomeShader.frag */; };
+		5B8FAA3F1B7E4718001BE2BB /* DuplicateFieldShaderNoNormal.frag in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA3E1B7E4718001BE2BB /* DuplicateFieldShaderNoNormal.frag */; };
+		5B8FAA401B7E4718001BE2BB /* DuplicateFieldShaderNoNormal.frag in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA3E1B7E4718001BE2BB /* DuplicateFieldShaderNoNormal.frag */; };
 		5B94B0761B5A2C3C0094340C /* ExSprite3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */; };
 		5B94B0771B5A2C3C0094340C /* ExSprite3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */; };
 		5B9AB0821B730C0900DA29D4 /* LoadingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B9AB0801B730C0900DA29D4 /* LoadingScene.cpp */; };
@@ -245,6 +253,11 @@
 		5B89C9D61B5FF38E0092C926 /* SceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneManager.h; sourceTree = "<group>"; };
 		5B8FAA221B7A694F001BE2BB /* BGM */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BGM; sourceTree = "<group>"; };
 		5B8FAA271B7B0DAE001BE2BB /* SE */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SE; sourceTree = "<group>"; };
+		5B8FAA341B7DC015001BE2BB /* SkyDome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkyDome.cpp; sourceTree = "<group>"; };
+		5B8FAA351B7DC015001BE2BB /* SkyDome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkyDome.h; sourceTree = "<group>"; };
+		5B8FAA381B7DC0CC001BE2BB /* SkyDomeShader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SkyDomeShader.vert; path = Shaders/SkyDomeShader.vert; sourceTree = "<group>"; };
+		5B8FAA3B1B7DC0DD001BE2BB /* SkyDomeShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SkyDomeShader.frag; path = Shaders/SkyDomeShader.frag; sourceTree = "<group>"; };
+		5B8FAA3E1B7E4718001BE2BB /* DuplicateFieldShaderNoNormal.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = DuplicateFieldShaderNoNormal.frag; path = Shaders/DuplicateFieldShaderNoNormal.frag; sourceTree = "<group>"; };
 		5B94B0741B5A2C3C0094340C /* ExSprite3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExSprite3D.cpp; sourceTree = "<group>"; };
 		5B94B0751B5A2C3C0094340C /* ExSprite3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExSprite3D.h; sourceTree = "<group>"; };
 		5B94B07D1B5A2C900094340C /* ExVertexIndexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExVertexIndexBuffer.h; sourceTree = "<group>"; };
@@ -478,13 +491,16 @@
 		5B4CB8ED1B5DF2F70084916C /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				5B50886C1B6E8D0D00087706 /* DuplicateFieldShader.frag */,
+				5B50886D1B6E8D0D00087706 /* DuplicateFieldShader.vert */,
+				5B8FAA3E1B7E4718001BE2BB /* DuplicateFieldShaderNoNormal.frag */,
+				5B58B6001B6A865C00539BEA /* FieldShader.old.vert */,
+				5B8FAA3B1B7DC0DD001BE2BB /* SkyDomeShader.frag */,
+				5B8FAA381B7DC0CC001BE2BB /* SkyDomeShader.vert */,
 				5BB38EDA1B7351FA000BC42D /* SphereShader.frag */,
 				5BB38EDB1B7351FA000BC42D /* SphereShader.vert */,
 				5B0D34AD1B718A26007BA862 /* SphereShaderForTitleScreen.frag */,
 				5B0D34AE1B718A26007BA862 /* SphereShaderForTitleScreen.vert */,
-				5B50886C1B6E8D0D00087706 /* DuplicateFieldShader.frag */,
-				5B50886D1B6E8D0D00087706 /* DuplicateFieldShader.vert */,
-				5B58B6001B6A865C00539BEA /* FieldShader.old.vert */,
 				5B4B040A1B6D8890008B6C09 /* Sprite3DBatchNodeShader.frag */,
 				5B4B040D1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert */,
 			);
@@ -581,6 +597,8 @@
 				5B88F6001B564B7D00375BB2 /* Sphere.h */,
 				5BB557331B7903A300F88F94 /* MiniMap.cpp */,
 				5BB557341B7903A300F88F94 /* MiniMap.h */,
+				5B8FAA341B7DC015001BE2BB /* SkyDome.cpp */,
+				5B8FAA351B7DC015001BE2BB /* SkyDome.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -771,10 +789,13 @@
 				5BB38EF61B7361CC000BC42D /* Default-Landscape-736h@3x.png in Resources */,
 				5BB38EF81B7361CC000BC42D /* Default-Landscape@2x.png in Resources */,
 				5B88F60B1B564C8200375BB2 /* fonts in Resources */,
+				5B8FAA3C1B7DC0DD001BE2BB /* SkyDomeShader.frag in Resources */,
 				5B50886E1B6E8D0D00087706 /* DuplicateFieldShader.frag in Resources */,
 				5B0D34B11B718A26007BA862 /* SphereShaderForTitleScreen.vert in Resources */,
 				5B4B040B1B6D8890008B6C09 /* Sprite3DBatchNodeShader.frag in Resources */,
 				5BB38EDD1B7351FA000BC42D /* SphereShader.vert in Resources */,
+				5B8FAA391B7DC0CC001BE2BB /* SkyDomeShader.vert in Resources */,
+				5B8FAA3F1B7E4718001BE2BB /* DuplicateFieldShaderNoNormal.frag in Resources */,
 				5BB38EF31B7361CC000BC42D /* Default-667h@2x.png in Resources */,
 				5BB38EFB1B7361CC000BC42D /* Default.png in Resources */,
 				5B58B6011B6A865D00539BEA /* FieldShader.old.vert in Resources */,
@@ -789,14 +810,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B8FAA3A1B7DC0CC001BE2BB /* SkyDomeShader.vert in Resources */,
 				5B58B6021B6A865D00539BEA /* FieldShader.old.vert in Resources */,
 				5B8FAA241B7A694F001BE2BB /* BGM in Resources */,
+				5B8FAA401B7E4718001BE2BB /* DuplicateFieldShaderNoNormal.frag in Resources */,
 				5B4CB9141B5EF1F90084916C /* plists in Resources */,
 				5B88F60C1B564C8200375BB2 /* fonts in Resources */,
 				5B0D34B21B718A26007BA862 /* SphereShaderForTitleScreen.vert in Resources */,
 				5B58B5BA1B652CF100539BEA /* scenes in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				5B58B5F81B669B6400539BEA /* networkingDiagram.png in Resources */,
+				5B8FAA3D1B7DC0DD001BE2BB /* SkyDomeShader.frag in Resources */,
 				5B8FAA291B7B0DAE001BE2BB /* SE in Resources */,
 				7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */,
 				5B50886F1B6E8D0D00087706 /* DuplicateFieldShader.frag in Resources */,
@@ -840,6 +864,7 @@
 				5B88F6181B56BF5600375BB2 /* GameSceneManager.cpp in Sources */,
 				5B89C9D71B5FF38E0092C926 /* SceneManager.cpp in Sources */,
 				5B88F6031B564B7D00375BB2 /* GameScene.cpp in Sources */,
+				5B8FAA361B7DC015001BE2BB /* SkyDome.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				5B94B0761B5A2C3C0094340C /* ExSprite3D.cpp in Sources */,
 				5B4C545A1B7151A40031B121 /* Action3D.cpp in Sources */,
@@ -880,6 +905,7 @@
 				5B88F6111B56BCF200375BB2 /* ResultScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				5BB5572E1B78147B00F88F94 /* HighScoreDataSource.cpp in Sources */,
+				5B8FAA371B7DC015001BE2BB /* SkyDome.cpp in Sources */,
 				5B94B0771B5A2C3C0094340C /* ExSprite3D.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				5BB557221B77EF2A00F88F94 /* GameCenterManager.mm in Sources */,

@@ -158,9 +158,20 @@ void Field::setupSubFields()
 
 void Field::setupShaders(const FieldData& data)
 {
-    GLProgram* glProgram = GLProgram::createWithFilenames("DuplicateFieldShader.vert", "DuplicateFieldShader.frag");
+    GLProgram* glProgram;
+
+    // 法線マップの有無でシェーダを分ける
+    if (! data.filenameTextureNormal.empty()) {
+        glProgram = GLProgram::createWithFilenames("DuplicateFieldShader.vert", "DuplicateFieldShader.frag");
+    } else {
+        glProgram = GLProgram::createWithFilenames("DuplicateFieldShader.vert", "DuplicateFieldShaderNoNormal.frag");
+    }
+
     GLProgramState* glProgramState = GLProgramState::create(glProgram);
     this->setGLProgramState(glProgramState);
+    for (Node* child : _children) {
+        child->setGLProgramState(glProgramState);
+    }
 
     // メッシュ取得(obj形式では1つのみの前提)
     MeshVertexData* mesh = this->_meshVertexDatas.at(0);
@@ -178,7 +189,7 @@ void Field::setupShaders(const FieldData& data)
         offset += meshattribute.attribSizeBytes;
     }
 
-    // 法線マップがあれば指定 TODO: シェーダを分ける
+    // 法線マップがあれば指定
     if (! data.filenameTextureNormal.empty()) {
         Texture2D* normalTexture = Director::getInstance()->getTextureCache()->addImage(data.filenameTextureNormal);
         glProgramState->setUniformTexture("u_normalMap", normalTexture);

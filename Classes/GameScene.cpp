@@ -26,6 +26,7 @@
 #include "HighScoreDataSource.h"
 #include "MiniMap.h"
 #include "SimpleAudioEngine.h"
+#include "SkyDome.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -430,7 +431,8 @@ void GameScene::setupSkyDome()
 {
     FieldData data = FieldDataSource::findById(this->field->getFieldId());
 
-    this->skydome = Sprite3D::create(data.filenameSky);
+    this->skydome = SkyDome::create(data.filenameSky);
+    this->skydome->setScale(1.25f);
     skydome->setPosition3D(Vec3(0, -FIELD_HEIGHT, 0));
     this->addChild(skydome);
 }
