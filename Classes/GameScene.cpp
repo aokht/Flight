@@ -605,32 +605,32 @@ void GameScene::setupUI()
     }
 
     if (Director::getInstance()->isDisplayStats()) {
-        this->labelPosition = Label::createWithTTF("Position: (00000.0, 00000.0, 00000.0)", "fonts/arial.ttf", 24);
+        this->labelPosition = Label::createWithTTF("Position: (00000.0, 00000.0, 00000.0)", "fonts/ChangaOne-Regular.ttf", 24);
         labelPosition->setAnchorPoint(Vec2(0.f, 0.f));
         labelPosition->setPosition(Vec2(0.f, 180));
         this->addChild(labelPosition);
 
-        this->labelRotation = Label::createWithTTF("Rotation: (000.0, 000.0, 000.0)", "fonts/arial.ttf", 24);
+        this->labelRotation = Label::createWithTTF("Rotation: (000.0, 000.0, 000.0)", "fonts/ChangaOne-Regular.ttf", 24);
         labelRotation->setAnchorPoint(Vec2(0.f, 0.f));
         labelRotation->setPosition(Vec2(0.f, 150));
         this->addChild(labelRotation);
 
-        this->labelSpriteRotation = Label::createWithTTF("SpriteRotation: (000.0, 000.0, 000.0)", "fonts/arial.ttf", 24);
+        this->labelSpriteRotation = Label::createWithTTF("SpriteRotation: (000.0, 000.0, 000.0)", "fonts/ChangaOne-Regular.ttf", 24);
         labelSpriteRotation->setAnchorPoint(Vec2(0.f, 0.f));
         labelSpriteRotation->setPosition(Vec2(0.f, 120));
         this->addChild(labelSpriteRotation);
 
-        this->labelRotationTarget = Label::createWithTTF("RotationTarget: (000.0, 000.0, 000.0)", "fonts/arial.ttf", 24);
+        this->labelRotationTarget = Label::createWithTTF("RotationTarget: (000.0, 000.0, 000.0)", "fonts/ChangaOne-Regular.ttf", 24);
         labelRotationTarget->setAnchorPoint(Vec2(0.f, 0.f));
         labelRotationTarget->setPosition(Vec2(0.f, 90));
         this->addChild(labelRotationTarget);
 
-        this->labelTargetPosition = Label::createWithTTF("TargetPosition: (000.0, 000.0, 000.0)", "fonts/arial.ttf", 24);
+        this->labelTargetPosition = Label::createWithTTF("TargetPosition: (000.0, 000.0, 000.0)", "fonts/ChangaOne-Regular.ttf", 24);
         labelTargetPosition->setAnchorPoint(Vec2(1.f, 0.f));
         labelTargetPosition->setPosition(Vec2(visibleSize.width, 10));
         this->addChild(labelTargetPosition);
 
-        this->labelTargetRotation = Label::createWithTTF("TargetRotation: (000.0, 000.0, 000.0)", "fonts/arial.ttf", 24);
+        this->labelTargetRotation = Label::createWithTTF("TargetRotation: (000.0, 000.0, 000.0)", "fonts/ChangaOne-Regular.ttf", 24);
         labelTargetRotation->setAnchorPoint(Vec2(1.f, 0.f));
         labelTargetRotation->setPosition(Vec2(visibleSize.width, 40));
         this->addChild(labelTargetRotation);

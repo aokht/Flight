@@ -4,14 +4,48 @@
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">
         <Folder Name="GameScene">
-          <Project Name="ParameterScene.csd" Type="Scene" />
           <Project Name="ResultScene.csd" Type="Scene" />
           <Project Name="ResultSceneMulti.csd" Type="Scene" />
           <Project Name="GameScene.csd" Type="Scene" />
+          <Project Name="MiniMapNode.csd" Type="Node" />
         </Folder>
-        <TTF Name="arial.ttf" />
         <Project Name="LobbyScene.csd" Type="Scene" />
         <Project Name="SelectScene.csd" Type="Scene" />
+        <Folder Name="Resources">
+          <Folder Name="Backgrounds">
+            <Image Name="main_sky.jpg" />
+            <Image Name="main_sky_blur.jpg" />
+            <Image Name="box.png" />
+          </Folder>
+          <Folder Name="ui">
+            <Image Name="resetButton.png" />
+            <Image Name="resetButtonPressed.png" />
+            <Image Name="startButton.png" />
+            <Image Name="startButtonPressed.png" />
+            <Image Name="stopButton.png" />
+            <Image Name="stopButtonPressed.png" />
+            <Image Name="title.png" />
+            <Image Name="white.png" />
+            <Image Name="circleBlue.png" />
+            <Image Name="circleRed.png" />
+            <Image Name="circleYellow.png" />
+            <Image Name="header.png" />
+            <Image Name="timer.png" />
+            <Image Name="info.png" />
+            <Image Name="info_small.png" />
+            <Image Name="game-center_2x.png" />
+            <Image Name="game-center_2x_pressed.png" />
+            <Image Name="game-center_2x_disabled.png" />
+            <Image Name="rankings.png" />
+            <Image Name="rankings-pressed.png" />
+            <Image Name="miniMapBackground.png" />
+          </Folder>
+          <Folder Name="fonts">
+            <TTF Name="Marker Felt.ttf" />
+            <TTF Name="ChangaOne-Italic.ttf" />
+            <TTF Name="ChangaOne-Regular.ttf" />
+          </Folder>
+        </Folder>
         <Project Name="HelloWorldScene.csd" Type="Scene" />
         <Project Name="LoadingScene.csd" Type="Scene" />
         <Project Name="CreditsScene.csd" Type="Scene" />
