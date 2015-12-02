@@ -397,7 +397,6 @@ void GameScene::endGame()
             }),
             nullptr
         ));
-
         audio->playEffect(SE_LIST[GAMEEND_FLYBY]);
     } else if (isCollided) {
         // 爆発演出
@@ -417,7 +416,15 @@ void GameScene::endGame()
 
         audio->playEffect(SE_LIST[EXPLOSION]);
     } else {
-        CCASSERT(false, "Invalid game state");
+        // 強制終了 (multiplay で相手が衝突した時とか)
+        this->runAction(Sequence::create(
+            DelayTime::create(0.5f),  // フェードアウトを待つ
+            CallFunc::create([callback](){
+                callback();
+            }),
+            nullptr
+        ));
+        audio->playEffect(SE_LIST[GAMEEND_FLYBY]);
     }
 }
 
