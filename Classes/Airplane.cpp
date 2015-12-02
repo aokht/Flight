@@ -9,6 +9,8 @@
 #include "Airplane.h"
 #include "Global.h"
 #include "AirplaneDataSource.h"
+#include "SceneManager.h"
+#include "GameSceneManager.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -100,7 +102,7 @@ bool Airplane::initWithFilename(const string& filename)
         return false;
     }
 
-    this->spriteAirplane = Sprite3D::create(filename);
+    this->spriteAirplane = AirplaneSprite::create(filename);
     if (! this->spriteAirplane) {
         return false;
     }
@@ -120,10 +122,14 @@ void Airplane::initWithFilenameAsync(const string& filename, const function<void
         callback(nullptr, callbackparam);
     }
 
-    Sprite3D::createAsync(filename, [this, callback](Sprite3D* airplane, void* param){
-        this->spriteAirplane = airplane;
-        this->addChild(airplane);
-        callback(this, param);
+    AirplaneSprite::createAsync(filename, [this, callback](AirplaneSprite* airplane, void* param){
+        if (airplane) {
+            this->spriteAirplane = airplane;
+            this->addChild(airplane);
+            callback(this, param);
+        } else {
+            callback(nullptr, param);
+        }
     }, callbackparam);
 
     this->rotationTarget = Vec3(0, 0, 0);
@@ -135,6 +141,83 @@ void Airplane::setCameraToAirplane(Camera* camera)
     camera->setPosition3D(Vec3(0, 1, -5));
     camera->lookAt(this->spriteAirplane->getPosition3D() + Vec3(0.f, 0.f, 10000.f));
     this->addChild(camera);
+}
+
+Airplane::AirplaneSprite* Airplane::AirplaneSprite::create(const std::string& filename)
+{
+    AirplaneSprite* sprite = new AirplaneSprite();
+    if (sprite && sprite->initWithFile(filename)) {
+        sprite->autorelease();
+
+        sprite->setupShader();
+
+        return sprite;
+    }
+
+    CC_SAFE_DELETE(sprite);
+    return nullptr;
+}
+
+void Airplane::AirplaneSprite::createAsync(const std::string& filename, const std::function<void (AirplaneSprite *, void *)>& callback, void* callbackparam)
+{
+    AirplaneSprite* sprite = new AirplaneSprite();
+    if (sprite) {
+        if (sprite->loadFromCache(filename)) {
+            sprite->autorelease();
+
+            sprite->setupShader();
+
+            callback(sprite, callbackparam);
+            return;
+        }
+        // 頂点情報はデフォルトで捨てられてしまうためシャドーコピーを作成する(キャッシュされていない場合)
+        VertexBuffer::enableShadowCopy(true);
+        IndexBuffer::enableShadowCopy(true);
+
+        sprite->initWithFileAsync(filename, [callback](ExSprite3D* sprite, void* param){
+            AirplaneSprite* s = static_cast<AirplaneSprite*>(sprite);
+            s->setupShader();
+            callback(s, param);
+        }, callbackparam);
+    } else {
+        callback(nullptr, callbackparam);
+    }
+}
+
+void Airplane::AirplaneSprite::setupShader()
+{
+    GLProgram* glProgram = GLProgram::createWithFilenames("AirplaneShader.vert", "AirplaneShader.frag");
+    GLProgramState* glProgramState = GLProgramState::create(glProgram);
+    this->setGLProgramState(glProgramState);
+    for (Node* child : _children) {  // mesh が分かれていると child扱いになるっぽいので
+        child->setGLProgramState(glProgramState);
+    }
+
+    // メッシュ取得(obj形式では1つのみの前提)
+    MeshVertexData* mesh = this->_meshVertexDatas.at(0);
+    for (ssize_t i = 0, attributeCount = mesh->getMeshVertexAttribCount(), offset = 0; i < attributeCount; i++) {
+        const MeshVertexAttrib& meshattribute = mesh->getMeshVertexAttrib(i);
+        glProgramState->setVertexAttribPointer(
+                                               s_attributeNames[meshattribute.vertexAttrib],
+                                               meshattribute.size,
+                                               meshattribute.type,
+                                               GL_FALSE,
+                                               mesh->getVertexBuffer()->getSizePerVertex(),
+                                               (GLvoid*)offset
+                                               );
+
+        offset += meshattribute.attribSizeBytes;
+    }
+}
+
+void Airplane::setLightDirection(const cocos2d::Vec3& lightDirection)
+{
+    this->spriteAirplane->setLightDirection(lightDirection);
+}
+
+void Airplane::AirplaneSprite::setLightDirection(const Vec3& lightDirection)
+{
+    this->getGLProgramState()->setUniformVec3("u_lightDirection", lightDirection);
 }
 
 #pragma mark -

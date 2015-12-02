@@ -11,6 +11,7 @@
 
 #include "cocos2d.h"
 #include "AirplaneDataSource.h"
+#include "ExSprite3D.h"
 
 class Airplane : public cocos2d::Node
 {
@@ -21,6 +22,7 @@ public:
     static void createByIdAsync(int i, const std::function<void(Airplane*, void*)>& callback, void* callbackparam);
     static void createByDataAsync(const AirplaneData& airplaneData, const std::function<void(Airplane*, void*)>& callback, void* callbackparam);
     void setCameraToAirplane(cocos2d::Camera* camera);
+    void setLightDirection(const cocos2d::Vec3& lightDirection);
 
     // 姿勢制御
     void step(float dt);
@@ -52,7 +54,18 @@ protected:
     static void createWithFilenameAsync(const std::string& filename, const std::function<void(Airplane*, void*)>& callback, void* callbackparam);
     void initWithFilenameAsync(const std::string& filename, const std::function<void(Airplane*, void*)>& callback, void* callbackparam);
 
-    cocos2d::Sprite3D* spriteAirplane;
+    class AirplaneSprite : public ExSprite3D
+    {
+    public:
+        static AirplaneSprite* create(const std::string& filename);
+        static void createAsync(const std::string& filename, const std::function<void(AirplaneSprite*, void*)>& callback, void* callbackparam);
+
+        void setLightDirection(const cocos2d::Vec3& lightDirection);
+
+    protected:
+        void setupShader();
+    };
+    AirplaneSprite* spriteAirplane;
 
     // 機体の目標回転量
     cocos2d::Vec3 rotationTarget;

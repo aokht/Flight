@@ -271,6 +271,7 @@ void SelectScene::showAirplane(int index)
         Airplane::createByDataAsync(data, [this, airplaneId](Airplane* airplane, void* param){
             if (airplane) {
                 airplane->setScale(50);
+                airplane->setLightDirection(Vec3(0.3f, 0.3f, 1.f));
                 this->airplaneList.insert(airplaneId, airplane);
                 this->airplaneNode->addChild(airplane, 0, "spriteAirplane");
                 this->airplaneNameLabel->setString(airplane->getAirplaneName());

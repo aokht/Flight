@@ -100,6 +100,10 @@
 		5B8FAA241B7A694F001BE2BB /* BGM in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA221B7A694F001BE2BB /* BGM */; };
 		5B8FAA281B7B0DAE001BE2BB /* SE in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA271B7B0DAE001BE2BB /* SE */; };
 		5B8FAA291B7B0DAE001BE2BB /* SE in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA271B7B0DAE001BE2BB /* SE */; };
+		5B8FAA2F1B7CFD96001BE2BB /* AirplaneShader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA2E1B7CFD96001BE2BB /* AirplaneShader.frag */; };
+		5B8FAA301B7CFD96001BE2BB /* AirplaneShader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA2E1B7CFD96001BE2BB /* AirplaneShader.frag */; };
+		5B8FAA321B7CFDA3001BE2BB /* AirplaneShader.vert in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA311B7CFDA3001BE2BB /* AirplaneShader.vert */; };
+		5B8FAA331B7CFDA3001BE2BB /* AirplaneShader.vert in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA311B7CFDA3001BE2BB /* AirplaneShader.vert */; };
 		5B8FAA361B7DC015001BE2BB /* SkyDome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8FAA341B7DC015001BE2BB /* SkyDome.cpp */; };
 		5B8FAA371B7DC015001BE2BB /* SkyDome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8FAA341B7DC015001BE2BB /* SkyDome.cpp */; };
 		5B8FAA391B7DC0CC001BE2BB /* SkyDomeShader.vert in Resources */ = {isa = PBXBuildFile; fileRef = 5B8FAA381B7DC0CC001BE2BB /* SkyDomeShader.vert */; };
@@ -253,6 +257,8 @@
 		5B89C9D61B5FF38E0092C926 /* SceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneManager.h; sourceTree = "<group>"; };
 		5B8FAA221B7A694F001BE2BB /* BGM */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BGM; sourceTree = "<group>"; };
 		5B8FAA271B7B0DAE001BE2BB /* SE */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SE; sourceTree = "<group>"; };
+		5B8FAA2E1B7CFD96001BE2BB /* AirplaneShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = AirplaneShader.frag; path = Shaders/AirplaneShader.frag; sourceTree = "<group>"; };
+		5B8FAA311B7CFDA3001BE2BB /* AirplaneShader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = AirplaneShader.vert; path = Shaders/AirplaneShader.vert; sourceTree = "<group>"; };
 		5B8FAA341B7DC015001BE2BB /* SkyDome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkyDome.cpp; sourceTree = "<group>"; };
 		5B8FAA351B7DC015001BE2BB /* SkyDome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkyDome.h; sourceTree = "<group>"; };
 		5B8FAA381B7DC0CC001BE2BB /* SkyDomeShader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SkyDomeShader.vert; path = Shaders/SkyDomeShader.vert; sourceTree = "<group>"; };
@@ -491,6 +497,8 @@
 		5B4CB8ED1B5DF2F70084916C /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				5B8FAA2E1B7CFD96001BE2BB /* AirplaneShader.frag */,
+				5B8FAA311B7CFDA3001BE2BB /* AirplaneShader.vert */,
 				5B50886C1B6E8D0D00087706 /* DuplicateFieldShader.frag */,
 				5B50886D1B6E8D0D00087706 /* DuplicateFieldShader.vert */,
 				5B8FAA3E1B7E4718001BE2BB /* DuplicateFieldShaderNoNormal.frag */,
@@ -777,6 +785,7 @@
 				5BB38EDC1B7351FA000BC42D /* SphereShader.frag in Resources */,
 				5B58B5F71B669B6400539BEA /* networkingDiagram.png in Resources */,
 				5BB38EFA1B7361CC000BC42D /* Default-Portrait@2x.png in Resources */,
+				5B8FAA321B7CFDA3001BE2BB /* AirplaneShader.vert in Resources */,
 				5BB38EFC1B7361CC000BC42D /* Default@2x.png in Resources */,
 				5BB38EF51B7361CC000BC42D /* Default-Landscape-667h@2x.png in Resources */,
 				5B4B040E1B6D889C008B6C09 /* Sprite3DBatchNodeShader.vert in Resources */,
@@ -784,6 +793,7 @@
 				5BB38EF41B7361CC000BC42D /* Default-736h@3x.png in Resources */,
 				5B8FAA281B7B0DAE001BE2BB /* SE in Resources */,
 				5BB38EF91B7361CC000BC42D /* Default-Portrait.png in Resources */,
+				5B8FAA2F1B7CFD96001BE2BB /* AirplaneShader.frag in Resources */,
 				5BB38EE51B735245000BC42D /* Images.xcassets in Resources */,
 				5B4CB9131B5EF1F90084916C /* plists in Resources */,
 				5BB38EF61B7361CC000BC42D /* Default-Landscape-736h@3x.png in Resources */,
@@ -818,8 +828,10 @@
 				5B88F60C1B564C8200375BB2 /* fonts in Resources */,
 				5B0D34B21B718A26007BA862 /* SphereShaderForTitleScreen.vert in Resources */,
 				5B58B5BA1B652CF100539BEA /* scenes in Resources */,
+				5B8FAA331B7CFDA3001BE2BB /* AirplaneShader.vert in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				5B58B5F81B669B6400539BEA /* networkingDiagram.png in Resources */,
+				5B8FAA301B7CFD96001BE2BB /* AirplaneShader.frag in Resources */,
 				5B8FAA3D1B7DC0DD001BE2BB /* SkyDomeShader.frag in Resources */,
 				5B8FAA291B7B0DAE001BE2BB /* SE in Resources */,
 				7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */,

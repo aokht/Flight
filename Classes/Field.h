@@ -60,6 +60,7 @@ public:
     const cocos2d::Vec3& getOtherAirplaneStartRotation() const;
     const std::string& getLeaderboardHighScoreKey() const;
     int getBGMIndex() const;
+    const cocos2d::Vec3& getLightDirection() const;
 
 protected:
     Airplane* airplane;
@@ -86,6 +87,7 @@ protected:
     cocos2d::Vec3 otherAirplaneStartRotation;
     std::string leaderboardHighScoreKey;
     int bgmIndex;
+    cocos2d::Vec3 lightDirection;
 };
 
 #endif /* defined(__Flight__Field__) */

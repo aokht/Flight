@@ -5,6 +5,7 @@ varying vec2 v_texCoord;
 #endif
 uniform vec4 u_color;
 uniform sampler2D u_normalMap;
+uniform vec3 u_lightDirection;
 
 varying float v_distance;
 
@@ -17,8 +18,8 @@ void main(void)
 
     // 法線マップを適用
     vec4 normalMap = texture2D(u_normalMap, v_texCoord);
-    normalMap.xyz = normalMap.xyz - 0.5;
-    ret.rgb = ret.rgb * max(0.1, dot(normalMap.rgb, vec3(1.0, 1.0, 1.0))) * 2.0 + 0.1;  // TODO: (仮)
+    normalMap.xyz = (normalMap.xyz - 0.5) * 2.0;
+    ret.rgb = ret.rgb * clamp(dot(normalize(normalMap.xyz), normalize(u_lightDirection)), 0.4, 1.0);  // TODO: (仮)
 
     // フォグ
     float fogRate = max(v_distance - 7500.0, 0.0) / 3000.0;

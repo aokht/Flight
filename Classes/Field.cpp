@@ -85,6 +85,7 @@ Field* Field::createWithData(const FieldData& data, bool collisionMesh, bool sub
     field->otherAirplaneStartRotation = data.otherAirplaneRotation;
     field->leaderboardHighScoreKey = data.leaderboardHighScoreKey;
     field->bgmIndex = data.bgmIndex;
+    field->lightDirection = data.lightDirection;
 
     field->setupShaders(data);
 
@@ -107,6 +108,7 @@ void Field::createWithDataAsync(const FieldData& data, const function<void(Field
             field->otherAirplaneStartRotation = data.otherAirplaneRotation;
             field->leaderboardHighScoreKey = data.leaderboardHighScoreKey;
             field->bgmIndex = data.bgmIndex;
+            field->lightDirection = data.lightDirection;
 
             field->setupShaders(data);
 
@@ -194,6 +196,8 @@ void Field::setupShaders(const FieldData& data)
         Texture2D* normalTexture = Director::getInstance()->getTextureCache()->addImage(data.filenameTextureNormal);
         glProgramState->setUniformTexture("u_normalMap", normalTexture);
     }
+
+    glProgramState->setUniformVec3("u_lightDirection", data.lightDirection);
 }
 
 // 1座標の周りに生成するスフィアの数
@@ -261,6 +265,9 @@ void Field::setAirplane(Airplane *airplane)
     // フィールドを動かす
     this->setPosition3D(-airplane->getPosition3D());
     airplane->setPosition3D(Vec3::ZERO);
+
+    // 太陽の位置
+    airplane->setLightDirection(this->getLightDirection());
 }
 
 void Field::setMiniMap(MiniMap *miniMap)
@@ -475,4 +482,9 @@ const string& Field::getLeaderboardHighScoreKey() const
 int Field::getBGMIndex() const
 {
     return bgmIndex;
+}
+
+const Vec3& Field::getLightDirection() const
+{
+    return lightDirection;
 }

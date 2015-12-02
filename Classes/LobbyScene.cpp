@@ -131,6 +131,9 @@ void LobbyScene::setup3DModels()
 
     this->airplane = Airplane::createById(1);
     airplane->setRotation3D(Vec3(-15.f, -50.f, 0.f));
+    airplane->setLightDirection(Vec3(0.0f, 0.0f, 1.f));  // 正面から
+    airplane->setScale(70.f);
+
     this->addChild(airplane);
 
     this->sphere1 = ExSprite3D::create("objects/diamond.obj");
